@@ -16,7 +16,10 @@ use App\SocialAccount;
 
 class AuthController extends Controller
 {
-	protected $redirectPath = '/account';
+
+	protected $redirectPath = '/index';
+	protected $loginPath = 'auth/login';
+	protected $redirectAfterLogout = 'auth/login';
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -54,7 +57,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-			'username' => 'required|min:3|max:255',
+			'username' => 'required|min:3|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -90,11 +93,11 @@ class AuthController extends Controller
      */
     public function handleProviderCallback()
     {
-		$providerUser = Socialite::driver('facebook')->user();
-		$user = $this->createOrGetUser($providerUser);
 		
+		$providerUser = Socialite::driver('facebook')->user();
+		$user = $this->createOrGetUser($providerUser);		
         Auth::login($user);
-
+		
         return redirect()->to('/index');
     }
 	public function createOrGetUser(ProviderUser $providerUser)
@@ -104,6 +107,7 @@ class AuthController extends Controller
             ->first();
 
         if ($account) {
+			
             return $account->user;
         } else {
 
@@ -113,15 +117,16 @@ class AuthController extends Controller
             ]);
 
             $user = User::whereEmail($providerUser->getEmail())->first();
-
+			
             if (!$user) {
 
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
+					'avatar' => $providerUser->getAvatar(),
                 ]);
             }
-
+			
             $account->user()->associate($user);
             $account->save();
 

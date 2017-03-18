@@ -4,7 +4,8 @@
 @endsection
 
 @section('content')
-<div class="mdl-card mdl-shadow--2dp employer-form" action="#">
+<main class="mdl-layout__content mdl-color--grey-100">
+<div class="mdl-card mdl-shadow--2dp employer-form" action="#" style="margin-bottom: 40px">
   <div class="mdl-card__title">
     <h2>Sign up</h2>
     <div class="mdl-card__subtitle">Please complete the form</div>
@@ -18,10 +19,7 @@
 			<?php echo Form::text('name','', array('class' => 'mdl-textfield__input')); ?>
 			<?php echo Form::label('Name','', array('class' => 'mdl-textfield__label')); ?>
           </div>
-        </div>
-		
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		  <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<?php echo Form::date('birthday','', array('class' => 'mdl-textfield__input')); ?>
 			<?php echo Form::label('Birthday','', array('class' => 'mdl-textfield__label')); ?>
           </div>
@@ -57,7 +55,7 @@
 			<?php echo Form::label('Confirm-Password','', array('class' => 'mdl-textfield__label')); ?>
           </div>
         </div>
-		
+
       </div>
 	  <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -79,4 +77,5 @@
     {!! Form::close() !!}
   </div>
 </div>
+</main>
 @endsection

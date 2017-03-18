@@ -1,0 +1,172 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+<link rel="icon" type="image/png" href="images/DB_16х16.png">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material Lite</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
+          type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- inject:css -->
+<link rel="stylesheet" href="css/lib/getmdl-select.min.css">
+<link rel="stylesheet" href="css/lib/nv.d3.css">
+<link rel="stylesheet" href="css/application.css">
+<!-- endinject -->
+<!-- inject:js --> 
+<script src="js/d3.js"></script> 
+<script src="js/getmdl-select.min.js"></script> 
+<script src="js/material.js"></script> 
+<script src="js/nv.d3.js"></script> 
+
+<!-- endinject -->
+</head>
+
+<body background="images/Dark_background_1920x1080.png">
+<div class="mdl-card mdl-shadow--2dp employer-form" action="#">
+  <div class="mdl-card__title">
+    <h2>Log in</h2>
+    <div class="mdl-card__subtitle">Please complete the form</div>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <?php echo Form::open(['url' => 'login', 'class' => 'form']); ?>
+
+      <div class="form__article">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php echo Form::text('username','', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Username','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php echo Form::text('password','', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Password','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+      </div>
+      <div class="form__action">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="submit button"> LOG IN </button>
+      </div>
+    <?php echo Form::close(); ?>
+
+    <div class="form__article"> </div>
+  </div>
+</div>
+
+<!-- SIGN UP -->
+
+
+<div class="mdl-card mdl-shadow--2dp employer-form" action="#">
+  <div class="mdl-card__title">
+    <h2>Sign up</h2>
+    <div class="mdl-card__subtitle">Please complete the form</div>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <?php echo Form::open(['url' => 'register', 'class' => 'form']); ?>
+
+      <div class="form__article">
+		<h3><center>Personal data<center></h3>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php echo Form::text('name','', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Name','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+		
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php echo Form::date('birthday','', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Birthday','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+     </div>
+	
+	 <div class="form__article">
+		<h3><center>Account<center></h3>
+		<div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php echo Form::text('username_regis','', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Username','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+		<div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php echo Form::text('email','', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Email','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            
+			<?php echo Form::password('password_regis', array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Password','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+		
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            
+			<?php echo Form::password('repassword_regis',array('class' => 'mdl-textfield__input')); ?>
+			<?php echo Form::label('Re-Password','', array('class' => 'mdl-textfield__label')); ?>
+          </div>
+        </div>
+		
+      </div>
+	  <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<?php if(count($errors) > 0): ?>
+			<div class="alert alert-danger" style="color: red; li:{}">
+				<ul>
+					<?php foreach($errors->all() as $error): ?>
+						<li><?php echo e($error); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
+          </div>
+      </div>
+      <div class="form__action" style="
+    margin-top: 0px;
+">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="submit button sign" onclick="myFuncion()" data-upgraded=",MaterialButton"> SIGN UP </button>
+      </div>
+        
+    <?php echo Form::close(); ?>
+
+  </div>
+</div>
+<script>
+    function myFunction() {
+        var pass1 = document.getElementById("pass_sign").value;
+        var pass2 = document.getElementById("repass_sign").value;
+        if (pass1 != pass2) {
+            //alert("Passwords Do not match");
+            document.getElementById("pass_sign").style.borderColor = "#E34234";
+            document.getElementById("repass_sign").style.borderColor = "#E34234";
+        }
+        else {
+            alert("Passwords Match!!!");
+        }
+    }
+</script>
+</body>
+</html>

@@ -15,10 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/index', function () {
-    return view('index')->with('user','Guest');
-});
-Route::get('/new1', function () {
-    return view('new1');
+    return view('index');
 });
 
 Route::get('/account', function(){

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>App Name - @yield('title')</title>
+<title>@yield('title')</title>
 
 <!-- Add to homescreen for Chrome on Android -->
 <meta name="mobile-web-app-capable" content="yes">
@@ -40,7 +40,20 @@
 
 <!-- endinject -->
 
+
 </head>
 <body background="{{ asset('images/Dark_background_1920x1080.png') }}" >
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
+	@yield('nav')
 	@yield('content')
+	<footer class="mdl-mini-footer">
+	<div class="mdl-mini-footer__left-section">
+	  <div class="mdl-logo">Title</div>
+	  <ul class="mdl-mini-footer__link-list">
+		<li><a href="#">Help</a></li>
+		<li><a href="#">Privacy & Terms</a></li>
+	  </ul>
+	</div>
+	</footer>	
+	</div>
 </body>

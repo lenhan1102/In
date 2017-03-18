@@ -11660,7 +11660,7 @@ a {
       .account-dropdown .mdl-list__item:first-child .mdl-list__item-primary-content .mdl-list__item-avatar {
         height: 48px;
         width: 48px;
-        background: url("../images/Icon.png");
+        /* background: url(""); */
         background-size: cover; }
       .account-dropdown .mdl-list__item:first-child .mdl-list__item-primary-content .mdl-list__item-sub-title {
         font-weight: 300; }
