@@ -1,4 +1,5 @@
 <?php
+use App\Dish;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+//Admin
+
+// Home
 Route::get('/index', function () {
-    return view('index');
+	$dishes =  Dish::all();
+    return view('index', ['dishes' => $dishes]);
 });
 
+//
 Route::get('/account', function(){
 	return view('taikhoan');
 });
@@ -32,5 +38,11 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+// Facebook login...
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+
+Route::post('admin', 'Admin\DishController@store');
+Route::get('/admin', ['as' => '', function () {
+    return view('admin');
+}]);

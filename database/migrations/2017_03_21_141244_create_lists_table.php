@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDishesTable extends Migration
+class CreateListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,12 @@ class CreateDishesTable extends Migration
      */
     public function up()
     {
-        Schema::create('dishes', function (Blueprint $table) {
+        Schema::create('lists', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('list_id');
+            $table->integer('menu_id');
             $table->string('name');
-            $table->integer('price');
-            
-            //Info
-            $table->integer('ordered')->nullable();
-            $table->integer('rating')->nullable();
-            $table->string('description')->nullable();
-          
             $table->timestamps();
         });
-
-        
     }
 
     /**
@@ -36,6 +27,6 @@ class CreateDishesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('dishes');
+        Schema::drop('lists');
     }
 }

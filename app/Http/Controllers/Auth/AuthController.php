@@ -30,7 +30,7 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-	
+    
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
@@ -38,7 +38,7 @@ class AuthController extends Controller
      *
      * @return void
      */
-	 public function authenticate()
+    public function authenticate()
     {
         
     }
@@ -57,10 +57,10 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-			'username' => 'required|min:3|max:255|unique:users',
+            'username' => 'required|min:3|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
-        ]);
+            ]);
     }
 
     /**
@@ -73,64 +73,77 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-			'birthday' => $data['birthday'],
-			'username' => $data['username'],
+            'birthday' => $data['birthday'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-			
-        ]);
+            
+            ]);
     }
-	public function redirectToProvider()
+    public function redirectToProvider()
     {
-		
-		 return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
-    }
+      
+     return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
+ }
 
     /**
      * Obtain the user information from Facebook.
      *
      * @return Response
      */
+
     public function handleProviderCallback()
     {
-		
-		$providerUser = Socialite::driver('facebook')->user();
-		$user = $this->createOrGetUser($providerUser);		
-        Auth::login($user);
-		
-        return redirect()->to('/index');
+      
+      $providerUser = Socialite::driver('facebook')->user();
+      $user = $this->createOrGetUser($providerUser);		
+      Auth::login($user);
+
+        /*
+         * Get data from table 'dishes'
+        */
+
+        return redirect()->to('index');
     }
-	public function createOrGetUser(ProviderUser $providerUser)
+
+    /**
+     * Get existed account or create new
+     *
+    */
+    public function createOrGetUser(ProviderUser $providerUser)
     {
         $account = SocialAccount::whereProvider('facebook')
-            ->whereProviderUserId($providerUser->getId())
-            ->first();
+        ->whereProviderUserId($providerUser->getId())
+        ->first();
 
         if ($account) {
-			
+         
             return $account->user;
         } else {
 
             $account = new SocialAccount([
                 'provider_user_id' => $providerUser->getId(),
                 'provider' => 'facebook'
-            ]);
+                ]);
 
             $user = User::whereEmail($providerUser->getEmail())->first();
-			
+            
             if (!$user) {
 
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
-					'avatar' => $providerUser->getAvatar(),
-                ]);
+                    'avatar' => $providerUser->getAvatar(),
+                    ]);
             }
-			
+            
             $account->user()->associate($user);
             $account->save();
 
             return $user;
         }
     }
+    /**
+     *
+    */
 }
