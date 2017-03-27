@@ -17,4 +17,5 @@ class MList extends Model
     {
         return $this->belongsTo('App\Menu');
     }
+    protected $fillable = ['name'];
 }

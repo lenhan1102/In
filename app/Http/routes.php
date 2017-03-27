@@ -42,13 +42,13 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::post('admin/addDish', 'Admin\DishController@create');
-Route::get('admin/addDish','Admin\DishController@getAddDish');
+Route::post('admin/createDish', 'Admin\DishController@create');
+Route::get('admin/createDish','Admin\DishController@getCreateDish');
 /*Route::get('admin/addDish','Admin\DishController@getAddDish');
 Route::get('admin/addDish','Admin\DishController@getAddDish');
 Route::get('admin/addDish','Admin\DishController@getAddDish');*/
 
-Route::get('/updateList','Admin\DishController@updateList');
+Route::get('admin/updateList','Admin\DishController@updateList');
 /*Route::get('/updateList',function(){
 		# code...
 		return "<option>dafadfdsf</option>";

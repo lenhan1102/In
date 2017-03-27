@@ -27,55 +27,49 @@ class DishController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        //
-        $this->validate($request, [
-            'name' => 'required|unique:dishes|max:255',
-            'price' => 'required',
-            'detail' => 'required',
-            'image' => 'required',
-            //'list_options' => 'required',
-            //'menu_options' => 'required',
-            ]);
-        
-        //
-        $dish = new Dish(array(
-          'name' => $request->get('name'),
-          'price'  => $request->get('price'),
-          'description' => $request->get('description'),
-          ));
-        $dish->save();
-
-        //dd(count($request->file('image')));
-
-        // Save image
-        $imageName = $dish->id . ' ' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
-        //
-        
-        $image = new Image(array(
-          'link' => $imageName,
-        ));
-
-        $image->dish()->associate($dish);
-        $image->save();
-
-        return view('admin')->with('message', 'Product added!');  
-    }
-
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        //
+        // Validation
+        $this->validate($request, [
+            'name' => 'required|unique:dishes|max:255',
+            'price' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'list' => 'required',
+            'menu' => 'required',
+            ]);
+        $dish = new Dish(array(
+          'name' => $request->get('name'),
+          'price'  => $request->get('price'),
+          'description' => $request->get('description'),
+        ));
+        // Associate to Menu List
+        $menu = Menu::find($request->get('menu'));
+        $list = MList::find($request->get('list'));
+        $list->menu()->associate($menu);
+        $dish->mlist()->associate($list);
 
-          
+        $dish->save();
+        // Save image to folder /catalog
+        $imageName = $dish->id . ' ' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
+        
+        // Insert into 'images' table
+        $image = new Image(array(
+          'link' => $imageName,
+        ));
+        $image->dish()->associate($dish);
+
+        $image->save();
+        return $this->getCreateDish();
     }
+   
 
     /**
      * Display the specified resource.
@@ -121,20 +115,18 @@ class DishController extends Controller
     {
         //
     }
-    public function getAddDish()
+    public function getCreateDish()
     {
         //
         return view('admin', ['menus' => Menu::all()]);
     }
 
-
-
-
-    public function postAddDish(Request $request)
-    {
-        //
-
-    }
+    /**
+     * Update list
+     * @param XMLHttpRequest
+     * @return data
+     *
+     */    
     public function updateList(Request $request)
     {
         //
@@ -142,11 +134,12 @@ class DishController extends Controller
         //$lists = MList::where('menu_id', Request::input('menuid'));
         
         $html = '<option> ------------ </option>';
+        $i = 0;
         foreach ($mlists as $mlist) {
             # code...
-            $html .= '<option>' . $mlist->name . '</option>';
+            $i++;
+            $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
         }
         return $html;
     }
-
 }

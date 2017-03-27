@@ -21,14 +21,14 @@
 		{!! Form::label('Description') !!}
 		{!! Form::text('description', null, array('placeholder'=>'')) !!}
 	</div>
-	<select id= "menu_options" name="menu_options">
+	<select id= "menu_options" name="menu">
 		<option value="">Select Menu to add new dish</option>
 		@foreach($menus as $menu)	
 		<option value="{{$menu->id}}">{{$menu->name}}</option>
 		@endforeach
 	</select>
 
-	<select id="list_options" name="list_options">	
+	<select id="list_options" name="list">	
 		<option> ------------ </option>
 	</select>
 
@@ -42,6 +42,15 @@
 	</div>
 	<div id="test"></div>
 	{!! Form::close() !!}
+	@if (count($errors) > 0)
+	<div class="alert alert-danger" style="color: red; li:{}">
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+	@endif
 </div>
 
 <script>
