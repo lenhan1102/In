@@ -34,6 +34,7 @@ type='text/css'>
 <link rel="stylesheet" href="{{ asset('css/application.css') }}">
 <!-- endinject -->
 <!-- inject:js --> 
+<script src="{{ asset('js/jquery-3.2.0.js') }}"></script> 
 <script src="{{ asset('js/d3.js') }}"></script> 
 <script src="{{ asset('js/getmdl-select.min.js') }}"></script> 
 <script src="{{ asset('js/material.js') }}"></script> 

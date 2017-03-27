@@ -327,6 +327,7 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         'CreateDishesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_18_045545_create_dishes_table.php',
         'CreateImagesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_144427_create_images_table.php',
         'CreateListsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_141244_create_lists_table.php',
+        'CreateMListsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_25_060108_create_m_lists_table.php',
         'CreateMenusTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_143141_create_menus_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateSocialAccountsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_152608_create_social_accounts_table.php',

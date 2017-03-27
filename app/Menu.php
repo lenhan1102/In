@@ -8,8 +8,8 @@ class Menu extends Model
 {
     //
     protected $table = 'menus';
-	public function lists()
+	public function mlists()
     {
-        return $this->hasMany('App\List');
+        return $this->hasMany('App\MList');
     }
 }

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Dish;
+use App\MList;
+use App\Menu;
+use App\Image;
 
 class DishController extends Controller
 {
@@ -25,9 +27,41 @@ class DishController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => 'required|unique:dishes|max:255',
+            'price' => 'required',
+            'detail' => 'required',
+            'image' => 'required',
+            //'list_options' => 'required',
+            //'menu_options' => 'required',
+            ]);
+        
+        //
+        $dish = new Dish(array(
+          'name' => $request->get('name'),
+          'price'  => $request->get('price'),
+          'description' => $request->get('description'),
+          ));
+        $dish->save();
+
+        //dd(count($request->file('image')));
+
+        // Save image
+        $imageName = $dish->id . ' ' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
+        //
+        
+        $image = new Image(array(
+          'link' => $imageName,
+        ));
+
+        $image->dish()->associate($dish);
+        $image->save();
+
+        return view('admin')->with('message', 'Product added!');  
     }
 
     /**
@@ -39,19 +73,8 @@ class DishController extends Controller
     public function store(Request $request)
     {
         //
-        $dish = new Dish(array(
-          'name' => $request->get('name'),
-          'sku'  => $request->get('sku')
-        ));
 
-        $dish->save();
-
-        $imageName = $dish->id . '.' . 
-        $request->file('image')->getClientOriginalExtension();
-
-        $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
-
-        return view('admin')->with('message', 'Product added!');    
+          
     }
 
     /**
@@ -98,4 +121,32 @@ class DishController extends Controller
     {
         //
     }
+    public function getAddDish()
+    {
+        //
+        return view('admin', ['menus' => Menu::all()]);
+    }
+
+
+
+
+    public function postAddDish(Request $request)
+    {
+        //
+
+    }
+    public function updateList(Request $request)
+    {
+        //
+        $mlists = Menu::find($request->input('menuid'))->mlists;
+        //$lists = MList::where('menu_id', Request::input('menuid'));
+        
+        $html = '<option> ------------ </option>';
+        foreach ($mlists as $mlist) {
+            # code...
+            $html .= '<option>' . $mlist->name . '</option>';
+        }
+        return $html;
+    }
+
 }

@@ -8,13 +8,13 @@ class Dish extends Model
 {
     //
 	protected $table = 'dishes';
-	public function list()
+	public function mlist()
     {
-        return $this->belongsTo('App\List');
+        return $this->belongsTo('App\MList');
     }
     public function images()
     {
         return $this->hasMany('App\Image');
     }
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'price', 'description'];
 }
