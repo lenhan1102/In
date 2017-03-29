@@ -20,6 +20,10 @@ Route::get('/', function () {
 // Home
 Route::get('/index', function () {
 	$dishes =  Dish::all();
+	foreach ($dishes as $dish) {
+		# code...
+		$dish->o = 'hello';
+	}
     return view('index', ['dishes' => $dishes]);
 });
 
@@ -42,15 +46,14 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::post('admin/createDish', 'Admin\DishController@create');
-Route::get('admin/createDish','Admin\DishController@getCreateDish');
-/*Route::get('admin/addDish','Admin\DishController@getAddDish');
-Route::get('admin/addDish','Admin\DishController@getAddDish');
-Route::get('admin/addDish','Admin\DishController@getAddDish');*/
+Route::post('admin/storeDish', 'Admin\DishController@store');
+Route::get('admin/createDish','Admin\DishController@create');
 
-Route::get('admin/updateList','Admin\DishController@updateList');
-/*Route::get('/updateList',function(){
-		# code...
-		return "<option>dafadfdsf</option>";
-});*/
+
+Route::get('admin/indexDish','Admin\DishController@index')->name('indexDish');
+
+Route::get('admin/AJAXList','Admin\DishController@AJAXList');
+Route::get('admin/AJAXDish','Admin\DishController@AJAXDish');
+
+Route::get('admin/editDish/{id}','Admin\DishController@edit');
 

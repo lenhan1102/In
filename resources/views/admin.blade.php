@@ -4,7 +4,7 @@
 	array(
 	'method' => 'POST',
 	'enctype' => 'multipart/form-data',
-	'action' => 'Admin\DishController@create',
+	'action' => 'Admin\DishController@store',
 	'class' => 'form', 
 	'novalidate' => 'novalidate', 
 	'files' => 'true')) !!}

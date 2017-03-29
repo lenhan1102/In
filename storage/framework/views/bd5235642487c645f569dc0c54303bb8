@@ -45,12 +45,12 @@ type='text/css'>
 
 </head>
 <body background="<?php echo e(asset('images/Dark_background_1920x1080.png')); ?>" >
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
+	<!-- <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen"> -->
 		<?php echo $__env->yieldContent('nav'); ?>
 		<?php echo $__env->yieldContent('content'); ?>
 		
 		<!-- Footer -->
-		<footer class="mdl-mini-footer">
+		<!-- <footer class="mdl-mini-footer">
 			<div class="mdl-mini-footer__left-section">
 				<div class="mdl-logo">Title</div>
 				<ul class="mdl-mini-footer__link-list">
@@ -58,6 +58,6 @@ type='text/css'>
 					<li><a href="#">Privacy & Terms</a></li>
 				</ul>
 			</div>
-		</footer>	
-	</div>
+		</footer>	 -->
+	<!-- </div> -->
 </body>

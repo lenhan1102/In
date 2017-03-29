@@ -185,8 +185,9 @@ for="more">
 		@foreach ($dishes as $dish)
 		<div class="mdl-cell mdl-cell--4-col">
 			<a class="demo-card-wide mdl-card mdl-shadow--2dp">
-				<div class="mdl-card__title">
-					<h2 class="mdl-card__title-text">{{ $dish->name }}</h2>
+				<div class="mdl-card__title" style="background: '{{Asset('images/cotoneaster.jpg')}}'">
+					<h2 class="mdl-card__title-text">{{ $dish->o }}</h2>
+					<!-- <img style="height: 60px; width: 60px;" src="{{Asset('images/cotoneaster.jpg')}}"> -->
 				</div>
 
 				<div class="mdl-card__supporting-text"> {{ $dish->description }} </div>
