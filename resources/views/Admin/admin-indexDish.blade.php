@@ -1,24 +1,22 @@
 @extends('master')
 @section('title') index 
+<!-- indexDish -->
 @endsection
 @section('content')
 <script>
 	$(document).ready(function(){
 		$("#menu_options").change(function(){
 			var menuid = $("#menu_options").val();
-			$.get('AJAXList', {menuid:menuid}, function(data){
+			$.get('{{route('AJAXList')}}', {menuid:menuid}, function(data){
 				$("#list_options").html(data);
 			});
 		});
-	});
-
-	$(document).ready(function(){
 		$("#list_options").change(function(){
 			var listid = $("#list_options").val();
 			var menuid = $("#menu_options").val();
-			$.get('AJAXDish', {listid:listid, menuid:menuid}, function(data){
+			$.get('{{route('AJAXDish')}}', {listid:listid, menuid:menuid}, function(data){
 				$("#dish").html(data);
-				console.log(data);
+				//console.log(data);
 			});
 		});
 	});
@@ -33,7 +31,7 @@
 
 <select id="list_options" name="list">	
 	<option value=""> ---------------- </option>
-	<option value=""> All</option>
+	<option value=""> All </option>
 </select>
 <div class="mdl-grid" id="dish"></div>
 <!-- <table id="dish">

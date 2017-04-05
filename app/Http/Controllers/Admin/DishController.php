@@ -23,7 +23,7 @@ class DishController extends Controller
         $menus = Menu::all();
         $dishes = Dish::all();
 
-        return view('admin.admin-dish', ['dishes' => $dishes, 'menus' => $menus]);
+        return view('admin.admin-indexDish', ['dishes' => $dishes, 'menus' => $menus]);
     }
 
     /**
@@ -34,7 +34,7 @@ class DishController extends Controller
     public function create(Request $request)
     {
         // 
-        return view('Admin.admin', ['menus' => Menu::all()]);
+        return view('Admin.admin-createDish', ['menus' => Menu::all()]);
     }
 
     /**
@@ -88,7 +88,7 @@ class DishController extends Controller
     public function show($id)
     {
         //
-        
+
     }
 
     /**
@@ -100,7 +100,14 @@ class DishController extends Controller
     public function edit($id)
     {
         //
-        return view('Admin/admin-editDish',['dish' => Dish::find($id)]);
+        //dd(Dish::find($id));
+        //dd(Dish::find($id)->mlist->menu_id);
+        $cur_menu = Menu::find(Dish::find($id)->mlist->menu_id)->name;
+        $cur_list = Dish::find($id)->mlist->name;
+        $lists = Menu::find(Dish::find($id)->mlist->menu_id)->mlists;
+        //dd($lists[4]->name);
+
+        return view('Admin/admin-editDish',['dish' => Dish::find($id), 'menus' => Menu::all(), 'lists' => $lists, 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu]);
     }
 
     /**
@@ -131,7 +138,19 @@ class DishController extends Controller
      * @param XMLHttpRequest
      * @return data
      *
-     */    
+     */
+    public function AJAXListEdit(Request $request){
+        $menuid = $request->input('menuid');
+            # code...
+        $html = '';
+        $mlists = Menu::find($menuid)->mlists;
+        $i = 0;
+        foreach ($mlists as $mlist) {
+            $i++;
+            $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
+        }
+        return $html;
+    }    
     public function AJAXList(Request $request)
     {
         //
@@ -144,17 +163,30 @@ class DishController extends Controller
         }
         if ($menuid != "all") {
             # code...
-            $mlists = Menu::find($request->input('menuid'))->mlists;
-
-            $i = 0;
-            foreach ($mlists as $mlist) {
-            # code...
-                $i++;
-                $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
+            $mlists = Menu::find($menuid)->mlists;
+            /*if ($request->input('dishid')){
+                $dishid = $request->input('dishid');
+                $i = 0;
+                foreach ($mlists as $mlist) {
+                    $i++;
+                    if (Dish::find($dishid)->mlist->id = $mlist->id) {
+                        # code...
+                        $html .= '<option value = \''. strval($i) . '\' selected >' . $mlist->name . '</option>';
+                    } else {
+                        $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
+                    }  
+                }
+            } else {*/
+                $i = 0;
+                foreach ($mlists as $mlist) {
+                    $i++;
+                    $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
+                }
+                /*}*/ 
             }
+            return $html;
+        //return '<option value= \'\'>---------------</option><option value= \'all\'> All </option>';
         }
-        return $html;
-    }
     /**
      * Update dish by AJAX
      * @param XMLHttpRequest
@@ -165,7 +197,6 @@ class DishController extends Controller
         //dd('listid: ' .$request->get('listid'));
         $listid = $request->input('listid');
         $menuid = $request->input('menuid');
-        //$html = '<tr><th>Id</th><th>Name</th> <th>Price</th></tr>';
         $html = '';
         //
         if ($request->get('listid') == "") {
@@ -194,8 +225,8 @@ class DishController extends Controller
         }
         foreach ($dishes as $dish) {
             # code...
-            /*$html .= '<tr>' . '<td>' . $dish->id . '</td>'. '<td>' . $dish->name . '</td>'. '<td>' . $dish->price . '</td>'. '</tr>';*/
-            $html .= '<div class="mdl-cell mdl-cell--3-col">
+            $html .= 
+            '<div class="mdl-cell mdl-cell--3-col">
             <a class="demo-card-wide mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">'. $dish->name .'</h2>
@@ -208,7 +239,7 @@ class DishController extends Controller
                 </div>
             </a>
         </div>';
-        }
-        return $html;
     }
+    return $html;
+}
 }

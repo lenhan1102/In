@@ -36,7 +36,7 @@ return [
     ],
 	'facebook' => [
 		'client_id' => '395902477431390',
-		'client_secret' => '84239cfb3996f508a342b46941784fe5',
+		'client_secret' => '8c722cbe60fd877dfb9fd090d2f6e4e6',
 		'redirect' => 'http://localhost/newblog/public/auth/facebook/callback',
 	],
 

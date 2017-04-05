@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMListsTable extends Migration
+class CreateMlistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,8 @@ class CreateMListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_lists', function (Blueprint $table) {
+        //
+        Schema::create('mlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('menu_id');
             $table->string('name');
@@ -27,6 +28,6 @@ class CreateMListsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('m_lists');
+        //
     }
 }

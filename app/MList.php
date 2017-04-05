@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MList extends Model
+class Mlist extends Model
 {
     //
-    protected $table = "m_lists";
+    protected $table = "mlists";
 
     public function dishes()
     {
@@ -17,5 +17,5 @@ class MList extends Model
     {
         return $this->belongsTo('App\Menu');
     }
-    protected $fillable = ['name'];
+    protected $fillable = ['id', 'name', 'menu_id'];
 }

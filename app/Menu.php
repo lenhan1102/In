@@ -12,5 +12,5 @@ class Menu extends Model
     {
         return $this->hasMany('App\MList');
     }
-    protected $fillable = ['name'];
+    protected $fillable = ['id', 'name'];
 }

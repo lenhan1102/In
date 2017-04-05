@@ -40,7 +40,7 @@ class AuthController extends Controller
      */
     public function authenticate()
     {
-        
+
     }
     public function __construct()
     {
@@ -76,15 +76,13 @@ class AuthController extends Controller
             'birthday' => $data['birthday'],
             'username' => $data['username'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            
+            'password' => bcrypt($data['password']), 
             ]);
     }
     public function redirectToProvider()
     {
-      
-     return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
- }
+       return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
+    }
 
     /**
      * Obtain the user information from Facebook.
@@ -94,7 +92,7 @@ class AuthController extends Controller
 
     public function handleProviderCallback()
     {
-      
+
       $providerUser = Socialite::driver('facebook')->user();
       $user = $this->createOrGetUser($providerUser);		
       Auth::login($user);
@@ -117,7 +115,7 @@ class AuthController extends Controller
         ->first();
 
         if ($account) {
-         
+
             return $account->user;
         } else {
 
@@ -134,7 +132,7 @@ class AuthController extends Controller
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
                     'avatar' => $providerUser->getAvatar(),
-                ]);
+                    ]);
             }
             
             $account->user()->associate($user);

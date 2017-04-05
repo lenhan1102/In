@@ -1,5 +1,6 @@
 <?php
 use App\Dish;
+use App\Image;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,7 @@ use App\Dish;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('materialize');
 });
 //Admin
 
@@ -22,9 +23,16 @@ Route::get('/index', function () {
 	$dishes =  Dish::all();
 	foreach ($dishes as $dish) {
 		# code...
-		$dish->o = 'hello';
+		//dd($dish);
+		// Get first image to show
+		/*if(Image::where('dish_id', $dish->id)->first()){
+			$link = Image::where('dish_id', $dish->id)->first()->link;
+			$dish->link = $link;
+		} else{
+			$dish->link = 'hello';
+		}	*/
 	}
-    return view('index', ['dishes' => $dishes]);
+	return view('index', ['dishes' => $dishes]);
 });
 
 //
@@ -33,9 +41,8 @@ Route::get('/account', function(){
 });
 
 // Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::get('auth/login', 'Auth\AuthController@getLogin')->name('auth/login');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
@@ -43,17 +50,35 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 // Facebook login...
-Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider')->name('facebook');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::post('admin/storeDish', 'Admin\DishController@store');
+// Dish CRUD
 Route::get('admin/createDish','Admin\DishController@create');
-
-
 Route::get('admin/indexDish','Admin\DishController@index')->name('indexDish');
-
-Route::get('admin/AJAXList','Admin\DishController@AJAXList');
-Route::get('admin/AJAXDish','Admin\DishController@AJAXDish');
-
+Route::post('admin/storeDish', 'Admin\DishController@store');
+Route::get('/dish/{id}', 'Admin\DishController@show')->name('dish.show');
 Route::get('admin/editDish/{id}','Admin\DishController@edit');
+Route::get('/dish/{id}', 'Admin\DishController@update')->name('dish.update');
+Route::get('/dish/{id}', 'Admin\DishController@destroy')->name('dish.destroy');
 
+// AJAX to update List and menu to edit
+Route::get('admin/AJAXList','Admin\DishController@AJAXList')->name('AJAXList');
+Route::get('admin/AJAXDish','Admin\DishController@AJAXDish')->name('AJAXDish');
+Route::get('admin/AJAXListEdit','Admin\DishController@AJAXListEdit')->name('AJAXListEdit');
+
+// Mlist CRUD
+Route::get('/mlist', 'Admin\MlistController@index')->name('mlist.index');
+Route::get('/mlist/create', 'Admin\MlistController@create')->name('mlist.create');
+Route::post('/mlist/create', 'Admin\MlistController@store')->name('mlist.store');
+Route::get('/mlist/{id}', 'Admin\MlistController@show')->name('mlist.show');
+Route::get('/mlist/{id}/edit', 'Admin\MlistController@edit')->name('mlist.edit');
+Route::get('/mlist/{id}', 'Admin\MlistController@update')->name('mlist.update');
+Route::get('/mlist/{id}', 'Admin\MlistController@destroy')->name('mlist.destroy');
+
+// AJAX to update Mlist table
+Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_updatelist');
+
+Route::get('/test', function(){
+	return view('testSlider');
+});
