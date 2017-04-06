@@ -16,16 +16,16 @@
 	<!-- inject:js --> 
 	<script src="{{ asset('js/jquery-3.2.0.js') }}"></script> 
 	<script src="{{ asset('js/material.js') }}"></script> 
+	<script src="{{ asset('js/getmdl-select.min.js') }}"></script>
 	<!-- endinject -->
 
 
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
-		@yield('nav')
-		<main class= "mdl-layout__content">
-			@yield('content')
-		</main>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">	
+		@yield('header')
+		@yield('drawer')
+		@yield('main')
 		
 		<!-- Footer -->
 		<footer class="mdl-mini-footer">

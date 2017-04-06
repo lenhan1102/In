@@ -16,16 +16,16 @@
 	<!-- inject:js --> 
 	<script src="<?php echo e(asset('js/jquery-3.2.0.js')); ?>"></script> 
 	<script src="<?php echo e(asset('js/material.js')); ?>"></script> 
+	<script src="<?php echo e(asset('js/getmdl-select.min.js')); ?>"></script>
 	<!-- endinject -->
 
 
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
-		<?php echo $__env->yieldContent('nav'); ?>
-		<main class= "mdl-layout__content">
-			<?php echo $__env->yieldContent('content'); ?>
-		</main>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">	
+		<?php echo $__env->yieldContent('header'); ?>
+		<?php echo $__env->yieldContent('drawer'); ?>
+		<?php echo $__env->yieldContent('main'); ?>
 		
 		<!-- Footer -->
 		<footer class="mdl-mini-footer">

@@ -14,36 +14,49 @@ use App\Image;
 */
 
 Route::get('/', function () {
-	return view('materialize');
+	return view('master');
+});
+Route::get('/index', function () {
+	$dishes = Dish::all();
+	foreach ($dishes as $dish) {
+		# code...
+		if(Image::where('dish_id', $dish->id)->first()){
+			$link = Image::where('dish_id', $dish->id)->first()->link;
+			$dish->link = '/'.$link;
+		} else{
+			$dish->link = 'hello';
+		}	
+	}
+	if (Auth::check()){
+		return view('index', ['dishes' => $dishes]);
+	} else {
+		return view('user_index', ['dishes' => $dishes]);
+	}
 });
 //Admin
 
 // Home
-Route::get('/index', function () {
+Route::get('/aaaa', function () {
 	$dishes =  Dish::all();
-	foreach ($dishes as $dish) {
+	//dd(count($dishes));
+	/*foreach ($dishes as $dish) {
 		# code...
 		//dd($dish);
 		// Get first image to show
-		/*if(Image::where('dish_id', $dish->id)->first()){
+		if(Image::where('dish_id', $dish->id)->first()){
 			$link = Image::where('dish_id', $dish->id)->first()->link;
 			$dish->link = $link;
 		} else{
 			$dish->link = 'hello';
-		}	*/
-	}
-	return view('index', ['dishes' => $dishes]);
-});
-
-//
-Route::get('/account', function(){
-	return view('taikhoan');
+		}	
+	}*/
+	return view('index');
 });
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin')->name('auth/login');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/logout', 'Auth\AuthController@getLogout')->name('auth/logout');
 
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
@@ -73,12 +86,13 @@ Route::get('/mlist/create', 'Admin\MlistController@create')->name('mlist.create'
 Route::post('/mlist/create', 'Admin\MlistController@store')->name('mlist.store');
 Route::get('/mlist/{id}', 'Admin\MlistController@show')->name('mlist.show');
 Route::get('/mlist/{id}/edit', 'Admin\MlistController@edit')->name('mlist.edit');
-Route::get('/mlist/{id}', 'Admin\MlistController@update')->name('mlist.update');
-Route::get('/mlist/{id}', 'Admin\MlistController@destroy')->name('mlist.destroy');
+Route::put('/mlist/{id}', 'Admin\MlistController@update')->name('mlist.update');
+Route::delete('/mlist/{id}', 'Admin\MlistController@destroy')->name('mlist.destroy');
 
 // AJAX to update Mlist table
 Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_updatelist');
 
+//
 Route::get('/test', function(){
 	return view('testSlider');
 });

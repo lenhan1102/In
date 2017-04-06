@@ -29,5 +29,6 @@ class CreateMlistsTable extends Migration
     public function down()
     {
         //
+        Schema::drop('mlists');
     }
 }

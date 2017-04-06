@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 			$this->call(MenusTableSeeder::class);
             $this->call(MListsTableSeeder::class);
             $this->call(DishesTableSeeder::class);
+            $this->call(ImagesTableSeeder::class);
 
         Model::reguard();
     }

@@ -83,7 +83,7 @@ class MlistController extends Controller
         // Lay menu hien tai
         $cur_menu = $mlist->menu;
 
-        //return view
+        return view('Admin.mlist.edit', ['id' => $id, 'mlist' => $mlist, 'menus' => $menus, 'cur_menu' => $cur_menu]);
     }
 
     /**
@@ -100,9 +100,10 @@ class MlistController extends Controller
             'name' => 'required|unique:mlists|max:255',
             'menu_id' => 'required'
         ]);
-
         $mlist = Mlist::find($id);
         $mlist->update(['name' => $request->input('name'), 'menu_id' => $request->input('menu_id')]);
+
+        return redirect()->route('mlist.index');
     }
 
     /**
@@ -117,7 +118,7 @@ class MlistController extends Controller
         $mlist = Mlist::find($id);
         $mlist->delete();
 
-        //return ...
+        return redirect()->route('mlist.index'); 
     }
 
     public function AJAXMlist(Request $request){

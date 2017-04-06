@@ -326,7 +326,6 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
     public static $classMap = array (
         'CreateDishesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_18_045545_create_dishes_table.php',
         'CreateImagesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_144427_create_images_table.php',
-        'CreateMListsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_25_060108_create_m_lists_table.php',
         'CreateMenusTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_143141_create_menus_table.php',
         'CreateMlistsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_04_045336_create_mlists_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
@@ -406,6 +405,7 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+        'ImagesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ImagesTableSeeder.php',
         'MListsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MListsTableSeeder.php',
         'MenusTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MenusTableSeeder.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',

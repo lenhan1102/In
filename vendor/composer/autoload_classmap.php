@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'CreateDishesTable' => $baseDir . '/database/migrations/2017_03_18_045545_create_dishes_table.php',
     'CreateImagesTable' => $baseDir . '/database/migrations/2017_03_21_144427_create_images_table.php',
-    'CreateMListsTable' => $baseDir . '/database/migrations/2017_03_25_060108_create_m_lists_table.php',
     'CreateMenusTable' => $baseDir . '/database/migrations/2017_03_21_143141_create_menus_table.php',
     'CreateMlistsTable' => $baseDir . '/database/migrations/2017_04_04_045336_create_mlists_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
@@ -88,6 +87,7 @@ return array(
     'Hamcrest\\Util' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
     'Hamcrest\\Xml\\HasXPath' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+    'ImagesTableSeeder' => $baseDir . '/database/seeds/ImagesTableSeeder.php',
     'MListsTableSeeder' => $baseDir . '/database/seeds/MListsTableSeeder.php',
     'MenusTableSeeder' => $baseDir . '/database/seeds/MenusTableSeeder.php',
     'PHPUnit\\Framework\\Assert' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
