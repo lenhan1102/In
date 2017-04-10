@@ -17,7 +17,7 @@ use App\SocialAccount;
 class AuthController extends Controller
 {
 
-	protected $redirectPath = '/index';
+	protected $redirectPath = 'index';
 	protected $loginPath = 'auth/login';
 	protected $redirectAfterLogout = 'auth/login';
     /*

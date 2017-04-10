@@ -22,8 +22,8 @@ class DishController extends Controller
         //
         $menus = Menu::all();
         $dishes = Dish::all();
-
-        return view('admin.admin-indexDish', ['dishes' => $dishes, 'menus' => $menus]);
+        
+        return view('Admin.dish.index', ['menus' => $menus, 'dishes' => $dishes]);
     }
 
     /**
@@ -34,7 +34,7 @@ class DishController extends Controller
     public function create(Request $request)
     {
         // 
-        return view('Admin.admin-createDish', ['menus' => Menu::all()]);
+        return view('Admin.dish.create', ['menus' => Menu::all()]);
     }
 
     /**
@@ -105,9 +105,10 @@ class DishController extends Controller
         $cur_menu = Menu::find(Dish::find($id)->mlist->menu_id)->name;
         $cur_list = Dish::find($id)->mlist->name;
         $lists = Menu::find(Dish::find($id)->mlist->menu_id)->mlists;
+        $images = Dish::find($id)->images;
         //dd($lists[4]->name);
 
-        return view('Admin/admin-editDish',['dish' => Dish::find($id), 'menus' => Menu::all(), 'lists' => $lists, 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu]);
+        return view('Admin.dish.edit',['dish' => Dish::find($id), 'menus' => Menu::all(), 'lists' => $lists, 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu, 'images' => $images]);
     }
 
     /**
@@ -120,6 +121,28 @@ class DishController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'price' => 'required',
+            'description' => 'required|string|max:255'
+            ]);
+
+        $dish = Dish::find($request->input('id'));
+        $dish->update([
+            'price' => $request->input('price'),
+            'description' => $request->input('description')
+            ]);
+        if ( $request->file('image') != null) {
+            # code...
+            $image = new Image(array(
+              'dish_id' => $request->input('id')
+            ));
+            $image->save();
+            $imageName = $image->id . ' ' . $request->file('image')->getClientOriginalName();
+            $image->update(['link', $imageName]);
+
+            $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
+        }
+        return redirect()->route('dish.index');
     }
 
     /**
@@ -142,28 +165,33 @@ class DishController extends Controller
     public function AJAXListEdit(Request $request){
         $menuid = $request->input('menuid');
             # code...
-        $html = '';
-        $mlists = Menu::find($menuid)->mlists;
-        $i = 0;
-        foreach ($mlists as $mlist) {
-            $i++;
-            $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
-        }
-        return $html;
-    }    
-    public function AJAXList(Request $request)
-    {
-        //
-        $menuid = $request->input('menuid');
-        $html = '<option value= \'\'>---------------</option><option value= \'all\'> All </option>';
-
-        if ($menuid == "all" || $menuid == "") {
-            # code...
+        $html = '<input class="mdl-textfield__input" type="text" name="list" id="list_options" value=" " readonly tabIndex="-1">
+        <label for="list_options">
+            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        </label>
+        <label for="list_options" class="mdl-textfield__label">List</label>
+        <ul for="list_options" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">';
+            $mlists = Menu::where('name', $menuid)->first()->mlists;
+            foreach ($mlists as $mlist) {
+                $html .= '<li class="mdl-menu__item">'.$mlist->name.'</li>';
+            }
+        //dd($html);
+            $html .= '</ul>';
             return $html;
-        }
-        if ($menuid != "all") {
+        }    
+        public function AJAXList(Request $request)
+        {
+        //
+            $menuid = $request->input('menuid');
+            $html = '<option value= \'\'>---------------</option><option value= \'all\'> All </option>';
+
+            if ($menuid == "all" || $menuid == "") {
             # code...
-            $mlists = Menu::find($menuid)->mlists;
+                return $html;
+            }
+            if ($menuid != "all") {
+            # code...
+                $mlists = Menu::find($menuid)->mlists;
             /*if ($request->input('dishid')){
                 $dishid = $request->input('dishid');
                 $i = 0;
@@ -227,17 +255,23 @@ class DishController extends Controller
             # code...
             $html .= 
             '<div class="mdl-cell mdl-cell--3-col">
-            <a class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="mdl-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">'. $dish->name .'</h2>
+                    <div class="mdl-card__title-text">
+                        Image
+                    </div>
                 </div>
-
-                <div class="mdl-card__supporting-text"> '. $dish->description .' </div>
-                <div class="mdl-card__actions mdl-card--border"> 
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect show-dialog"
-                    href="editDish/'. $dish->id .'"> Get Started </a> 
+                <div class="mdl-card__media">
+                    <img src="'.asset("images/catalog/").'/'.$dish->avatar.'" width="100%" height="140" border="0">
                 </div>
-            </a>
+                <div class="mdl-card__supporting-text">
+                    Descriptions
+                </div>
+                <div class="mdl-card__actions">
+                    <button class="mdl-button mdl-js-button mdl-button--raised">View</button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised">Delete</button>
+                </div>
+            </div>
         </div>';
     }
     return $html;

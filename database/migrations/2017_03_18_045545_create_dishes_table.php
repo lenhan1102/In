@@ -18,7 +18,7 @@ class CreateDishesTable extends Migration
             $table->string('mlist_id');
             $table->string('name');
             $table->integer('price');
-            
+            $table->string('avatar')->default('default.png');
             //Info
             $table->integer('ordered')->nullable();
             $table->integer('rating')->nullable();

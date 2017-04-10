@@ -76,7 +76,7 @@ Home
 						</div>
 					</div>
 					<div class="mdl-card__media">
-						<img src="{{asset('images/catalog/').$dish->link}}" width="100%" height="140" border="0">
+						<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
 					</div>
 					<div class="mdl-card__supporting-text">
 						Descriptions

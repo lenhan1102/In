@@ -16,6 +16,7 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->integer('dish_id');
             $table->string('link');
+            $table->boolean('isAvatar')->default(false);
             $table->timestamps();
         });
     }

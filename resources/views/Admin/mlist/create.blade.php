@@ -14,6 +14,7 @@
 		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">Create</button>
 	</div>
 </form>
+
 @if (count($errors) > 0)
 <div class="alert alert-danger" style="color: red; li:{}">
 	<ul>
@@ -23,4 +24,5 @@
 	</ul>
 </div>
 @endif
+
 @endsection

@@ -92,12 +92,13 @@ Home
 		</ul>
 	</div>
 </header>
+<?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('drawer'); ?>
 <div class="mdl-layout__drawer">
-	<span class="mdl-layout-title">HTML5 Tutorial</span>
+	<header>HTML5 Tutorial</header> 
 	<nav class="mdl-navigation"> 
-		<a class="mdl-navigation__link mdl-navigation__link--current" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
+		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">Home</i> Info </a> 
 
 		<div class="mdl-layout-spacer"></div>
@@ -108,5 +109,11 @@ Home
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">link</i> GitHub </a> 
 	</nav>
 </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('main'); ?>
+<main class= "mdl-layout__content">
+			<?php echo $__env->yieldContent('content'); ?>
+</main>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

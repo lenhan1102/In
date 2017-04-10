@@ -94,12 +94,13 @@ Home
 		</ul>
 	</div>
 </header>
+@endsection
 
 @section('drawer')
 <div class="mdl-layout__drawer">
-	<span class="mdl-layout-title">HTML5 Tutorial</span>
+	<header>HTML5 Tutorial</header> 
 	<nav class="mdl-navigation"> 
-		<a class="mdl-navigation__link mdl-navigation__link--current" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
+		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">Home</i> Info </a> 
 
 		<div class="mdl-layout-spacer"></div>
