@@ -25,7 +25,7 @@ class DishController extends Controller
         
         return view('Admin.dish.index', ['menus' => $menus, 'dishes' => $dishes]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -108,7 +108,7 @@ class DishController extends Controller
         $images = Dish::find($id)->images;
         //dd($lists[4]->name);
 
-        return view('Admin.dish.edit',['dish' => Dish::find($id), 'menus' => Menu::all(), 'lists' => $lists, 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu, 'images' => $images]);
+        return view('Admin.dish.edit',['dish' => Dish::find($id), 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu, 'images' => $images]);
     }
 
     /**

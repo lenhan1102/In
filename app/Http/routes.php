@@ -89,3 +89,4 @@ Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_upd
 Route::get('/test', function(){
 	return view('testSlider');
 });
+Route::put('/image/{id}', 'Admin\ImageController@destroy')->name('image.destroy');

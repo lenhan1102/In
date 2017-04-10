@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.admin-master')
 @section('title') Update List @endsection
 @section('content')
 <form action="{{route('mlist.update', ['id' => $mlist->id])}}" method="POST">

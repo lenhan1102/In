@@ -54,17 +54,11 @@
 			<div class="mdl-grid">
 
 				<div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-
-
-
 					<label for="menu_options" class="mdl-textfield__label">Menu: {{$cur_menu}} </label>
-
 				</div>
 
 				<div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="list_html">
-
 					<label for="list_options" class="mdl-textfield__label">List: {{$cur_list}}</label>
-
 				</div>
 			</div>
 		</div>
@@ -128,8 +122,14 @@
 						<img src="{{asset('images/catalog/').'/'.$image->link}}" width="100%" height="140" border="0">
 					</div>
 					<div class="mdl-card__actions">
-						<button class="mdl-button mdl-js-button mdl-button--raised">Delete</button>
+						<!-- <button class="mdl-button mdl-js-button mdl-button--raised">Delete</button> -->
+						<form action="{{route('image.destroy', ['id' => $image->id])}}" method="POST">
+							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+							<input type="hidden" name="_method" value="PUT">
+							<button type="submit">DELETE</button>
+						</form>
 						@if($image->isAvatar)
+
 						<button class="mdl-button mdl-js-button mdl-button--raised">Unset Avatar</button>
 						@endif
 						<button class="mdl-button mdl-js-button mdl-button--raised">Set as Avatar</button>
@@ -140,26 +140,12 @@
 		</div>
 	</div>
 </div>
-
-
+<button id="demo_menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton">
+	<i class="material-icons">more_vert</i>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo_menu-lower-left">
+	<li class="mdl-menu__item">Item #1</li>
+	<li class="mdl-menu__item">Item #2</li>
+	<li disabled class="mdl-menu__item">Disabled Item</li>     
+</ul>
 @endsection
-
-		<!-- <select id= "menu_options" name="menu">
-			@foreach($menus as $menu)
-			@if($menu->name == $cur_menu)
-			<option value="{{$menu->id}}" selected>{{$menu->name}}</option>
-			@else	
-			<option value="{{$menu->id}}">{{$menu->name}}</option>
-			@endif
-			@endforeach
-		</select>
-
-		<select id="list_options" name="list">	
-			@foreach($lists as $list)
-			@if($list->name == $cur_list)
-			<option value="{{$list->id}}" selected>{{$list->name}}</option>
-			@else	
-			<option value="{{$list->id}}">{{$list->name}}</option>
-			@endif
-			@endforeach
-		</select> -->

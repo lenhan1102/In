@@ -18,6 +18,7 @@ class DishesTableSeeder extends Seeder
     			'mlist_id' => rand(1, 40),
     			'name' => str_random(10),
     			'price' => rand(20, 500)*1000,
+                
 
     			'rating' => rand(1, 5),
     			'ordered' => rand(3, 1000),

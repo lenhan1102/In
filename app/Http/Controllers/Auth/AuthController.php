@@ -17,7 +17,7 @@ use App\SocialAccount;
 class AuthController extends Controller
 {
 
-	protected $redirectPath = 'index';
+	//protected $redirectPath = '';
 	protected $loginPath = 'auth/login';
 	protected $redirectAfterLogout = 'auth/login';
     /*
@@ -81,6 +81,7 @@ class AuthController extends Controller
     }
     public function redirectToProvider()
     {
+
        return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
     }
 
@@ -92,16 +93,11 @@ class AuthController extends Controller
 
     public function handleProviderCallback()
     {
-
       $providerUser = Socialite::driver('facebook')->user();
-      $user = $this->createOrGetUser($providerUser);		
+      $user = $this->createOrGetUser($providerUser);	
       Auth::login($user);
 
-        /*
-         * Get data from table 'dishes'
-        */
-
-        return redirect()->to('index');
+      return redirect()->to('index');
     }
 
     /**
@@ -110,9 +106,7 @@ class AuthController extends Controller
     */
     public function createOrGetUser(ProviderUser $providerUser)
     {
-        $account = SocialAccount::whereProvider('facebook')
-        ->whereProviderUserId($providerUser->getId())
-        ->first();
+        $account = SocialAccount::whereProvider('facebook')->whereProviderUserId($providerUser->getId())->first();
 
         if ($account) {
 
