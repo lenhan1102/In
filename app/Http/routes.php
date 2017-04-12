@@ -87,6 +87,10 @@ Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_upd
 
 //
 Route::get('/test', function(){
-	return view('testSlider');
-});
+	return '<li class="mdl-menu__item" >Gadfadfsfny</li>
+		<li class="mdl-menu__item" >dsfs</li>
+		<li class="mdl-menu__item">Rdadfdfsfa</li>';
+})->name('AJAXTest');
 Route::put('/image/{id}', 'Admin\ImageController@destroy')->name('image.destroy');
+Route::get('/image/{id}', 'Admin\ImageController@set')->name('image.set');
+Route::post('/image/{id}', 'Admin\ImageController@unset')->name('image.unset');

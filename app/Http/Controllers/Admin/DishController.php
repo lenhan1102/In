@@ -9,6 +9,8 @@ use App\Dish;
 use App\MList;
 use App\Menu;
 use App\Image;
+use File;
+use Storage;
 
 class DishController extends Controller
 {
@@ -60,13 +62,13 @@ class DishController extends Controller
           'description' => $request->get('description'),
           ));
         $list = MList::find($request->get('list'));
-        $list->menu()->associate($menu);
+        //$list->menu()->associate($menu);
         $dish->mlist()->associate($list);
 
         $dish->save();
         // Save image to folder /catalog
-        $imageName = $dish->id . ' ' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
+        $imageName = $dish->id . '.' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id.'/', $imageName);
         
         // Insert into 'images' table
         $image = new Image(array(
@@ -75,7 +77,21 @@ class DishController extends Controller
         $image->dish()->associate($dish);
 
         $image->save();
-        return $this->create();
+        return redirect()->route('dish.index');
+
+
+        //$imageName = 'test.' . $request->file('image')->getClientOriginalName();
+        /* $request->file('image')->move(base_path() . '/public/images/catalog/test/', $imageName);*/
+        /*unlink(asset('images/test/test.603671_244522782337685_405366317_n.jpg'));
+        dd(asset('public/images/test/test.603671_244522782337685_405366317_n.jpg'));*/
+
+        //$image = public_path('images/catalog/test/test.603671_244522782337685_405366317_n.jpg');
+        //dd(public_path('images/catalog/test/test.603671_244522782337685_405366317_n.jpg'));
+        //dd(File::exists($image));
+        /*if(File::exists($image)){
+            File::delete($image); 
+        } 
+        dd('done');*/
     }
 
 
@@ -131,16 +147,16 @@ class DishController extends Controller
             'price' => $request->input('price'),
             'description' => $request->input('description')
             ]);
-        if ( $request->file('image') != null) {
+        if ($request->file('image') != null) {
             # code...
             $image = new Image(array(
               'dish_id' => $request->input('id')
-            ));
+              ));
             $image->save();
             $imageName = $image->id . ' ' . $request->file('image')->getClientOriginalName();
             $image->update(['link', $imageName]);
 
-            $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
+            $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id, $imageName);
         }
         return redirect()->route('dish.index');
     }
@@ -154,6 +170,19 @@ class DishController extends Controller
     public function destroy($id)
     {
         //
+        $arr = array();
+        $dish = Dish::find($id);
+        $images = $dish->images;
+        foreach ($images as $image) {
+            # code...
+            array_push($arr,$image->link);
+            $image->delete();
+        }
+        for ($i=0; $i < count($arr); $i++) { 
+            File::delete(public_path('images/catalog/'.$dish->id.'/'.$arr[$i]));
+        }
+        Dish::destroy($id);
+        return redirect()->route('dish.index');
     }
 
     /**
@@ -183,7 +212,7 @@ class DishController extends Controller
         {
         //
             $menuid = $request->input('menuid');
-            $html = '<option value= \'\'>---------------</option><option value= \'all\'> All </option>';
+            $html = '<option value= \'\'></option>';
 
             if ($menuid == "all" || $menuid == "") {
             # code...
@@ -192,28 +221,13 @@ class DishController extends Controller
             if ($menuid != "all") {
             # code...
                 $mlists = Menu::find($menuid)->mlists;
-            /*if ($request->input('dishid')){
-                $dishid = $request->input('dishid');
-                $i = 0;
-                foreach ($mlists as $mlist) {
-                    $i++;
-                    if (Dish::find($dishid)->mlist->id = $mlist->id) {
-                        # code...
-                        $html .= '<option value = \''. strval($i) . '\' selected >' . $mlist->name . '</option>';
-                    } else {
-                        $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
-                    }  
-                }
-            } else {*/
                 $i = 0;
                 foreach ($mlists as $mlist) {
                     $i++;
                     $html .= '<option value = \''. strval($i) . '\'>' . $mlist->name . '</option>';
                 }
-                /*}*/ 
             }
             return $html;
-        //return '<option value= \'\'>---------------</option><option value= \'all\'> All </option>';
         }
     /**
      * Update dish by AJAX
@@ -252,9 +266,10 @@ class DishController extends Controller
             $dishes = Dish::all();
         }
         foreach ($dishes as $dish) {
+            $update = route('dish.edit', ['id' => $dish->id]);
+            $delete = route('dish.destroy', ['id' => $dish->id]);
             # code...
-            $html .= 
-            '<div class="mdl-cell mdl-cell--3-col">
+            $html .= '<div class="mdl-cell mdl-cell--3-col">
             <div class="mdl-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
                     <div class="mdl-card__title-text">
@@ -262,18 +277,27 @@ class DishController extends Controller
                     </div>
                 </div>
                 <div class="mdl-card__media">
-                    <img src="'.asset("images/catalog/").'/'.$dish->avatar.'" width="100%" height="140" border="0">
+                    <img src="'. asset('images/catalog/').$dish->id.'/'.$dish->avatar. '" width="100%" height="140" border="1">
                 </div>
                 <div class="mdl-card__supporting-text">
                     Descriptions
                 </div>
-                <div class="mdl-card__actions">
-                    <button class="mdl-button mdl-js-button mdl-button--raised">View</button>
-                    <button class="mdl-button mdl-js-button mdl-button--raised">Delete</button>
-                </div>
-            </div>
-        </div>';
+                <div class="mdl-card__actions mdl-grid">
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <form action="'.route('dish.edit', ['id' => $dish->id]).'" method="get">
+                            <input type="hidden" name="_token" value="'. csrf_token() .'">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Edit</button>
+                        </form></div>
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <form action="'. route('dish.destroy', ['id' => $dish->id]).'" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="'.csrf_token() .'">
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Delete</button>
+                            </form></div>
+                        </div>
+                    </div>
+                </div>';
+            }
+            return $html;
+        }
     }
-    return $html;
-}
-}

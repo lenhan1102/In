@@ -49,7 +49,7 @@ class MlistController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:mlists|max:255',
             'menu_id' => 'required'
-        ]);
+            ]);
         $mlist = new MList();
         $mlist->name = $request->input('name');
         $mlist->menu_id = $request->input('menu_id');
@@ -99,7 +99,7 @@ class MlistController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:mlists|max:255',
             'menu_id' => 'required'
-        ]);
+            ]);
         $mlist = Mlist::find($id);
         $mlist->update(['name' => $request->input('name'), 'menu_id' => $request->input('menu_id')]);
 
@@ -123,16 +123,19 @@ class MlistController extends Controller
 
     public function AJAXMlist(Request $request){
         $menu = $request->input('menu');
-        $html = "<table class='mdl-data-table mdl-js-data-table'><tr><th>Id</th><th>Name</th></tr>";
-        if ($menu == "") {
+        $html = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--8dp'><tr><th>Id</th><th>Name</th></tr>";
+        if ($menu == "All") {
             # code...
             $mlists = Mlist::all();
         } else {
-            $mlists = Menu::find($menu)->mlists;
+            $mlists = Menu::where('name', $menu)->first()->mlists;
         }
         foreach ($mlists as $mlist) {
             # code...
-            $html .= "<tr><td>". $mlist->id ."</td><td>". $mlist->name. "</td></tr>";
+            $html .= '<tr><td>'.$mlist->id.'</td>
+            <td>'.$mlist->name.'</td>
+            <td><a href="'.route('mlist.edit', ['id' => $mlist->id]).'">Edit</a></td>
+            <td><a href="'.route('mlist.destroy', ['id' => $mlist->id]).'">Delete</a></td></tr>';
         }
         $html .= "</table>";
         return $html;

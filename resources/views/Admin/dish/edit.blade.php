@@ -36,16 +36,14 @@
 		<div class="form__article">
 			<div class="mdl-grid">
 				<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input hidden type="text" name="id" value="{{$dish->id}}">
-					<label for="identify" class="mdl-textfield__label"> ID: {{$dish->id}} </label>
+					ID: {{$dish->id}} 
 				</div>
 			</div>
 		</div>
 		<div class="form__article">
 			<div class="mdl-grid">
 				<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input hidden type="text" name="name" value="{{$dish->name}}">
-					<label for="name" class="mdl-textfield__label"> Name: {{$dish->name}} </label>
+					Name: {{$dish->name}}
 				</div>
 			</div>
 		</div>
@@ -54,11 +52,11 @@
 			<div class="mdl-grid">
 
 				<div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-					<label for="menu_options" class="mdl-textfield__label">Menu: {{$cur_menu}} </label>
+					Menu: {{$cur_menu}} 
 				</div>
 
 				<div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="list_html">
-					<label for="list_options" class="mdl-textfield__label">List: {{$cur_list}}</label>
+					List: {{$cur_list}}
 				</div>
 			</div>
 		</div>
@@ -110,11 +108,12 @@
 
 <div class="mdl-card mdl-shadow--2dp employer-form" >
 	<div class="mdl-card__title">
-		<h2>Update</h2>
+		<h2>Update Image</h2>
 		<div class="mdl-card__subtitle">Please complete the form</div>
 	</div>
 	<div class="mdl-card__supporting-text">
 		<div class="mdl-grid">
+			@if(count($images) > 0)
 			@foreach($images as $image)
 			<div class="mdl-cell mdl-cell--6-col">
 				<div class="mdl-card mdl-shadow--4dp">
@@ -122,30 +121,37 @@
 						<img src="{{asset('images/catalog/').'/'.$image->link}}" width="100%" height="140" border="0">
 					</div>
 					<div class="mdl-card__actions">
-						<!-- <button class="mdl-button mdl-js-button mdl-button--raised">Delete</button> -->
-						<form action="{{route('image.destroy', ['id' => $image->id])}}" method="POST">
-							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-							<input type="hidden" name="_method" value="PUT">
-							<button type="submit">DELETE</button>
-						</form>
-						@if($image->isAvatar)
-
-						<button class="mdl-button mdl-js-button mdl-button--raised">Unset Avatar</button>
-						@endif
-						<button class="mdl-button mdl-js-button mdl-button--raised">Set as Avatar</button>
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--4-col">
+								<form action="{{route('image.destroy', ['id' => $image->id])}}" method="POST">
+									<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+									<input type="hidden" name="_method" value="PUT">
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Delete</button>
+								</form>
+							</div>
+							<div class="mdl-cell mdl-cell--8-col">
+								
+								@if($image->isAvatar)
+								<form action="{{route('image.unset', ['id' => $image->id])}}" method="POST">
+									<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised"> {{$image->isAvatar}} Unset Avatar</button>
+								</form>
+								@else
+								<form action="{{route('image.set', ['id' => $image->id])}}" method="GET">
+									<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised"> {{$image->isAvatar}} Set Avatar</button>
+								</form>
+								@endif
+							</div>
+						</div>					
 					</div>
 				</div>
 			</div>
 			@endforeach
+			@else
+			This dish hasn't had any images 
+			@endif
 		</div>
 	</div>
 </div>
-<button id="demo_menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton">
-	<i class="material-icons">more_vert</i>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo_menu-lower-left">
-	<li class="mdl-menu__item">Item #1</li>
-	<li class="mdl-menu__item">Item #2</li>
-	<li disabled class="mdl-menu__item">Disabled Item</li>     
-</ul>
 @endsection

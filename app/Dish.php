@@ -16,5 +16,5 @@ class Dish extends Model
     {
         return $this->hasMany('App\Image');
     }
-    protected $fillable = ['id', 'mlist_id', 'name', 'price', 'description', 'ordered', 'rating'];
+    protected $fillable = ['id', 'mlist_id', 'name', 'price', 'description', 'avatar', 'ordered', 'rating'];
 }

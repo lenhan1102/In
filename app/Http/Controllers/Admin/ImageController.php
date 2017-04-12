@@ -94,4 +94,28 @@ class ImageController extends Controller
         $image->delete();
         return redirect()->route('dish.edit', [$dishid]);
     }
+    
+    public function set($id)
+    {
+        //
+        $image = Image::find($id);
+        $image->update(['isAvatar' => true]);
+
+        $dishid = $image->dish->id;
+        Dish::find($dishid)->update(['avatar' => $image->link]);
+
+        return redirect()->route('dish.edit', [$dishid]);
+    }
+
+    public function unset($id)
+    {
+        //
+        $image = Image::find($id);
+        $image->update(['isAvatar' => false]);
+
+        $dishid = $image->dish->id;
+        Dish::find($dishid)->update(['avatar' => 'default.png']);
+
+        return redirect()->route('dish.edit', [$dishid]);
+    }
 }

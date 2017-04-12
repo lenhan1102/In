@@ -82,28 +82,15 @@ Home
 						Descriptions
 					</div>
 					<div class="mdl-card__actions">
-						<button class="mdl-button mdl-js-button mdl-button--raised">View</button>
+						<form action="{{route('')}}" method="POST">
+							<button class="mdl-button mdl-js-button mdl-button--raised">View</button>
+						</form>
 					</div>
 				</div>
 			</div>
 			@endforeach
-			<!-- <div class="mdl-cell mdl-cell--3-col">
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-					<input class="mdl-textfield__input" type="text" id="sample2" value="Belarus" readonly tabIndex="-1">
-					<label for="sample2">
-						<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-					</label>
-					<label for="sample2" class="mdl-textfield__label">Country</label>
-					<ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-						<li class="mdl-menu__item" data-val="DE">Germany</li>
-						<li class="mdl-menu__item" data-val="BY">Belarus</li>
-						<li class="mdl-menu__item" data-val="RU">Russia</li>
-					</ul>
-				</div>
-			</div> -->
 		</div>
 	</div>
-</div>
 </main>
 @endsection
 

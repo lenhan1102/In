@@ -63,10 +63,8 @@ Home
 @endsection
 
 @section('main')
-<main class= "mdl-layout__content">
-	<div class="page_layout mdl-layout" style="padding: 20px">
-		@yield('content')
-	</div>
+<main class= "mdl-layout__content">	
+		@yield('content')	
 </main>
 @endsection
 
