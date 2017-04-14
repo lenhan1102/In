@@ -94,3 +94,9 @@ Route::get('/test', function(){
 Route::put('/image/{id}', 'Admin\ImageController@destroy')->name('image.destroy');
 Route::get('/image/{id}', 'Admin\ImageController@set')->name('image.set');
 Route::post('/image/{id}', 'Admin\ImageController@unset')->name('image.unset');
+//	View
+Route::get('/info/{id}', function($id){
+	//dd( Dish::find($id));
+	return view('User.dish_info',['dish' => Dish::find($id)]);
+	//return view('User.user-master');
+});

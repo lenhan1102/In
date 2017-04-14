@@ -64,7 +64,9 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">	
+	<div class="page_layout mdl-shadow--16dp" style="margin: 20px 40px" >
 		@yield('content')	
+	</div>
 </main>
 @endsection
 

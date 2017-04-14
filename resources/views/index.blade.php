@@ -115,6 +115,6 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">
-			@yield('content')
+		@yield('content')
 </main>
 @endsection

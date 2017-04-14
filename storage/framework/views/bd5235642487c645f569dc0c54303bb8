@@ -9,7 +9,7 @@
 	<link href="<?php echo e(asset('css/fonts.css')); ?>" rel='stylesheet' type='text/css'>
 	<link href="<?php echo e(asset('css/icons.css')); ?>" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo e(asset('css/lib/getmdl-select.min.css')); ?>">
-
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="<?php echo e(asset('css/lib/nv.d3.css')); ?>">
 	<link rel="stylesheet" href="<?php echo e(asset('css/application.css')); ?>">
 	<!-- endinject -->
