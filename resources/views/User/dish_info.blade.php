@@ -1,4 +1,4 @@
-@extends('User.test')
+@extends('User.user-master')
 
 @section('title')
 {{$dish->name}}
@@ -27,7 +27,10 @@
 			<p rows="4" cols="50">Tập đoàn do doanh nhân Yonghong Li đứng đầu, Rossoneri Sport Investment Lux mua được đội bóng đá AC Milan với giá 786 triệu đôla.AC Milan với giá 786 triệu đôla.AC Milan với giá 786 triệu đôla. </p>
 		</div>
 		<div  class="mdl-cell mdl-cell--12-col">
-			<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised"> Thêm </button>
+			<form action="{{route('user.addToCart', ['id' => $dish->id])}}" method="get">
+				{{ csrf_field() }}
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised"> Thêm </button>
+			</form>
 		</div>
 	</div>
 </div>

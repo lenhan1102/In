@@ -23,23 +23,29 @@ Home
 
 		<!-- Notifications-->
 		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>
-
+		
 		<!-- Messages-->
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" id="inbox" data-badge="4">
+		@if($badge == 0)
+		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" id="inbox">
 			mail_outline
 		</div>
+		@else
+		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" id="inbox" data-badge="{{$badge}}">
+			mail_outline
+		</div>
+		@endif
 
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">
-			<span>{{ Auth::user()->name }} </span>
-			<img src='{{ Auth::user()->avatar }}'>
+			<span>aaaaaaaaaaaaaaa </span>
+			<img src=''>
 		</div>
 
 		<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
 			<li class="mdl-list__item mdl-list__item--two-line">
 				<span class="mdl-list__item-primary-content">
-					<span>{{ Auth::user()->name }}</span>
-					<span class="mdl-list__item-sub-title">{{ Auth::user()->email }}</span>
+					<span>aaaaaaaa</span>
+					<span class="mdl-list__item-sub-title">aaaaaaaaaa</span>
 				</span>
 			</li>
 			<li class="list__item--border-top"></li>
@@ -115,15 +121,8 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">
+	<div class="page_layout" style="margin: 20px 40px">
 		@yield('content')
-		<footer class="mdl-mini-footer">
-			<div class="mdl-mini-footer__left-section">
-				<div class="mdl-logo">Title</div>
-				<ul class="mdl-mini-footer__link-list">
-					<li><a href="#">Help</a></li>
-					<li><a href="#">Privacy & Terms</a></li>
-				</ul>
-			</div>
-		</footer>
+	</div>
 </main>
 @endsection
