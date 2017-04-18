@@ -87,17 +87,6 @@ Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_upd
 
 //
 Route::get('/test', function(){
-	return '<li class="mdl-menu__item" >Gadfadfsfny</li>
-	<li class="mdl-menu__item" >dsfs</li>
-	<li class="mdl-menu__item">Rdadfdfsfa</li>';
-})->name('AJAXTest');
-
-Route::put('/image/{id}', 'Admin\ImageController@destroy')->name('image.destroy');
-Route::get('/image/{id}', 'Admin\ImageController@set')->name('image.set');
-Route::post('/image/{id}', 'Admin\ImageController@unset')->name('image.unset');
-//	View
-Route::get('/info/{id}', function($id){
-	//dd( Dish::find($id));
 	if(!Session::has('cart')) {
 		$badge = 0;
 	} else {
@@ -107,9 +96,30 @@ Route::get('/info/{id}', function($id){
 			$badge += $cart[$dish->id];
 		}
 	}
-	return view('User.dish_info',['dish' => Dish::find($id), 'badge' => $badge]);
-	//return view('User.user-master');
-});
+	return view('User.index', ['badge' => $badge]);
+})->name('AJAXTest');
 
-Route::get('/add/{id}', 'User\ActionController@addToCart')->name('user.addToCart');
-Route::get('/add', 'User\ActionController@destroy')->name('user.destroy');
+Route::put('/image/{id}', 'Admin\ImageController@destroy')->name('image.destroy');
+Route::get('/image/{id}', 'Admin\ImageController@set')->name('image.set');
+Route::post('/image/{id}', 'Admin\ImageController@unset')->name('image.unset');
+//	View
+Route::get('/info/{id}', function($id){
+	//dd( Dish::find($id));
+	/*if(!Session::has('cart')) {
+		$badge = 0;
+	} else {
+		$carts = Session::get('cart');
+		$badge = 0;
+		foreach ($carts as $key => $cart) {
+			# code...
+			$badge += $cart;
+		}
+	}*/
+	return view('User.dish_info',['dish' => Dish::find($id)]);
+	//return view('User.user-master');
+})->name('action.view');
+
+Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
+Route::get('/add', 'User\ActionController@destroy')->name('action.destroy');
+Route::get('/cart', 'User\ActionController@cart')->name('action.cart');
+

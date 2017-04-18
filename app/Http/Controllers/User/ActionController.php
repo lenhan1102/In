@@ -95,28 +95,37 @@ class ActionController extends Controller
             Session::put('k', 1);
         }
     }
+
     public function addToCart(Request $request, $id)
     {
-        //
-        //Session::flush();
-        //$request->session()->flush();
-        
-        if (!Session::has('cart')) {
+        // cart is an array ['id' => 'quantity']
+        if (!Session::has('cart')) {           
             $cart = array();
-            $dishes = Dish::all();
-            foreach ($dishes as $dish) { 
-                # code...
-               $cart[$dish->id] = 0;
-            }
-            //dd($cart);
+            $cart[$id] = 0;
             Session::put('cart', $cart);
         }
+        $cart = Session::get('cart');
+        if (!array_key_exists($id, $cart)) {
+            $cart[$id] = 0;
+        }
+        $cart[$id] += 1;
+        Session::put('cart', $cart);
 
-        $arr = Session::get('cart');
+        // badge
+        $badge = 0;
+        if (Session::has('cart')) {
+            $carts = Session::get('cart');
+            foreach ($carts as $key => $value) {
+                $badge += $value;
+            }
+        }
+        Session::put('badge', $badge);
+        return Session::get('badge');
+    }
 
-        $arr[$id] += 1;
-        //echo '60: '.$arr[$id];   
-        Session::put('cart', $arr);
-        return Redirect::back();
+    public function cart()
+    {
+        $carts = Session::get('cart');
+        return view('User.cart',['carts' => $carts]);
     }
 }

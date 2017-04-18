@@ -1,3 +1,4 @@
+
 @extends('master')
 
 @section('title')
@@ -25,12 +26,12 @@ Home
 		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>
 		
 		<!-- Messages-->
-		@if($badge == 0)
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" id="inbox">
+		@if(!Session::has('badge') || Session::get('badge') == 0)
+		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'">
 			mail_outline
 		</div>
 		@else
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" id="inbox" data-badge="{{$badge}}">
+		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('badge')}}">
 			mail_outline
 		</div>
 		@endif
@@ -104,14 +105,13 @@ Home
 
 @section('drawer')
 <div class="mdl-layout__drawer">
-	<header>HTML5 Tutorial</header> 
+	<header>Menu</header> 
 	<nav class="mdl-navigation"> 
-		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
-		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">Home</i> Info </a> 
-
+		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">home</i> Info </a> 
 		<div class="mdl-layout-spacer"></div>
 		<a class="mdl-navigation__link" href=""> <i class="material-icons">view_comfy</i> Discount </a>
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">person</i> Account </a>
+
 
 		<div class="mdl-layout-spacer"></div>
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">link</i> GitHub </a> 

@@ -51,7 +51,7 @@ class DishController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:dishes|max:255',
             'price' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:255',
             'image' => 'required',
             'list' => 'required',
             'menu' => 'required',
