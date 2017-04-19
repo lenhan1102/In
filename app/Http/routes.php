@@ -122,4 +122,5 @@ Route::get('/info/{id}', function($id){
 Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
 Route::get('/add', 'User\ActionController@destroy')->name('action.destroy');
 Route::get('/cart', 'User\ActionController@cart')->name('action.cart');
+Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 

@@ -26,15 +26,17 @@ Home
 		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>
 		
 		<!-- Messages-->
-		@if(!Session::has('badge') || Session::get('badge') == 0)
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'">
-			mail_outline
+		<div id="cart">
+			@if(!Session::has('badge') || Session::get('badge') == 0)
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
+				mail_outline
+			</div>
+			@else
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('badge')}}">
+				mail_outline
+			</div>
+			@endif
 		</div>
-		@else
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('badge')}}">
-			mail_outline
-		</div>
-		@endif
 
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">

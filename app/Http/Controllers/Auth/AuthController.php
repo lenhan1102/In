@@ -17,7 +17,7 @@ use App\SocialAccount;
 class AuthController extends Controller
 {
 
-	//protected $redirectPath = '';
+	protected $redirectPath = 'index';
 	protected $loginPath = 'auth/login';
 	protected $redirectAfterLogout = 'auth/login';
     /*
@@ -73,7 +73,6 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'birthday' => $data['birthday'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']), 
@@ -81,7 +80,6 @@ class AuthController extends Controller
     }
     public function redirectToProvider()
     {
-
        return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
     }
 

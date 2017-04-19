@@ -72,9 +72,18 @@ class ActionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function deleteItem(Request $request)
     {
         //
+        $ids = $request->input('selected');
+        $cart = Session::get('cart');
+        foreach ($ids as $id) {
+            # code...
+            unset($cart[$id]);
+        }
+        Session::put('cart', $cart);
+        $this->updateBadge();
+        return Session::get('badge');
     }
 
     /**
@@ -112,6 +121,16 @@ class ActionController extends Controller
         Session::put('cart', $cart);
 
         // badge
+        $this->updateBadge();
+        return Session::get('badge');
+    }
+
+    public function cart()
+    {
+        $carts = Session::get('cart');
+        return view('User.cart',['carts' => $carts]);
+    }
+    public function updateBadge(){
         $badge = 0;
         if (Session::has('cart')) {
             $carts = Session::get('cart');
@@ -120,12 +139,6 @@ class ActionController extends Controller
             }
         }
         Session::put('badge', $badge);
-        return Session::get('badge');
-    }
-
-    public function cart()
-    {
-        $carts = Session::get('cart');
-        return view('User.cart',['carts' => $carts]);
+        return $badge;
     }
 }

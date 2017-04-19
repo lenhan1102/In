@@ -15,49 +15,39 @@ Register
 
         <div class="form__article">
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input type="text" name="name" class="mdl-textfield__input" id="name">
               <label class="mdl-textfield__label" for="name">Name</label>
             </div>
-          </div>
-        </div>
 
-        <div class="form__article">
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input type="text" name="username" class="mdl-textfield__input" id="username">
               <label class="mdl-textfield__label" for="username">Username</label>
             </div>
-          </div>
-
-          <div class="mdl-grid">
+          
             <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input type="text" name="email" class="mdl-textfield__input" id="email"">
               <label class="mdl-textfield__label" for="email">Email</label>
             </div>
-          </div>
-
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          
+            <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input type="password" name="password" class="mdl-textfield__input" id="password"">
               <label class="mdl-textfield__label" for="password">Password</label>
             </div>
-          </div>
-
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          
+            <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input type="password" name="password_confirmation" class="mdl-textfield__input" id="password_confirmation"">
               <label class="mdl-textfield__label" for="password_confirmation">Confirm-Password</label>
             </div>
           </div>
         </div>
-        <div class="form__action" style="margin-top: 0px;">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="submit button sign"> SIGN UP </button>
+        <div class="form__action" style="margin-top: 20px">
+          <button style="margin: auto; width: 213px;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="submit button sign"> SIGN UP </button>
         </div>
         <?php echo Form::close(); ?>
 
         <?php if(count($errors) > 0): ?>
-        <div class="alert alert-danger" style="color: red; li:{}">
+        <div class="alert alert-danger" style='color: red; li:{}'>
           <ul>
            <?php foreach($errors->all() as $error): ?>
            <li><?php echo e($error); ?></li>
