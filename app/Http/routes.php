@@ -104,23 +104,13 @@ Route::get('/image/{id}', 'Admin\ImageController@set')->name('image.set');
 Route::post('/image/{id}', 'Admin\ImageController@unset')->name('image.unset');
 //	View
 Route::get('/info/{id}', function($id){
-	//dd( Dish::find($id));
-	/*if(!Session::has('cart')) {
-		$badge = 0;
-	} else {
-		$carts = Session::get('cart');
-		$badge = 0;
-		foreach ($carts as $key => $cart) {
-			# code...
-			$badge += $cart;
-		}
-	}*/
 	return view('User.dish_info',['dish' => Dish::find($id)]);
 	//return view('User.user-master');
 })->name('action.view');
 
 Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
 Route::get('/add', 'User\ActionController@destroy')->name('action.destroy');
-Route::get('/cart', 'User\ActionController@cart')->name('action.cart');
+Route::get('/cart', 'User\ActionController@cart')->name('action.cart')->middleware('auth');
 Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 
+Route::get('/search', 'User\ActionController@search')->name('search');

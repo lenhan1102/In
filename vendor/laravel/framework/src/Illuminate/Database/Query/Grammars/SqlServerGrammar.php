@@ -249,7 +249,9 @@ class SqlServerGrammar extends Grammar
      */
     public function getDateFormat()
     {
-        return 'Y-m-d H:i:s.000';
+        return ($this->getConnection() instanceof Illuminate\Database\SqlServerConnection)
+        ? 'M d Y H:i:s:000A'
+        : parent::getDateFormat();
     }
 
     /**

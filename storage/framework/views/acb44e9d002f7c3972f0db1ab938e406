@@ -113,7 +113,9 @@ Home
 
 <?php $__env->startSection('main'); ?>
 <main class= "mdl-layout__content">
+	<div class="page_layout" style="margin: 20px 40px">
 		<?php echo $__env->yieldContent('content'); ?>
+	</div>
 </main>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

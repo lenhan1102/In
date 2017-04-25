@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Laravel\Socialite\Contracts\User as ProviderUser;
 use App\User;
+use App\Role;
 use Validator;
 use App\Http\Controllers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -70,18 +71,21 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']), 
-            ]);
+    {   
+        $user = new User;
+        $user['name'] = $data['name'];
+        $user['username'] = $data['username'];
+        $user['email'] = $data['email'];
+        $user['password'] = bcrypt($data['password']);
+        $user->save(); 
+        $user->roles()->attach(Role::where('name', 'User')->first());
+
+        return $user;
     }
     public function redirectToProvider()
     {
-       return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
-    }
+     return Socialite::driver('facebook')->scopes(['public_profile', 'email'])->redirect();
+ }
 
     /**
      * Obtain the user information from Facebook.
@@ -96,7 +100,7 @@ class AuthController extends Controller
       Auth::login($user);
 
       return redirect()->to('index');
-    }
+  }
 
     /**
      * Get existed account or create new
@@ -123,8 +127,10 @@ class AuthController extends Controller
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
+                    'username' => $providerUser->getName(),
                     'avatar' => $providerUser->getAvatar(),
                     ]);
+                $user->roles()->attach(Role::where('name', 'User')->first());
             }
             
             $account->user()->associate($user);

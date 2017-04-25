@@ -110,6 +110,7 @@ return [
 
     'providers' => [
 		Laravel\Socialite\SocialiteServiceProvider::class,
+        Elasticquent\ElasticquentServiceProvider::class,
 
         /*
          * Laravel Framework Service Providers...
@@ -199,6 +200,7 @@ return [
 		'Form' => Collective\Html\FormFacade::class,
 		'Html' => Collective\Html\HtmlFacade::class,
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
     ],
 	
 

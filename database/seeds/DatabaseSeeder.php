@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             $this->call(MListsTableSeeder::class);
             $this->call(DishesTableSeeder::class);
             $this->call(ImagesTableSeeder::class);
+            $this->call(RoleTableSeeder::class);
+            $this->call(usersTableSeeder::class);
 
         Model::reguard();
     }

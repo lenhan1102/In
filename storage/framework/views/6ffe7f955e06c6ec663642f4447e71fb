@@ -26,7 +26,7 @@ Register
             </div>
           
             <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input type="text" name="email" class="mdl-textfield__input" id="email"">
+              <input type="email" name="email" class="mdl-textfield__input" id="email"">
               <label class="mdl-textfield__label" for="email">Email</label>
             </div>
           
@@ -37,7 +37,7 @@ Register
           
             <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input type="password" name="password_confirmation" class="mdl-textfield__input" id="password_confirmation"">
-              <label class="mdl-textfield__label" for="password_confirmation">Confirm-Password</label>
+              <label class="mdl-textfield__label" for="password_confirmation">Confirm password</label>
             </div>
           </div>
         </div>

@@ -141,4 +141,9 @@ class ActionController extends Controller
         Session::put('badge', $badge);
         return $badge;
     }
+
+    public function search(Request $request){
+        //return Dish::search('dIaqYRnvyd');
+        return view('search', ['results' => Dish::search('dIaqYRnvyd')]);
+    }
 }

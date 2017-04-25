@@ -7,12 +7,16 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'Pimple' => array($vendorDir . '/pimple/pimple/lib'),
     'PhpSpec' => array($vendorDir . '/phpspec/phpspec/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
+    'Elasticsearch\\Tests' => array($vendorDir . '/elasticsearch/elasticsearch/tests'),
+    'Elasticsearch\\Benchmarks' => array($vendorDir . '/elasticsearch/elasticsearch/benchmarks'),
+    'Elasticsearch' => array($vendorDir . '/elasticsearch/elasticsearch/src'),
     'Dotenv' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),

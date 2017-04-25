@@ -1,6 +1,7 @@
 {
     "providers": [
         "Laravel\\Socialite\\SocialiteServiceProvider",
+        "Elasticquent\\ElasticquentServiceProvider",
         "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "Illuminate\\Auth\\AuthServiceProvider",
         "Illuminate\\Broadcasting\\BroadcastServiceProvider",
@@ -31,6 +32,7 @@
         "App\\Providers\\RouteServiceProvider"
     ],
     "eager": [
+        "Elasticquent\\ElasticquentServiceProvider",
         "Illuminate\\Auth\\AuthServiceProvider",
         "Illuminate\\Routing\\ControllerServiceProvider",
         "Illuminate\\Cookie\\CookieServiceProvider",

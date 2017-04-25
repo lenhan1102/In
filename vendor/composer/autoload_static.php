@@ -18,9 +18,9 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
-        'c65d09b6820da036953a371c8c73a9b1' => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook/polyfills.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        'c65d09b6820da036953a371c8c73a9b1' => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook/polyfills.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -86,6 +86,10 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         array (
             'Faker\\' => 6,
             'Facebook\\' => 9,
+        ),
+        'E' => 
+        array (
+            'Elasticquent\\' => 13,
         ),
         'D' => 
         array (
@@ -239,6 +243,10 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         array (
             0 => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook',
         ),
+        'Elasticquent\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/elasticquent/elasticquent/src',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -271,6 +279,10 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+            'Pimple' => 
+            array (
+                0 => __DIR__ . '/..' . '/pimple/pimple/lib',
             ),
             'PhpSpec' => 
             array (
@@ -306,6 +318,21 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
                 0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
             ),
         ),
+        'E' => 
+        array (
+            'Elasticsearch\\Tests' => 
+            array (
+                0 => __DIR__ . '/..' . '/elasticsearch/elasticsearch/tests',
+            ),
+            'Elasticsearch\\Benchmarks' => 
+            array (
+                0 => __DIR__ . '/..' . '/elasticsearch/elasticsearch/benchmarks',
+            ),
+            'Elasticsearch' => 
+            array (
+                0 => __DIR__ . '/..' . '/elasticsearch/elasticsearch/src',
+            ),
+        ),
         'D' => 
         array (
             'Dotenv' => 
@@ -329,8 +356,10 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         'CreateMenusTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_143141_create_menus_table.php',
         'CreateMlistsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_04_045336_create_mlists_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_134203_create_roles_table.php',
         'CreateSessionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_14_134334_create_sessions_table.php',
         'CreateSocialAccountsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_152608_create_social_accounts_table.php',
+        'CreateUserRoleTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_134814_create_user_role_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_03_032700_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'DishesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DishesTableSeeder.php',
@@ -811,6 +840,7 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'RoleTableSeeder' => __DIR__ . '/../..' . '/database/seeds/RoleTableSeeder.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
         'SebastianBergmann\\Comparator\\ComparisonFailure' => __DIR__ . '/..' . '/sebastian/comparator/src/ComparisonFailure.php',

@@ -115,6 +115,8 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">
+	<div class="page_layout" style="margin: 20px 40px">
 		@yield('content')
+	</div>
 </main>
 @endsection
