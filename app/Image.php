@@ -12,5 +12,5 @@ class Image extends Model
     {
         return $this->belongsTo('App\Dish');
     }
-    protected $fillable = ['link', 'isAvatar'];
+    protected $fillable = ['link', 'isAvatar', 'dish_id'];
 }

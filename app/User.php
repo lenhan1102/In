@@ -39,6 +39,12 @@ CanResetPasswordContract
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function social_accounts()
+    {
+        return $this->hasMany('App\socialAccount');
+    }
+    
     public function roles()
     {
         return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'role_id');

@@ -15,6 +15,7 @@
 		'class' => 'form', 
 		'novalidate' => 'novalidate', 
 		'files' => 'true')) !!}
+		@include('partials._messages')
 
 		<div class="form__article">
 			<div class="mdl-grid">

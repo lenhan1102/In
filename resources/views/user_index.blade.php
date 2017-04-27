@@ -82,7 +82,7 @@ Home
 						Descriptions
 					</div>
 					<div class="mdl-card__actions">
-						<form action="{{route('')}}" method="POST">
+						<form action="#" method="POST">
 							<button class="mdl-button mdl-js-button mdl-button--raised">View</button>
 							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 							<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Delete</button>

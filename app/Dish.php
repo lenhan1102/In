@@ -35,8 +35,5 @@ class Dish extends Model
         "stopwords" => [","]
         ],
         );
-    public function getDates()
-    {
-        return [];
-    }
+    
 }

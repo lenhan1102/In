@@ -11,6 +11,7 @@ use App\Menu;
 use App\Image;
 use File;
 use Storage;
+use Session;
 
 class DishController extends Controller
 {
@@ -66,6 +67,7 @@ class DishController extends Controller
         $dish->mlist()->associate($list);
 
         $dish->save();
+        Session::flash('success', 'Dish was successfully stored!');
         // Save image to folder /catalog
         $imageName = $dish->id . '.' . $request->file('image')->getClientOriginalName();
         $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id.'/', $imageName);
@@ -77,7 +79,7 @@ class DishController extends Controller
         $image->dish()->associate($dish);
 
         $image->save();
-        return redirect()->route('dish.index');
+        return redirect()->route('dish.create');
 
 
         //$imageName = 'test.' . $request->file('image')->getClientOriginalName();
@@ -139,26 +141,27 @@ class DishController extends Controller
         //
         $this->validate($request, [
             'price' => 'required',
-            'description' => 'required|string|max:255'
+            'description' => 'required|string|max:255',
+            'image' => 'image'
             ]);
 
         $dish = Dish::find($request->input('id'));
-        $dish->update([
-            'price' => $request->input('price'),
-            'description' => $request->input('description')
-            ]);
+        $dish->price = $request->input('price');
+        $dish->description = $request->input('description');
+        $dish->save();
+
         if ($request->file('image') != null) {
             # code...
-            $image = new Image(array(
-              'dish_id' => $request->input('id')
-              ));
+            $image = new Image();
+            $image->dish_id = $request->input('id');
+            
             $image->save();
-            $imageName = $image->id . ' ' . $request->file('image')->getClientOriginalName();
-            $image->update(['link', $imageName]);
 
+            $imageName = $image->id . '_' . $request->file('image')->getClientOriginalName();
+            $image->update(['link' => $imageName]);
             $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id, $imageName);
         }
-        return redirect()->route('dish.index');
+        return redirect()->route('dish.edit', ['id' => $dish->id]);
     }
 
     /**

@@ -12,6 +12,9 @@ use App\Image;
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/taikhoan', function () {
+	return view('taikhoan');
+});
 Route::get('/admin', function () {
 	return view('Admin.master');
 });
@@ -20,32 +23,48 @@ Route::get('/', function () {
 });
 Route::get('/index', function () {
 	$dishes = Dish::all();
-	if (Auth::check()){
-		return view('index');
-	} else {
+	if (!Auth::check()){
 		return view('user_index', ['dishes' => $dishes]);
+	} else {
+		return view('User.index', ['dishes' => $dishes]);
 	}
 })->name('index');
 //Admin
+//
+Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function(){
+	// Dish CRUD
+	Route::get('/dish','Admin\DishController@index')->name('dish.index');
+	Route::get('dish/create','Admin\DishController@create')->name('dish.create');
+	Route::post('dish', 'Admin\DishController@store')->name('dish.store');
+	Route::get('/dish/{id}', 'Admin\DishController@show')->name('dish.show');
+	Route::get('/dish/{id}/edit','Admin\DishController@edit')->name('dish.edit');
+	Route::put('/dish/{id}', 'Admin\DishController@update')->name('dish.update');
+	Route::delete('/dish/{id}', 'Admin\DishController@destroy')->name('dish.destroy');
 
-// Home
-Route::get('/aaaa', function () {
-	$dishes =  Dish::all();
-	//dd(count($dishes));
-	/*foreach ($dishes as $dish) {
-		# code...
-		//dd($dish);
-		// Get first image to show
-		if(Image::where('dish_id', $dish->id)->first()){
-			$link = Image::where('dish_id', $dish->id)->first()->link;
-			$dish->link = $link;
-		} else{
-			$dish->link = 'hello';
-		}	
-	}*/
-	return view('index');
+	// AJAX to update List and menu to edit
+	Route::get('admin/AJAXList','Admin\DishController@AJAXList')->name('AJAXList');
+	Route::get('admin/AJAXDish','Admin\DishController@AJAXDish')->name('AJAXDish');
+	Route::get('admin/AJAXListEdit','Admin\DishController@AJAXListEdit')->name('AJAXListEdit');
+
+	// Mlist CRUD
+	Route::get('/mlist', 'Admin\MlistController@index')->name('mlist.index');
+	Route::get('/mlist/create', 'Admin\MlistController@create')->name('mlist.create');
+	Route::post('/mlist', 'Admin\MlistController@store')->name('mlist.store');
+	Route::get('/mlist/{id}', 'Admin\MlistController@show')->name('mlist.show');
+	Route::get('/mlist/{id}/edit', 'Admin\MlistController@edit')->name('mlist.edit');
+	Route::put('/mlist/{id}', 'Admin\MlistController@update')->name('mlist.update');
+	Route::delete('/mlist/{id}', 'Admin\MlistController@destroy')->name('mlist.destroy');
+
+	// AJAX to update Mlist table
+	Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_updatelist');
+	//
 });
+Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['User']], function(){
+	
+});
+Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin', 'User']], function(){
 
+});
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin')->name('auth/login');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -59,33 +78,7 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider')->name('facebook');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
-// Dish CRUD
-Route::get('/dish','Admin\DishController@index')->name('dish.index');
-Route::get('dish/create','Admin\DishController@create')->name('dish.create');
-Route::post('dish', 'Admin\DishController@store')->name('dish.store');
-Route::get('/dish/{id}', 'Admin\DishController@show')->name('dish.show');
-Route::get('/dish/{id}/edit','Admin\DishController@edit')->name('dish.edit');
-Route::put('/dish/{id}', 'Admin\DishController@update')->name('dish.update');
-Route::delete('/dish/{id}', 'Admin\DishController@destroy')->name('dish.destroy');
 
-// AJAX to update List and menu to edit
-Route::get('admin/AJAXList','Admin\DishController@AJAXList')->name('AJAXList');
-Route::get('admin/AJAXDish','Admin\DishController@AJAXDish')->name('AJAXDish');
-Route::get('admin/AJAXListEdit','Admin\DishController@AJAXListEdit')->name('AJAXListEdit');
-
-// Mlist CRUD
-Route::get('/mlist', 'Admin\MlistController@index')->name('mlist.index');
-Route::get('/mlist/create', 'Admin\MlistController@create')->name('mlist.create');
-Route::post('/mlist', 'Admin\MlistController@store')->name('mlist.store');
-Route::get('/mlist/{id}', 'Admin\MlistController@show')->name('mlist.show');
-Route::get('/mlist/{id}/edit', 'Admin\MlistController@edit')->name('mlist.edit');
-Route::put('/mlist/{id}', 'Admin\MlistController@update')->name('mlist.update');
-Route::delete('/mlist/{id}', 'Admin\MlistController@destroy')->name('mlist.destroy');
-
-// AJAX to update Mlist table
-Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_updatelist');
-
-//
 Route::get('/test', function(){
 	if(!Session::has('cart')) {
 		$badge = 0;
@@ -99,13 +92,13 @@ Route::get('/test', function(){
 	return view('User.index', ['badge' => $badge]);
 })->name('AJAXTest');
 
+// Dish images: delete, set or unset avatar
 Route::put('/image/{id}', 'Admin\ImageController@destroy')->name('image.destroy');
 Route::get('/image/{id}', 'Admin\ImageController@set')->name('image.set');
 Route::post('/image/{id}', 'Admin\ImageController@unset')->name('image.unset');
 //	View
 Route::get('/info/{id}', function($id){
 	return view('User.dish_info',['dish' => Dish::find($id)]);
-	//return view('User.user-master');
 })->name('action.view');
 
 Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
@@ -113,4 +106,7 @@ Route::get('/add', 'User\ActionController@destroy')->name('action.destroy');
 Route::get('/cart', 'User\ActionController@cart')->name('action.cart')->middleware('auth');
 Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 
+Route::get('/search', function(){
+	return Dish::searchByQuery(array('match' => array('name' => 'dIaqYRnvyd')));
+})->name('search');
 Route::get('/search', 'User\ActionController@search')->name('search');

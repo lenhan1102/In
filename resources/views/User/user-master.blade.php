@@ -11,96 +11,74 @@ Home
 		<span class="mdl-layout-title">Logo</span>
 		<div class="mdl-layout-spacer"></div>
 		<!-- Search-->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-			<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-				<i class="material-icons">search</i>
-			</label>
-			<div class="mdl-textfield__expandable-holder">
-				<input class="mdl-textfield__input" type="text" id="search"/>
-				<label class="mdl-textfield__label" for="search">Enter your query...</label>
+		<form action="#">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+				<label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+					<i class="material-icons">search</i>
+				</label>
+				<div class="mdl-textfield__expandable-holder">
+					<input class="mdl-textfield__input" type="text" id="sample6">
+					<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+				</div>
 			</div>
-		</div>
-
-		<!-- Notifications-->
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>
+		</form>
 		
-		<!-- Messages-->
+		<!-- Cart -->
 		<div id="cart">
 			@if(!Session::has('badge') || Session::get('badge') == 0)
 			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
-				mail_outline
+				shopping
 			</div>
 			@else
 			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('badge')}}">
-				mail_outline
+				shopping
 			</div>
 			@endif
 		</div>
 
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">
-			<span>aaaaaaaaaaaaaaa </span>
-			<img src=''>
-		</div>
-
-		<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
-			<li class="mdl-list__item mdl-list__item--two-line">
-				<span class="mdl-list__item-primary-content">
-					<span>aaaaaaaa</span>
-					<span class="mdl-list__item-sub-title">aaaaaaaaaa</span>
-				</span>
-			</li>
-			<li class="list__item--border-top"></li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">account_circle</i>
-					My account
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">check_box</i>
-					My tasks
-				</span>
-				<span class="mdl-list__item-secondary-content">
-					<span class="label background-color--primary">3 new</span>
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">perm_contact_calendar</i>
-					My events
-				</span>
-			</li>
-			<li class="list__item--border-top"></li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">settings</i>
-					Settings
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<a href="{{ route('auth/logout') }}">
-					<span class="mdl-list__item-primary-content">
-						<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
-						Log out
-					</span>
-				</a>
-			</li>
-		</ul>
-
-		<button id="more" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
-
-		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp settings-dropdown" for="more">
-			<li class="mdl-menu__item">Settings</li>
-			<a class="mdl-menu__item" href="">
-				Support
-			</a>
-			<li class="mdl-menu__item">
-				F.A.Q.
-			</li>
-		</ul>
+			<span>{{Auth::user()->username}}</span>
+			<img src='
+			@if(count(Auth::user()->social_accounts))
+			{{Auth::user()->avatar}}
+			@else
+			{{count(Auth::user()->avatar)? asset("images/avatars/" . Auth::user()->avatar) : asset("images/avatars/" . "card.jpg")}}
+			@endif'
+			>
+		</img>
 	</div>
+
+	<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
+		<li class="mdl-list__item mdl-list__item--two-line">
+			<span class="mdl-list__item-primary-content">
+				<span>{{Auth::user()->username}}</span>
+				<span class="mdl-list__item-sub-title">{{Auth::user()->email}}</span>
+			</span>
+		</li>
+		<li class="list__item--border-top"></li>
+		<li class="mdl-menu__item mdl-list__item">
+			<a href="{{ route('auth/logout') }}">
+				<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
+					Log out
+				</span>
+			</a>
+		</li>
+	</ul>
+
+	<button id="more" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
+
+	<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp settings-dropdown" for="more">
+		<li class="mdl-menu__item">Settings</li>
+		<a class="mdl-menu__item" href="">
+			Support
+		</a>
+		<li class="mdl-menu__item">
+			F.A.Q.
+		</li>
+	</ul>
+</div>
 </header>
 @endsection
 

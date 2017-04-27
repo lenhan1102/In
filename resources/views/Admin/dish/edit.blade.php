@@ -1,5 +1,5 @@
 @extends('Admin.admin-master')
-@section('title') editDish 
+@section('title') Edit Dish
 @endsection
 @section('content')
 
@@ -36,14 +36,15 @@
 		<div class="form__article">
 			<div class="mdl-grid">
 				<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					ID: {{$dish->id}} 
+					<b style="color:white">ID:</b>
+					{{$dish->id}} 
 				</div>
 			</div>
 		</div>
 		<div class="form__article">
 			<div class="mdl-grid">
 				<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					Name: {{$dish->name}}
+					<b style="color:white"> Name: </b> {{$dish->name}}
 				</div>
 			</div>
 		</div>
@@ -52,11 +53,11 @@
 			<div class="mdl-grid">
 
 				<div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-					Menu: {{$cur_menu}} 
+					<b style="color:white"> Menu: </b> {{$cur_menu}} 
 				</div>
 
 				<div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="list_html">
-					List: {{$cur_list}}
+					<b style="color: white"> List: </b> {{$cur_list}}
 				</div>
 			</div>
 		</div>
@@ -65,6 +66,7 @@
 		</div>
 		<div class="form__article">
 			<div class="mdl-grid">
+				<input hidden type="text" name="id" id="id" value='{{$dish->id}}'>
 				<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label class="mdl-textfield__label" for="price"> Price </label>
 					<input type="text" name="price" id="price" class="mdl-textfield__input" value='{{$dish->price}}'>
@@ -118,40 +120,39 @@
 			<div class="mdl-cell mdl-cell--6-col">
 				<div class="mdl-card mdl-shadow--4dp">
 					<div class="mdl-card__media">
-						<img src="{{asset('images/catalog/').'/'.$image->link}}" width="100%" height="140" border="0">
-					</div>
-					<div class="mdl-card__actions">
-						<div class="mdl-grid">
-							<div class="mdl-cell mdl-cell--4-col">
-								<form action="{{route('image.destroy', ['id' => $image->id])}}" method="POST">
-									<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-									<input type="hidden" name="_method" value="PUT">
-									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Delete</button>
-								</form>
-							</div>
-							<div class="mdl-cell mdl-cell--8-col">
-								
-								@if($image->isAvatar)
-								<form action="{{route('image.unset', ['id' => $image->id])}}" method="POST">
-									<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised"> {{$image->isAvatar}} Unset Avatar</button>
-								</form>
-								@else
-								<form action="{{route('image.set', ['id' => $image->id])}}" method="GET">
-									<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised"> {{$image->isAvatar}} Set Avatar</button>
-								</form>
-								@endif
-							</div>
-						</div>					
-					</div>
+						<img src="{{asset('images/catalog/').'/'.$image->link}}" width="100%" height="150">
+				</div>
+				<div class="mdl-card__actions">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--6-col">
+							<form action="{{route('image.destroy', ['id' => $image->id])}}" method="POST">
+								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+								<input type="hidden" name="_method" value="PUT">
+								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Delete</button>
+							</form>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							@if($image->isAvatar)
+							<form action="{{route('image.unset', ['id' => $image->id])}}" method="POST">
+								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Unset</button>
+							</form>
+							@else
+							<form action="{{route('image.set', ['id' => $image->id])}}" method="GET">
+								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Set</button>
+							</form>
+							@endif
+						</div>
+					</div>					
 				</div>
 			</div>
-			@endforeach
-			@else
-			This dish hasn't had any images 
-			@endif
 		</div>
+		@endforeach
+		@else
+		This dish hasn't had any images 
+		@endif
 	</div>
+</div>
 </div>
 @endsection

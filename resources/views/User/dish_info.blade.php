@@ -29,12 +29,9 @@
 			</div>
 		</div>
 
-		<!-- Notifications-->
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>
-		
-		<!-- Messages-->
+		<!-- Cart-->
 		<div id="cart">
-			@if(!Session::has('cart') || Session::get('cart') == 0)
+			@if(!Session::has('badge') || Session::get('badge') == 0)
 			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
 				mail_outline
 			</div>
@@ -48,76 +45,56 @@
 
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">
-			<span>aaaaaaaaaaaaaaa </span>
-			<img src=''>
-		</div>
-
-		<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
-			<li class="mdl-list__item mdl-list__item--two-line">
-				<span class="mdl-list__item-primary-content">
-					<span>aaaaaaaa</span>
-					<span class="mdl-list__item-sub-title">aaaaaaaaaa</span>
-				</span>
-			</li>
-			<li class="list__item--border-top"></li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">account_circle</i>
-					My account
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">check_box</i>
-					My tasks
-				</span>
-				<span class="mdl-list__item-secondary-content">
-					<span class="label background-color--primary">3 new</span>
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">perm_contact_calendar</i>
-					My events
-				</span>
-			</li>
-			<li class="list__item--border-top"></li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">settings</i>
-					Settings
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<a href="{{ route('auth/logout') }}">
-					<span class="mdl-list__item-primary-content">
-						<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
-						Log out
-					</span>
-				</a>
-			</li>
-		</ul>
-
-		<button id="more" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
-
-		<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp settings-dropdown" for="more">
-			<li class="mdl-menu__item">Settings</li>
-			<a class="mdl-menu__item" href="">
-				Support
-			</a>
-			<li class="mdl-menu__item">
-				F.A.Q.
-			</li>
-		</ul>
+			<span>{{Auth::user()->username}}</span>
+			<img src='
+			@if(count(Auth::user()->social_accounts))
+			{{Auth::user()->avatar}}
+			@else
+			{{count(Auth::user()->avatar)? asset("images/avatars/" . Auth::user()->avatar) : asset("images/avatars/" . "card.jpg")}}
+			@endif'
+			>
+		</img>
 	</div>
+	<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
+		<li class="mdl-list__item mdl-list__item--two-line">
+			<span class="mdl-list__item-primary-content">
+				<span>{{Auth::user()->username}}</span>
+				<span class="mdl-list__item-sub-title">{{Auth::user()->email}}</span>
+			</span>
+		</li>
+		<li class="list__item--border-top"></li>
+		<li class="mdl-menu__item mdl-list__item">
+			<a href="{{ route('auth/logout') }}">
+				<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
+					Log out
+				</span>
+			</a>
+		</li>
+	</ul>
+
+	<button id="more" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
+
+	<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp settings-dropdown" for="more">
+		<li class="mdl-menu__item">Settings</li>
+		<a class="mdl-menu__item" href="">
+			Support
+		</a>
+		<li class="mdl-menu__item">
+			F.A.Q.
+		</li>
+	</ul>
+</div>
 </header>
 @endsection
 
 @section('content')
-<div style="height: 350px; background-color: rgba(45, 43, 43, 0.48); color: white; width: 80%; margin: auto;" class="mdl-grid mdl-shadow--8dp">
+<div style="height: 350px; background-color: rgba(45, 43, 43, 0.48); color: white; width: 80%; margin: auto; margin-top: 40px" class="mdl-grid mdl-shadow--8dp">
 	<div class="mdl-cell mdl-cell--6-col">
 		<div class="w3-content w3-display-container mdl-shadow--8dp" style="height: 100%">
-			<img class="mySlides" src="{{asset('images/catalog/14 Bun_cha.jpg')}}" style="width: 100%; height: 100%">
+			@foreach($dish->images as $image)
+			<img class="mySlides" src="{{asset('images/catalog/'.$dish->id.'/'.$image->link)}}" style="width: 100%; height: 100%">
+			@endforeach
 			<img class="mySlides" src="{{asset('images/catalog/15 Ga_tam_mam_nhi.jpg')}}" style="width:100%; height: 100%">
 			<img class="mySlides" src="{{asset('images/catalog/16 Lau_ga_tiem_ot_hiem.jpg')}}" style="width:100%; height: 100%">
 			<img class="mySlides" src="{{asset('images/catalog/17 Tra_sua_Gong_Cha.jpg')}}" style="width:100%; height: 100%">
@@ -128,15 +105,15 @@
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-grid" >
 		<div class="mdl-cell mdl-cell--12-col" style="height: 60%">
-			<h3 style="margin-top: 0px; font-size:20px;">Café/Dessert - Việt Nam 
-			</h3>
-			<h3 style="font-size:16px; white-space: pre-line;line-height: normal;" class="name-hot-restaurant" itemprop="name">Đồ ăn - Ăn nhanh & Ăn vặt
-			</h3>
-			<p>$6000</p>
-			<p style="font-size:12px;">Tập đoàn do doanh nhân Yonghong Li đứng đầu, Rossoneri Sport Investment Lux mua được đội bóng đá AC Milan với giá 786 triệu đôla. AC Milan với giá 786 triệu đôla.AC Milan với giá 786 triệu đôla. </p>
+			<h2 style="margin-top: 0px; font-size:35px;">{{$dish->name}}
+			</h2>
+			<p style="font-size:16px; white-space: pre-line;line-height: normal;" class="name-hot-restaurant" itemprop="name">{{$dish->mlist->menu->name}}
+			</p>
+			<p style="color: rgb(102, 102, 153)">$ {{$dish->price}}</p>
+			<p style="font-size:12px;"> {{$dish->description}} </p>
 		</div>
 		<div  class="mdl-cell mdl-cell--12-col">
-			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value="{{$dish->id}}"> Thêm </button> 
+			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value="{{$dish->id}}"> Thêm</button> 
 		</div>
 	</div>
 </div>
