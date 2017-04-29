@@ -44,6 +44,11 @@ CanResetPasswordContract
     {
         return $this->hasMany('App\socialAccount');
     }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
     
     public function roles()
     {

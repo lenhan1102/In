@@ -77,7 +77,6 @@ class DishController extends Controller
           'link' => $imageName,
           ));
         $image->dish()->associate($dish);
-
         $image->save();
         return redirect()->route('dish.create');
 

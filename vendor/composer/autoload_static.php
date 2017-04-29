@@ -353,6 +353,7 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
     public static $classMap = array (
         'CreateDishesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_18_045545_create_dishes_table.php',
         'CreateImagesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_144427_create_images_table.php',
+        'CreateLikesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_28_082508_create_likes_table.php',
         'CreateMenusTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_143141_create_menus_table.php',
         'CreateMlistsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_04_045336_create_mlists_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

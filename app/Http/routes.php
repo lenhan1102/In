@@ -110,3 +110,4 @@ Route::get('/search', function(){
 	return Dish::searchByQuery(array('match' => array('name' => 'dIaqYRnvyd')));
 })->name('search');
 Route::get('/search', 'User\ActionController@search')->name('search');
+Route::post('/vote', 'User\ActionController@vote')->name('vote');

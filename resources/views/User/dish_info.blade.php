@@ -4,7 +4,69 @@
 {{$dish->name}}
 @endsection
 @section('header')
+<script>
+
+    // This is the first thing we add ------------------------------------------
+    $(document).ready(function() {
+    	$('.ratings_stars').hover(
+            // Handles the mouseover
+            function() {
+            	$(this).prevAll().addBack().addClass('ratings_over');
+            	$(this).nextAll().removeClass('ratings_vote'); 
+            },
+            // Handles the mouseout
+            function() {
+            	$(this).prevAll().addBack().removeClass('ratings_over');
+                // can't use 'this' because it wont contain the updated data
+                set_votes($(this).parent());
+            }
+            );
+
+
+        // This actually records the vote when click
+        $('.ratings_stars').bind('click', function() {
+        	var star = this;
+        	var widget = $(this).parent();
+        	var voted = $(star).attr('class');
+        	
+        	$.ajax({
+        		url: "{{route('vote')}}",
+        		type:"POST",
+        		beforeSend: function (xhr) {
+        			var token = $('meta[name="csrf_token"]').attr('content');
+
+        			if (token) {
+        				return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        			}
+        		},
+        		data: { voted : voted},
+        		success:function(data){
+        			console.log(data);
+        			set_votes(widget, data);
+        		},
+        		error:function(){ 
+        			alert("error!!!!");
+        		}
+        	});
+        });
+    });
+
+    function set_votes(widget, data) {
+    	$(widget).find('.star_' + data).prevAll().addBack().addClass('ratings_vote');
+    	$(widget).find('.star_' + data).nextAll().removeClass('ratings_vote'); 
+    	
+    }
+</script>
+
 <script type="text/javascript">
+	$.fn.xstar = function() {
+		return $(this).each(function() {
+			$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 16));
+		});
+	}
+	$(function() {
+		$('span.xstar').xstar();
+	});
 	$(document).ready(function(){
 		$("#add").click(function(){
 			$.get('{{route('action.addToCart', ["id" => $dish->id])}}', function(data){
@@ -12,6 +74,8 @@
 			});
 		});
 	});
+
+
 </script>
 <header class="mdl-layout__header">
 	<div class="mdl-layout__header-row">
@@ -89,6 +153,7 @@
 @endsection
 
 @section('content')
+<meta name="csrf_token" content="{{ csrf_token() }}" />
 <div style="height: 350px; background-color: rgba(45, 43, 43, 0.48); color: white; width: 80%; margin: auto; margin-top: 40px" class="mdl-grid mdl-shadow--8dp">
 	<div class="mdl-cell mdl-cell--6-col">
 		<div class="w3-content w3-display-container mdl-shadow--8dp" style="height: 100%">
@@ -106,15 +171,46 @@
 	<div class="mdl-cell mdl-cell--6-col mdl-grid" >
 		<div class="mdl-cell mdl-cell--12-col" style="height: 60%">
 			<h2 style="margin-top: 0px; font-size:35px;">{{$dish->name}}
+				<span class="xstar">3.4545</span>
 			</h2>
+
+			
+
 			<p style="font-size:16px; white-space: pre-line;line-height: normal;" class="name-hot-restaurant" itemprop="name">{{$dish->mlist->menu->name}}
 			</p>
 			<p style="color: rgb(102, 102, 153)">$ {{$dish->price}}</p>
 			<p style="font-size:12px;"> {{$dish->description}} </p>
 		</div>
-		<div  class="mdl-cell mdl-cell--12-col">
+
+		<div  class="mdl-cell mdl-cell--2-col">
 			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value="{{$dish->id}}"> Thêm</button> 
 		</div>
+
+		<!-- bought? -->
+		<div class='movie_choice'>
+			Rate: Raiders of the Lost Ark
+			<div id="r1" class="rate_widget">
+				<div class="star_1 ratings_stars"></div>
+				<div class="star_2 ratings_stars"></div>
+				<div class="star_3 ratings_stars"></div>
+				<div class="star_4 ratings_stars"></div>
+				<div class="star_5 ratings_stars"></div>
+				<div class="total_votes">vote data</div>
+			</div>
+		</div>
+
+		<div class='movie_choice'>
+			Rate: The Hunt for Red October
+			<div id="r2" class="rate_widget">
+				<div class="star_1 ratings_stars"></div>
+				<div class="star_2 ratings_stars"></div>
+				<div class="star_3 ratings_stars"></div>
+				<div class="star_4 ratings_stars"></div>
+				<div class="star_5 ratings_stars"></div>
+				<div class="total_votes">vote data</div>
+			</div>
+		</div>
+		
 	</div>
 </div>
 

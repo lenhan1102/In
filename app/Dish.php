@@ -19,6 +19,11 @@ class Dish extends Model
     {
         return $this->hasMany('App\Image');
     }
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
+
     protected $fillable = ['id', 'mlist_id', 'name', 'price', 'description', 'avatar', 'ordered', 'rating', 'created_at', 'updated_at'];
     protected $mappingProperties = array(
         'name' => [

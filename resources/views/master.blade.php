@@ -3,6 +3,7 @@
 <head>
 	<link rel="icon" type="image/png" href="{{ asset('images/DB_16х16.png') }}">
 	<meta charset="utf-8">
+	
 	<title>@yield('title')</title>
 
 	<!-- inject:css -->

@@ -3,6 +3,7 @@
 <head>
 	<link rel="icon" type="image/png" href="<?php echo e(asset('images/DB_16х16.png')); ?>">
 	<meta charset="utf-8">
+	
 	<title><?php echo $__env->yieldContent('title'); ?></title>
 
 	<!-- inject:css -->

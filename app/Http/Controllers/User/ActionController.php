@@ -60,9 +60,11 @@ class ActionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function vote(Request $request)
     {
-        //
+        //return 2;
+        preg_match('/star_([1-5]{1})/', $request->voted, $match);
+        return intval(substr($match[0], 5, 1));
     }
 
     /**
