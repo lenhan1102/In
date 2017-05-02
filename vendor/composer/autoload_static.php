@@ -55,6 +55,7 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'SuperClosure\\' => 13,
+            'Stripe\\' => 7,
             'Stringy\\' => 8,
         ),
         'P' => 
@@ -190,6 +191,10 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         'SuperClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Stringy\\' => 
         array (
@@ -356,12 +361,14 @@ class ComposerStaticInit7d40719d6e15796a75d30fabbc652b7c
         'CreateLikesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_28_082508_create_likes_table.php',
         'CreateMenusTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_21_143141_create_menus_table.php',
         'CreateMlistsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_04_045336_create_mlists_table.php',
+        'CreateOrdersTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_02_183255_create_orders_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_134203_create_roles_table.php',
         'CreateSessionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_14_134334_create_sessions_table.php',
         'CreateSocialAccountsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_152608_create_social_accounts_table.php',
         'CreateUserRoleTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_134814_create_user_role_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_03_032700_create_users_table.php',
+        'CreateVotesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_29_155536_create_votes_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'DishesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DishesTableSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',

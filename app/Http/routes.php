@@ -34,8 +34,8 @@ Route::get('/index', function () {
 Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function(){
 	// Dish CRUD
 	Route::get('/dish','Admin\DishController@index')->name('dish.index');
-	Route::get('dish/create','Admin\DishController@create')->name('dish.create');
-	Route::post('dish', 'Admin\DishController@store')->name('dish.store');
+	Route::get('/dish/create','Admin\DishController@create')->name('dish.create');
+	Route::post('/dish', 'Admin\DishController@store')->name('dish.store');
 	Route::get('/dish/{id}', 'Admin\DishController@show')->name('dish.show');
 	Route::get('/dish/{id}/edit','Admin\DishController@edit')->name('dish.edit');
 	Route::put('/dish/{id}', 'Admin\DishController@update')->name('dish.update');
@@ -102,12 +102,14 @@ Route::get('/info/{id}', function($id){
 })->name('action.view');
 
 Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
-Route::get('/add', 'User\ActionController@destroy')->name('action.destroy');
 Route::get('/cart', 'User\ActionController@cart')->name('action.cart')->middleware('auth');
 Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 
-Route::get('/search', function(){
-	return Dish::searchByQuery(array('match' => array('name' => 'dIaqYRnvyd')));
-})->name('search');
+/*Route::get('/search', function(){
+	return Dish::search('new');
+})->name('search');*/
 Route::get('/search', 'User\ActionController@search')->name('search');
 Route::post('/vote', 'User\ActionController@vote')->name('vote');
+
+Route::post('/checkout', 'User\ActionController@postCheckout')->name('checkout');
+Route::get('/checkout', 'User\ActionController@getCheckout')->name('checkout');

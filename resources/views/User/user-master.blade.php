@@ -11,13 +11,13 @@ Home
 		<span class="mdl-layout-title">Logo</span>
 		<div class="mdl-layout-spacer"></div>
 		<!-- Search-->
-		<form action="#">
+		<form action="{{route('search')}}">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-				<label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+				<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
 					<i class="material-icons">search</i>
 				</label>
 				<div class="mdl-textfield__expandable-holder">
-					<input class="mdl-textfield__input" type="text" id="sample6">
+					<input class="mdl-textfield__input" name="key" type="text" id="search">
 					<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
 				</div>
 			</div>
@@ -25,12 +25,12 @@ Home
 		
 		<!-- Cart -->
 		<div id="cart">
-			@if(!Session::has('badge') || Session::get('badge') == 0)
+			@if(!Session::has('cart') || Session::get('cart')->totalQty == 0)
 			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
 				shopping
 			</div>
 			@else
-			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('badge')}}">
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('cart')->totalQty}}">
 				shopping
 			</div>
 			@endif
@@ -100,7 +100,7 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">
-	<div class="page_layout" style="margin: 20px 40px">
+	<div class="page_content" style="margin: 20px 40px">
 		@yield('content')
 	</div>
 </main>

@@ -11,15 +11,17 @@ Home
 		<span class="mdl-layout-title">Logo</span>
 		<div class="mdl-layout-spacer"></div>
 		<!-- Search-->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-			<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-				<i class="material-icons">search</i>
-			</label>
-			<div class="mdl-textfield__expandable-holder">
-				<input class="mdl-textfield__input" type="text" id="search"/>
-				<label class="mdl-textfield__label" for="search">Enter your query...</label>
+		<form action="{{route('search')}}" method="GET">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+				<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+					<i class="material-icons">search</i>
+				</label>
+				<div class="mdl-textfield__expandable-holder">
+					<input class="mdl-textfield__input" name="key" type="text" id="search">
+					<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+				</div>
 			</div>
-		</div>
+		</form>
 
 		<!-- Notifications-->
 		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>

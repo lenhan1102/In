@@ -78,6 +78,7 @@ class DishController extends Controller
           ));
         $image->dish()->associate($dish);
         $image->save();
+        Dish::reindex();
         return redirect()->route('dish.create');
 
 
@@ -160,6 +161,7 @@ class DishController extends Controller
             $image->update(['link' => $imageName]);
             $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id, $imageName);
         }
+        Dish::reindex();
         return redirect()->route('dish.edit', ['id' => $dish->id]);
     }
 

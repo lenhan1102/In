@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dish extends Model
 {
     //
+    public $timestamps = false;
     use ElasticquentTrait;
 
     protected $table = 'dishes';
@@ -19,13 +20,18 @@ class Dish extends Model
     {
         return $this->hasMany('App\Image');
     }
-    public function likes()
+    public function votes()
     {
-        return $this->hasMany('App\Like');
+        return $this->hasMany('App\Vote');
     }
 
-    protected $fillable = ['id', 'mlist_id', 'name', 'price', 'description', 'avatar', 'ordered', 'rating', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'mlist_id', 'name', 'price', 'description', 'avatar', 'ordered', 'rating'];
+
     protected $mappingProperties = array(
+        'id' => [
+        'type' => 'integer',
+        "analyzer" => "standard",
+        ],
         'name' => [
         'type' => 'string',
         "analyzer" => "standard",

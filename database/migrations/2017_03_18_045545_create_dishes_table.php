@@ -23,8 +23,6 @@ class CreateDishesTable extends Migration
             $table->integer('ordered')->nullable();
             $table->integer('rating')->nullable();
             $table->string('description')->nullable();
-          
-            $table->timestamps();
         });
 
         

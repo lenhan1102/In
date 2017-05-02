@@ -7,64 +7,51 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Dish;
+use App\Vote;
+use App\User;
+use App\Cart;
+use App\Order;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Auth;
 use Session;
 use Redirect;
 
+
 class ActionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function vote(Request $request)
     {
-        //return 2;
+        // update vote table
         preg_match('/star_([1-5]{1})/', $request->voted, $match);
-        return intval(substr($match[0], 5, 1));
+        $voted = intval(substr($match[0], 5, 1));
+
+        $line = Vote::where('user_id', Auth::user()->id)->where('dish_id', $request->dish_id)->first();
+        if($line){
+            $line->update([
+                'voted' => $voted]);
+        }else{
+            Vote::create([
+                'user_id' =>  Auth::user()->id,
+                'dish_id' => $request->dish_id,
+                'voted' => $voted
+                ]);
+        }
+        Dish::find($request->dish_id)->update(['rating' => $this->updateRating($request->dish_id)]);
+        
+        return $voted;
+    }
+
+    public function updateRating(int $id){
+        $votes = Dish::find($id)->votes;
+        if (count($votes)) {
+            $n = 0;
+            foreach ($votes as $key => $value) {
+                $n += $value->voted;
+            }
+            return $n/count($votes);
+        } 
+        return 0;
     }
 
     /**
@@ -79,13 +66,10 @@ class ActionController extends Controller
         //
         $ids = $request->input('selected');
         $cart = Session::get('cart');
-        foreach ($ids as $id) {
-            # code...
-            unset($cart[$id]);
-        }
+        $cart->delete($ids);
         Session::put('cart', $cart);
-        $this->updateBadge();
-        return Session::get('badge');
+
+        return array('badge' => $cart->totalQty, 'total' => $cart->totalPrice);
     }
 
     /**
@@ -94,58 +78,77 @@ class ActionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
-    {
-        if (Session::has('k')) {
-            # code...
-            echo 'co k';
-            Session::put('k',  Session::get('k') + 1);
-            echo Session::get('k');
-        } else {
-            echo 'khong co, gio them';
-            Session::put('k', 1);
-        }
-    }
 
     public function addToCart(Request $request, $id)
     {
-        // cart is an array ['id' => 'quantity']
-        if (!Session::has('cart')) {           
-            $cart = array();
-            $cart[$id] = 0;
-            Session::put('cart', $cart);
-        }
-        $cart = Session::get('cart');
-        if (!array_key_exists($id, $cart)) {
-            $cart[$id] = 0;
-        }
-        $cart[$id] += 1;
-        Session::put('cart', $cart);
-
-        // badge
-        $this->updateBadge();
-        return Session::get('badge');
+        $product = Dish::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($product, $product->id);
+        $request->session()->put('cart', $cart);
+        return $cart->totalQty;
     }
 
     public function cart()
     {
-        $carts = Session::get('cart');
-        return view('User.cart',['carts' => $carts]);
-    }
-    public function updateBadge(){
-        $badge = 0;
-        if (Session::has('cart')) {
-            $carts = Session::get('cart');
-            foreach ($carts as $key => $value) {
-                $badge += $value;
-            }
+        if (!Session::has('cart')) {
+            return view('User.cart');
         }
-        Session::put('badge', $badge);
-        return $badge;
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        return view('User.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+    }
+    
+    
+    public function search(Request $request){
+        //return $request->key;
+        return view('search', ['results' => Dish::search($request->key)]);
     }
 
-    public function search(Request $request){
-        //return Dish::search('dIaqYRnvyd');
-        return view('search', ['results' => Dish::search('dIaqYRnvyd')]);
+    public function postCheckout(Request $request){
+        if (!Session::has('cart')) {
+            return redirect()->route('User.cart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        Stripe::setApiKey('sk_test_Pqn9Y3b2AGEbtbLqXaTCGiVA');
+        try {
+            $charge = Charge::create(array(
+                "amount" => $cart->totalPrice,
+                "currency" => "vnd",
+                "source" => $request->input('stripeToken'), // obtained with Stripe.js
+                "description" => "Test Charge"
+            ));
+            $order = new Order();
+            $order->cart = serialize($cart);
+            $order->address = $request->input('address');
+            $order->name = $request->input('name');
+            $order->payment_id = $charge->id;
+
+            Auth::user()->orders()->save($order);
+        } catch (\Exception $e) {
+            return redirect()->route('checkout')->with('error', $e->getMessage());
+        }
+
+
+        Session::forget('cart');
+        return redirect()->route('index')->with('success', 'Successfully purchased products!');
+    }
+    public function getCheckout(){
+        if (!Session::has('cart')) {
+            return view('User.cart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+        return view('User.checkout', ['total' => $total]);
+    }
+
+    public function getProfile(){
+        $orders = Auth::user()->orders;
+        $orders->transforms(function($order, $key){
+            $order->cart = unserialize($order->cart);
+            return $order;
+        });
     }
 }

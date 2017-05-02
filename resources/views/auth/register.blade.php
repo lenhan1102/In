@@ -26,12 +26,12 @@ Register
             </div>
           
             <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input type="email" name="email" class="mdl-textfield__input" id="email"">
+              <input type="email" name="email" class="mdl-textfield__input" id="email">
               <label class="mdl-textfield__label" for="email">Email</label>
             </div>
           
             <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input type="password" name="password" class="mdl-textfield__input" id="password"">
+              <input type="password" name="password" class="mdl-textfield__input" id="password">
               <label class="mdl-textfield__label" for="password">Password</label>
             </div>
           

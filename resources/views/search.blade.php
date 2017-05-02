@@ -5,6 +5,7 @@ Results
 @section('content')
 <div class="mdl-grid">
 	<!-- Cards -->
+	
 	@foreach($results as $result)
 	<div class="mdl-cell mdl-cell--3-col">
 		<div class="mdl-card mdl-shadow--4dp">

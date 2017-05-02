@@ -39,7 +39,7 @@
         				return xhr.setRequestHeader('X-CSRF-TOKEN', token);
         			}
         		},
-        		data: { voted : voted},
+        		data: { voted : voted, dish_id: {{$dish->id}}},
         		success:function(data){
         			console.log(data);
         			set_votes(widget, data);
@@ -49,6 +49,7 @@
         		}
         	});
         });
+        set_votes($(".rate_widget"), {{App\Vote::where('user_id', Auth::user()->id)->where('dish_id', $dish->id)->first()? App\Vote::where('user_id', Auth::user()->id)->where('dish_id', $dish->id)->first()->voted : 0}});
     });
 
     function set_votes(widget, data) {
@@ -81,26 +82,26 @@
 	<div class="mdl-layout__header-row">
 		<!-- Title -->
 		<span class="mdl-layout-title">Logo</span>
-		<div class="mdl-layout-spacer"></div>
-		<!-- Search-->
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-			<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-				<i class="material-icons">search</i>
-			</label>
-			<div class="mdl-textfield__expandable-holder">
-				<input class="mdl-textfield__input" type="text" id="search"/>
-				<label class="mdl-textfield__label" for="search">Enter your query...</label>
+		<form action="{{route('search')}}" method="GET">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+				<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+					<i class="material-icons">search</i>
+				</label>
+				<div class="mdl-textfield__expandable-holder">
+					<input class="mdl-textfield__input" name="key" type="text" id="search">
+					<label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+				</div>
 			</div>
-		</div>
+		</form>
 
 		<!-- Cart-->
 		<div id="cart">
-			@if(!Session::has('badge') || Session::get('badge') == 0)
+			@if(!Session::has('cart') || Session::get('cart')->totalQty == 0)
 			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
 				mail_outline
 			</div>
 			@else
-			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('badge')}}">
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('cart')->totalQty}}">
 				mail_outline
 			</div>
 			@endif
@@ -170,8 +171,10 @@
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-grid" >
 		<div class="mdl-cell mdl-cell--12-col" style="height: 60%">
+			
 			<h2 style="margin-top: 0px; font-size:35px;">{{$dish->name}}
-				<span class="xstar">3.4545</span>
+
+				<span class="xstar">{{$dish->rating? $dish->rating : 0}}</span>
 			</h2>
 
 			
@@ -188,29 +191,14 @@
 
 		<!-- bought? -->
 		<div class='movie_choice'>
-			Rate: Raiders of the Lost Ark
 			<div id="r1" class="rate_widget">
 				<div class="star_1 ratings_stars"></div>
 				<div class="star_2 ratings_stars"></div>
 				<div class="star_3 ratings_stars"></div>
 				<div class="star_4 ratings_stars"></div>
 				<div class="star_5 ratings_stars"></div>
-				<div class="total_votes">vote data</div>
 			</div>
 		</div>
-
-		<div class='movie_choice'>
-			Rate: The Hunt for Red October
-			<div id="r2" class="rate_widget">
-				<div class="star_1 ratings_stars"></div>
-				<div class="star_2 ratings_stars"></div>
-				<div class="star_3 ratings_stars"></div>
-				<div class="star_4 ratings_stars"></div>
-				<div class="star_5 ratings_stars"></div>
-				<div class="total_votes">vote data</div>
-			</div>
-		</div>
-		
 	</div>
 </div>
 

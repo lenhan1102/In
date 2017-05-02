@@ -14,11 +14,12 @@ Giỏ hàng
 			if(selected.length){
 				$.get("{{route('item.delete')}}", {selected:selected}, function(data){
 					console.log(data);
-					if (data == 0) {
+					if (data.badge == 0) {
 						$("#cart > div").removeAttr('data-badge');
 					} else {
-						$("#cart > div").attr('data-badge', data);
+						$("#cart > div").attr('data-badge', data.badge);
 					}
+					$("#total").html(data.total);
 				});
 			};
 			$(".is-selected").remove();
@@ -28,7 +29,7 @@ Giỏ hàng
 <div class="mdl-grid">
 	<div class="mdl-cell mdl-cell--3-col"></div>
 	<div class="mdl-cell mdl-cell--6-col">
-
+		@if(Session::has('cart'))
 		<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width: 100%">
 			<thead>
 				<tr>
@@ -38,20 +39,16 @@ Giỏ hàng
 					<th>Tính</th>
 				</tr>
 			</thead>
+
 			<tbody>
-				<?php $sum = 0; ?>
-				@if($carts != null)
-				@foreach ($carts as $key => $cart)
-				<tr id="{{$key}}">
-					<?php echo $key; ?>
-					<td class="mdl-data-table__cell--non-numeric">{{App\Dish::find($key)->name}}</td>
-					<td>{{$cart}}</td>
-					<td>{{App\Dish::find($key)->price}}</td>
-					<td>{{$cart*App\Dish::find($key)->price}}</td>
+				@foreach($products as $product)
+				<tr id="{{ $product['item']['id'] }}">
+					<td class="mdl-data-table__cell--non-numeric">{{ $product['item']['name'] }}</td>
+					<td>{{ $product['qty'] }}</td>
+					<td>{{ $product['item']['price'] }}</td>
+					<td>{{ $product['qty']* $product['item']['price']}}</td>
 				</tr>
-				<?php $sum += $cart*App\Dish::find($key)->price; ?>
 				@endforeach
-				@endif
 			</tbody>
 		</table>
 		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%; border-top-color: white 1px;">
@@ -60,7 +57,7 @@ Giỏ hàng
 					<td class="mdl-data-table__cell--non-numeric"></td>
 					<td></td>
 					<td></td>
-					<td>{{$sum}}</td>
+					<td id="total"><strong>Total: {{ $totalPrice }}</strong></td>
 				</tr>
 				<tr>
 					<td class="mdl-data-table__cell--non-numeric"></td>
@@ -71,15 +68,20 @@ Giỏ hàng
 			</tbody>
 
 		</table>
+
 		<div class="mdl-card mdl-shadow--2dp" style="margin-top: 10px ; width: 100%">
 			<div class="mdl-card__supporting-text">
-				{!! Form::open(['method' => 'POST', 'url' => '#', 'class' => 'form']) !!}
+				{!! Form::open(['method' => 'get', 'action' => "User\ActionController@getCheckout", 'class' => 'form']) !!}
+				{{csrf_field()}}
 				<div class="form__action" style="margin-top: 0px;">
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="width: 50%; margin: auto"> Đặt trước </button>
 				</div>
 				{!! Form::close() !!}
 			</div>
 		</div>
+		@else
+
+		@endif
 	</div>
 	<div class="mdl-cell mdl-cell--3-col"></div>
 </div>

@@ -3,6 +3,7 @@
 <head>
 	<link rel="icon" type="image/png" href="{{ asset('images/DB_16х16.png') }}">
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<title>@yield('title')</title>
 
@@ -15,9 +16,10 @@
 	<link rel="stylesheet" href="{{ asset('css/application.css') }}">
 	<!-- endinject -->
 	<!-- inject:js --> 
-	<script src="{{ asset('js/jquery-3.2.0.js') }}"></script> 
+	<script src="{{ asset('js/jquery-3.2.1.js') }}"></script> 
 	<script src="{{ asset('js/material.js') }}"></script> 
 	<script src="{{ asset('js/getmdl-select.min.js') }}"></script>
+
 	<!-- endinject -->
 
 
