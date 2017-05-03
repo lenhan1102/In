@@ -113,3 +113,5 @@ Route::post('/vote', 'User\ActionController@vote')->name('vote');
 
 Route::post('/checkout', 'User\ActionController@postCheckout')->name('checkout');
 Route::get('/checkout', 'User\ActionController@getCheckout')->name('checkout');
+
+Route::get('/history', 'User\ActionController@getHistory')->name('history');

@@ -129,8 +129,6 @@ class ActionController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('checkout')->with('error', $e->getMessage());
         }
-
-
         Session::forget('cart');
         return redirect()->route('index')->with('success', 'Successfully purchased products!');
     }
@@ -144,11 +142,12 @@ class ActionController extends Controller
         return view('User.checkout', ['total' => $total]);
     }
 
-    public function getProfile(){
+    public function getHistory(){
         $orders = Auth::user()->orders;
-        $orders->transforms(function($order, $key){
+        $orders->transform(function($order, $key){
             $order->cart = unserialize($order->cart);
             return $order;
         });
+        return view('User.order_history', ['orders' => $orders]);
     }
 }
