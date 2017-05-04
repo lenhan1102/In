@@ -149,4 +149,11 @@ class ActionController extends Controller
         $results = Dish::search($request->input('key'));
         return view('User.results', ['results' => $results, 'hits' => $results->totalHits() ]);
     }
+
+    public function getProfile(){
+        return view('User.profile', ['user' => Auth::user()]);
+    }
+    public function postProfile(){
+        
+    }
 }

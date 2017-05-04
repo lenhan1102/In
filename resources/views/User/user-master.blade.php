@@ -39,13 +39,8 @@ Home
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">
 			<span>{{Auth::user()->username}}</span>
-			<img src='
-			@if(count(Auth::user()->social_accounts))
-			{{Auth::user()->avatar}}
-			@else
-			{{count(Auth::user()->avatar)? asset("images/avatars/" . Auth::user()->avatar) : asset("images/avatars/" . "card.jpg")}}
-			@endif'
-			>
+
+			<img src='{{Auth::user()->avatar}}'>
 		</img>
 	</div>
 
@@ -88,8 +83,8 @@ Home
 	<nav class="mdl-navigation"> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">home</i> Info </a> 
 		<div class="mdl-layout-spacer"></div>
-		<a class="mdl-navigation__link" href=""> <i class="material-icons">view_comfy</i> History </a>
-		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">person</i> Account </a>
+		<a class="mdl-navigation__link" href="{{route('history')}}"> <i class="material-icons">view_comfy</i> History </a>
+		<a class="mdl-navigation__link" href="{{route('profile')}}"> <i class="material-icons" role="presentation">person</i> Account </a>
 
 		<div class="mdl-layout-spacer"></div>
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">link</i> GitHub </a> 

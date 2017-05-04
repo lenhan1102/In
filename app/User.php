@@ -82,4 +82,28 @@ CanResetPasswordContract
         }
         return false;
     }
+
+    public function getAvatarAttribute(){
+        if (count($this->social_accounts)) {
+            return $this->attributes['avatar'];
+        } else {
+            return count($this->attributes['avatar'])? asset("images/avatars/" . $this->attributes['avatar']) : asset("images/avatars/" . "default.jpg");
+        }
+    }
+
+    public function hasBought(Dish $dish){
+        $orders = $this->orders;
+        $orders->transform(function($order, $key){
+            $order->cart = unserialize($order->cart);
+            return $order;
+        });
+        foreach ($orders as $order) {
+            foreach($order->cart->items as $item){
+                if ($item['item']['id'] == $dish->id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

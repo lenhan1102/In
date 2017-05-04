@@ -16,6 +16,7 @@ use App\Image;
 Route::get('/admin', function () {
 	return view('Admin.master');
 });
+
 Route::get('/', function () {
 	return redirect()->route('index');
 });
@@ -105,3 +106,10 @@ Route::post('/checkout', 'User\ActionController@postCheckout')->name('checkout')
 Route::get('/checkout', 'User\ActionController@getCheckout')->name('checkout');
 
 Route::get('/history', 'User\ActionController@getHistory')->name('history');
+
+Route::get('/profile', 'User\ActionController@getProfile')->name('profile');
+Route::post('/profile', 'User\ActionController@postProfile')->name('profile');
+
+Route::get('/taikhoan', function () {
+	return view('taikhoan');
+});

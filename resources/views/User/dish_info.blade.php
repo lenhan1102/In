@@ -82,6 +82,7 @@
 	<div class="mdl-layout__header-row">
 		<!-- Title -->
 		<span class="mdl-layout-title">Logo</span>
+
 		<div class="mdl-layout-spacer"></div>
 		<form action="{{route('search')}}" method="GET">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -112,13 +113,7 @@
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">
 			<span>{{Auth::user()->username}}</span>
-			<img src='
-			@if(count(Auth::user()->social_accounts))
-			{{Auth::user()->avatar}}
-			@else
-			{{count(Auth::user()->avatar)? asset("images/avatars/" . Auth::user()->avatar) : asset("images/avatars/" . "card.jpg")}}
-			@endif'
-			>
+			<img src='{{Auth::user()->avatar}}'>
 		</img>
 	</div>
 	<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
@@ -183,10 +178,10 @@
 		</div>
 
 		<div  class="mdl-cell mdl-cell--2-col">
-			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" value="{{$dish->id}}"> Thêm</button> 
+			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" value="{{$dish->id}}"> Thêm </button> 
 		</div>
 
-		<!-- bought? -->
+		@if(Auth::user()->hasBought($dish)) 
 		<div  class="mdl-cell mdl-cell--10-col">
 			<div class='movie_choice'>
 				<div id="r1" class="rate_widget">
@@ -198,6 +193,9 @@
 				</div>
 			</div>
 		</div>
+		@endif
+		<!-- bought? -->
+		
 		
 	</div>
 </div>

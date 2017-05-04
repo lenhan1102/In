@@ -3,7 +3,7 @@
 @endsection
 
 @section('content')
-{{Session::get('success')}}
+<div style="color: white"><center><strong>{{Session::get('success')}}</strong></center></div>
 <div class="mdl-tabs mdl-js-tabs">
 	<div class="mdl-tabs__tab-bar">
 		<a href="#tab1-panel" class="mdl-tabs__tab is-active" style="color: white;">Tất cả</a>
