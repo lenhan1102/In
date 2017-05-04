@@ -11,7 +11,7 @@ Home
 		<span class="mdl-layout-title">Logo</span>
 		<div class="mdl-layout-spacer"></div>
 		<!-- Search-->
-		<form action="{{route('search')}}">
+		<form action="{{route('search')}}" method="GET">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 				<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
 					<i class="material-icons">search</i>
@@ -88,9 +88,8 @@ Home
 	<nav class="mdl-navigation"> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">home</i> Info </a> 
 		<div class="mdl-layout-spacer"></div>
-		<a class="mdl-navigation__link" href=""> <i class="material-icons">view_comfy</i> Discount </a>
+		<a class="mdl-navigation__link" href=""> <i class="material-icons">view_comfy</i> History </a>
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">person</i> Account </a>
-
 
 		<div class="mdl-layout-spacer"></div>
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">link</i> GitHub </a> 
@@ -100,7 +99,7 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">
-	<div class="page_content" style="margin: 20px 40px">
+	<div class="page_content" style="margin: 40px 80px">
 		@yield('content')
 	</div>
 </main>

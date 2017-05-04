@@ -12,9 +12,7 @@ use App\Image;
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/taikhoan', function () {
-	return view('taikhoan');
-});
+
 Route::get('/admin', function () {
 	return view('Admin.master');
 });
@@ -23,14 +21,9 @@ Route::get('/', function () {
 });
 Route::get('/index', function () {
 	$dishes = Dish::all();
-	if (!Auth::check()){
-		return view('user_index', ['dishes' => $dishes]);
-	} else {
-		return view('User.index', ['dishes' => $dishes]);
-	}
+	return Auth::check()? view('User.index') : view('index');
 })->name('index');
 //Admin
-//
 Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function(){
 	// Dish CRUD
 	Route::get('/dish','Admin\DishController@index')->name('dish.index');
@@ -105,10 +98,7 @@ Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCa
 Route::get('/cart', 'User\ActionController@cart')->name('action.cart')->middleware('auth');
 Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 
-/*Route::get('/search', function(){
-	return Dish::search('new');
-})->name('search');*/
-Route::get('/search', 'User\ActionController@search')->name('search');
+Route::get('/search', 'User\ActionController@search')->name('search')->middleware('auth');
 Route::post('/vote', 'User\ActionController@vote')->name('vote');
 
 Route::post('/checkout', 'User\ActionController@postCheckout')->name('checkout');

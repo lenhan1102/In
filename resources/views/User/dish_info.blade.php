@@ -82,6 +82,7 @@
 	<div class="mdl-layout__header-row">
 		<!-- Title -->
 		<span class="mdl-layout-title">Logo</span>
+		<div class="mdl-layout-spacer"></div>
 		<form action="{{route('search')}}" method="GET">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 				<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -155,7 +156,7 @@
 
 @section('content')
 <meta name="csrf_token" content="{{ csrf_token() }}" />
-<div style="height: 350px; background-color: rgba(45, 43, 43, 0.48); color: white; width: 80%; margin: auto; margin-top: 40px" class="mdl-grid mdl-shadow--8dp">
+<div style="height: 350px; background-color: white; border-color: rgba(45, 43, 43, 0.48); color: black; width: 80%; margin: auto; margin-top: 40px" class="mdl-grid mdl-shadow--8dp">
 	<div class="mdl-cell mdl-cell--6-col">
 		<div class="w3-content w3-display-container mdl-shadow--8dp" style="height: 100%">
 			@foreach($dish->images as $image)
@@ -170,14 +171,10 @@
 		</div>
 	</div>
 	<div class="mdl-cell mdl-cell--6-col mdl-grid" >
-		<div class="mdl-cell mdl-cell--12-col" style="height: 60%">
-			
+		<div class="mdl-cell mdl-cell--12-col">
 			<h2 style="margin-top: 0px; font-size:35px;">{{$dish->name}}
-
 				<span class="xstar">{{$dish->rating? $dish->rating : 0}}</span>
 			</h2>
-
-			
 
 			<p style="font-size:16px; white-space: pre-line;line-height: normal;" class="name-hot-restaurant" itemprop="name">{{$dish->mlist->menu->name}}
 			</p>
@@ -186,19 +183,22 @@
 		</div>
 
 		<div  class="mdl-cell mdl-cell--2-col">
-			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" value="{{$dish->id}}"> Thêm</button> 
+			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" value="{{$dish->id}}"> Thêm</button> 
 		</div>
 
 		<!-- bought? -->
-		<div class='movie_choice'>
-			<div id="r1" class="rate_widget">
-				<div class="star_1 ratings_stars"></div>
-				<div class="star_2 ratings_stars"></div>
-				<div class="star_3 ratings_stars"></div>
-				<div class="star_4 ratings_stars"></div>
-				<div class="star_5 ratings_stars"></div>
+		<div  class="mdl-cell mdl-cell--10-col">
+			<div class='movie_choice'>
+				<div id="r1" class="rate_widget">
+					<div class="star_1 ratings_stars"></div>
+					<div class="star_2 ratings_stars"></div>
+					<div class="star_3 ratings_stars"></div>
+					<div class="star_4 ratings_stars"></div>
+					<div class="star_5 ratings_stars"></div>
+				</div>
 			</div>
 		</div>
+		
 	</div>
 </div>
 

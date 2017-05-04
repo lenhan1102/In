@@ -99,12 +99,6 @@ class ActionController extends Controller
         return view('User.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
     
-    
-    public function search(Request $request){
-        //return $request->key;
-        return view('search', ['results' => Dish::search($request->key)]);
-    }
-
     public function postCheckout(Request $request){
         if (!Session::has('cart')) {
             return redirect()->route('User.cart');
@@ -149,5 +143,10 @@ class ActionController extends Controller
             return $order;
         });
         return view('User.order_history', ['orders' => $orders]);
+    }
+
+    public function search(Request $request){
+        $results = Dish::search($request->input('key'));
+        return view('User.results', ['results' => $results, 'hits' => $results->totalHits() ]);
     }
 }

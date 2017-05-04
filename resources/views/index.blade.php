@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Home
+Homez
 @endsection
 
 @section('header')
@@ -23,65 +23,9 @@ Home
 			</div>
 		</form>
 
-		<!-- Notifications-->
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon notification" id="notification" data-badge="23">shopping</div>
-
-		<!-- Messages-->
-		<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" id="inbox" data-badge="4">
-			mail_outline
-		</div>
-
-		<!-- Account dropdown-->
-		<div class="avatar-dropdown" id="icon">
-			<span>{{ Auth::user()->name }} </span>
-			<img src='{{ Auth::user()->avatar }}'>
-		</div>
-
-		<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">
-			<li class="mdl-list__item mdl-list__item--two-line">
-				<span class="mdl-list__item-primary-content">
-					<span>{{ Auth::user()->name }}</span>
-					<span class="mdl-list__item-sub-title">{{ Auth::user()->email }}</span>
-				</span>
-			</li>
-			<li class="list__item--border-top"></li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">account_circle</i>
-					My account
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">check_box</i>
-					My tasks
-				</span>
-				<span class="mdl-list__item-secondary-content">
-					<span class="label background-color--primary">3 new</span>
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">perm_contact_calendar</i>
-					My events
-				</span>
-			</li>
-			<li class="list__item--border-top"></li>
-			<li class="mdl-menu__item mdl-list__item">
-				<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">settings</i>
-					Settings
-				</span>
-			</li>
-			<li class="mdl-menu__item mdl-list__item">
-				<a href="{{ route('auth/logout') }}">
-					<span class="mdl-list__item-primary-content">
-						<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
-						Log out
-					</span>
-				</a>
-			</li>
-		</ul>
+		<div style="width: 20px"></div>
+		<button class="mdl-button mdl-js-button mdl-button--raised" onclick="window.location='{{route('auth/login')}}'"> LOG IN 
+		</button>
 
 		<button id="more" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
 
@@ -100,7 +44,7 @@ Home
 
 @section('drawer')
 <div class="mdl-layout__drawer">
-	<header>HTML5 Tutorial</header> 
+	<header> Menu </header> 
 	<nav class="mdl-navigation"> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">Home</i> Info </a> 
@@ -117,8 +61,75 @@ Home
 
 @section('main')
 <main class= "mdl-layout__content">
-	<div class="page_layout" style="margin: 20px 40px">
-		@yield('content')
+	<div class="page_layout" style="margin: 40px 80px">
+		<div class="mdl-tabs mdl-js-tabs">
+			<div class="mdl-tabs__tab-bar">
+				<a href="#tab1-panel" class="mdl-tabs__tab is-active" style="color: white;">Tất cả</a>
+				@foreach(App\Menu::all() as $menu)
+				<a href="#menu{{$menu->id}}" class="mdl-tabs__tab" style="color: white;">{{$menu->name}}</a>
+				@endforeach
+			</div>
+			<div class="mdl-tabs__panel is-active" id="tab1-panel">
+				<div class="mdl-grid">
+					<!-- Cards -->
+					@foreach( App\Dish::all() as $dish)
+					<div class="mdl-cell mdl-cell--3-col">
+						<div class="mdl-card mdl-shadow--4dp">
+							<div class="mdl-card__title">
+								<div class="mdl-card__title-text">
+									{{$dish->name}}
+								</div>
+							</div>
+							<div class="mdl-card__media">
+								<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
+							</div>
+							<div class="mdl-card__supporting-text">
+								{{$dish->description}}
+							</div>
+							<div class="mdl-card__actions">
+								<form action="{{route('action.view', ['id' => $dish->id])}}" method="GET">
+									{{ csrf_field() }}
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">View</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					@endforeach
+				</div>
+			</div>
+			@foreach(App\Menu::all() as $menu)
+			<div class="mdl-tabs__panel" id="menu{{$menu->id}}">
+				<div class="mdl-grid">
+					<!-- Cards -->
+					@foreach($menu->mlists as $mlist)
+					@foreach($mlist->dishes as $dish)
+					<div class="mdl-cell mdl-cell--3-col">
+						<div class="mdl-card mdl-shadow--4dp">
+							<div class="mdl-card__title">
+								<div class="mdl-card__title-text">
+									{{$dish->name}}
+								</div>
+							</div>
+							<div class="mdl-card__media">
+								<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
+							</div>
+							<div class="mdl-card__supporting-text">
+								{{$dish->description}}
+							</div>
+							<div class="mdl-card__actions">
+								<form action="{{route('action.view', ['id' => $dish->id])}}" method="GET">
+									{{ csrf_field() }}
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">View</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					@endforeach
+					@endforeach
+				</div>
+			</div>
+			@endforeach
+		</div>
 	</div>
 </main>
 @endsection

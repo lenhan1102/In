@@ -73,9 +73,9 @@ Giỏ hàng
 			<div class="mdl-card__supporting-text">
 				{!! Form::open(['method' => 'get', 'action' => "User\ActionController@getCheckout", 'class' => 'form']) !!}
 				{{csrf_field()}}
-				<div class="form__action" style="margin-top: 0px;">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="width: 50%; margin: auto"> Đặt trước </button>
-				</div>
+				
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="width: 50%; margin-left: 132px;"> Đặt trước </button>
+				
 				{!! Form::close() !!}
 			</div>
 		</div>
