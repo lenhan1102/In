@@ -40,7 +40,7 @@ Home
 		<div class="avatar-dropdown" id="icon">
 			<span>{{Auth::user()->username}}</span>
 
-			<img src='{{Auth::user()->avatar}}'>
+			<img src='{{Auth::user()->getAvatar()}}'>
 		</img>
 	</div>
 

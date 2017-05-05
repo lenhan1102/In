@@ -112,7 +112,7 @@ class ActionController extends Controller
                 "currency" => "vnd",
                 "source" => $request->input('stripeToken'), // obtained with Stripe.js
                 "description" => "Test Charge"
-            ));
+                ));
             $order = new Order();
             $order->cart = serialize($cart);
             $order->address = $request->input('address');
@@ -153,7 +153,29 @@ class ActionController extends Controller
     public function getProfile(){
         return view('User.profile', ['user' => Auth::user()]);
     }
-    public function postProfile(){
-        
+    public function postProfile(Request $request){
+        $this->validate($request, [
+            'name' => 'max:255',
+            'address' => '',
+            'phone' => 'max:10',
+            'gender' => '',
+            'image' => 'image',
+            ]);
+        $user = User::find($request->input('id'));
+        $user->name = $request->input('name');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->gender = $request->input('gender');
+
+        if (!count($user->social_accounts)) {
+            if ($request->file('image') != null) {
+                $imageName = time().'-'.$request->file('image')->getClientOriginalName();
+                $request->file('image')->move(base_path() . '/public/images/avatars/'.$user->id, $imageName);
+                $user->avatar = $imageName;
+            }
+        }
+        $user->save();
+        Session::flash('success', 'Your profile is updated successfully!');
+        return view('User.profile');
     }
 }

@@ -47,7 +47,7 @@ Home
 
 @section('drawer')
 <div class="mdl-layout__drawer">
-	<header class="mdl-layout-title" style="">HTML5 Tutorial</header>
+	<header class="mdl-layout-title" style="">Menu</header>
 	<nav class="mdl-navigation"> 
 		<a class="mdl-navigation__link mdl-navigation__link--current" href=""> <i class="material-icons" role="presentation">view_comfy</i> Thực đơn </a> 
 		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">Home</i> Info </a> 

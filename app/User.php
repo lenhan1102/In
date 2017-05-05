@@ -83,11 +83,11 @@ CanResetPasswordContract
         return false;
     }
 
-    public function getAvatarAttribute(){
+    public function getAvatar(){
         if (count($this->social_accounts)) {
             return $this->attributes['avatar'];
         } else {
-            return count($this->attributes['avatar'])? asset("images/avatars/" . $this->attributes['avatar']) : asset("images/avatars/" . "default.jpg");
+            return count($this->attributes['avatar'])? asset("images/avatars/" .$this->id. '/'.$this->attributes['avatar']) : asset("images/avatars/" ."default.jpg");
         }
     }
 
