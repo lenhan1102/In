@@ -87,7 +87,10 @@ Home
 		<a class="mdl-navigation__link" href="{{route('profile')}}"> <i class="material-icons" role="presentation">person</i> Account </a>
 
 		<div class="mdl-layout-spacer"></div>
-		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">link</i> GitHub </a> 
+		@if(Auth::user()->hasRole('Admin'))
+		<a class="mdl-navigation__link" href="{{route('user.index')}}"> <i class="material-icons" role="presentation">person</i> Manage Account </a>
+		<a class="mdl-navigation__link" href="{{route('order.index')}}"> <i class="material-icons" role="presentation">person</i> Manage Order </a>
+		@endif
 	</nav>
 </div>
 @endsection

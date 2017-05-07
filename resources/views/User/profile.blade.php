@@ -31,7 +31,7 @@
 
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-				<input class="mdl-textfield__input" value="{{Auth::user()->gender}}" type="text" id="gender" readonly tabIndex="-1"/>
+				<input class="mdl-textfield__input" name="gender" value="{{Auth::user()->gender}}" type="text" id="gender" readonly tabIndex="-1"/>
 				<label class="mdl-textfield__label" for="gender">Gender</label>
 				<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu dark_dropdown" for="gender">
 					<li class="mdl-menu__item">Male</li>
@@ -44,7 +44,7 @@
 		<div class="form__article">
 		<div class="mdl-cell mdl-cell--6-col input-group"> <i class="material-icons pull-left">place</i>
 				<div class="mdl-textfield mdl-js-textfield pull-left">
-					<input class="mdl-textfield__input" type="text" id="address" value="{{Auth::user()->address}}"/>
+					<input class="mdl-textfield__input" type="text" id="address" name="address" value="{{Auth::user()->address}}"/>
 					<label class="mdl-textfield__label" for="address"></label>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 			<div class="mdl-grid">
 				<div class="mdl-cell mdl-cell--12-col input-group"> <i class="material-icons pull-left">call</i>
 					<div class="mdl-textfield mdl-js-textfield pull-left">
-						<input class="mdl-textfield__input" type="text" id="phone" value="{{Auth::user()->phone}}">
+						<input class="mdl-textfield__input" type="text" id="phone" name="phone" value="{{Auth::user()->phone}}">
 						<label class="mdl-textfield__label" for="phone"></label>
 					</div>
 				</div>

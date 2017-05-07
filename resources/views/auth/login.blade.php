@@ -16,7 +16,7 @@ Login
 				<div class="form__article">
 					<div class="mdl-grid">
 						<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<input type="text" name="email" class="mdl-textfield__input" id="email">
+							<input type="email" name="email" class="mdl-textfield__input" id="email">
 							<label class="mdl-textfield__label" for="email">Email</label>
 						</div>
 					</div>
@@ -39,7 +39,7 @@ Login
 						<a href="#">Forget Password</a>
 					</div>
 					<div class="mdl-cell mdl-cell--2-col">
-						<a href="register">Sign up</a>
+						<a href="{{route('auth/register')}}">Sign up</a>
 					</div>
 					<div class="mdl-cell mdl-cell--12-col" style="height: 20px"></div>
 					<div class="mdl-cell mdl-cell--4-col"></div>

@@ -50,8 +50,17 @@ Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function
 	Route::delete('/mlist/{id}', 'Admin\MlistController@destroy')->name('mlist.destroy');
 
 	// AJAX to update Mlist table
-	Route::get('/AJAXMlist', 'Admin\MlistController@AJAXMlist')->name('AJAXMlist_updatelist');
+	Route::get('/AJAXMlist', 'Admin\UserController@index')->name('AJAXMlist_updatelist');
 	//
+
+	Route::get('/admin/user', 'Admin\UserController@index')->name('user.index');
+	Route::get('/admin/user/{id}/edit','Admin\UserController@edit')->name('user.edit');
+	Route::put('/admin/user', 'Admin\UserController@update')->name('user.update');
+	Route::delete('/admin/user', 'Admin\UserController@destroy')->name('user.destroy');
+
+	Route::get('/provider/order','Admin\OrderController@index')->name('order.index');
+	Route::post('/provider/order','Admin\OrderController@setSuccess')->name('order.setSuccess');
+	Route::delete('/provider/order/{id}', 'Admin\OrderController@destroy')->name('order.destroy');
 });
 Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['User']], function(){
 	
@@ -65,7 +74,7 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout')->name('auth/logout');
 
 // Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::get('auth/register', 'Auth\AuthController@getRegister')->name('auth/register');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 // Facebook login...

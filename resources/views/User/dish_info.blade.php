@@ -49,7 +49,7 @@
         		}
         	});
         });
-        set_votes($(".rate_widget"), {{App\Vote::where('user_id', Auth::user()->id)->where('dish_id', $dish->id)->first()? App\Vote::where('user_id', Auth::user()->id)->where('dish_id', $dish->id)->first()->voted : 0}});
+        set_votes($(".rate_widget"), {{$dish->rating}});
     });
 
     function set_votes(widget, data) {
@@ -113,7 +113,7 @@
 		<!-- Account dropdown-->
 		<div class="avatar-dropdown" id="icon">
 			<span>{{Auth::user()->username}}</span>
-			<img src='{{Auth::user()->avatar}}'>
+			<img src='{{Auth::user()->getAvatar()}}'>
 		</img>
 	</div>
 	<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown" for="icon">

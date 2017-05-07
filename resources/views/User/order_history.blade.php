@@ -26,14 +26,26 @@ History
 				<ul class="demo-list-item mdl-list">
 					@foreach($order->cart->items as $item)
 					<li class="mdl-list__item">
+						<span class="mdl-chip">
+							<span class="mdl-chip__text">{{$item['qty']}}</span>
+						</span>
 						<span class="mdl-list__item-primary-content">
-							{{$item['qty']}} {{$item['item']['name']}} - {{$item['price']}}
+							{{$item['item']['name']}}
+						</span>
+						<span class="mdl-list__item-secondary-content mdl-chip">
+							<span class="mdl-chip__text">
+								{{$item['price']}}
+							</span>
 						</span>
 					</li>
 					@endforeach
 				</ul>
 			</td>
-			<td>{{ $order->cart->totalPrice }}</td>
+			<td>
+				<span class="mdl-chip">
+					<span class="mdl-chip__text">{{ $order->cart->totalPrice }}</span>
+				</span>
+			</td>
 
 		</tr>
 		@endforeach

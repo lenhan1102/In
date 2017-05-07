@@ -21,7 +21,7 @@ class CreateDishesTable extends Migration
             $table->string('avatar')->default('default.png');
             //Info
             $table->integer('ordered')->nullable();
-            $table->integer('rating')->nullable();
+            $table->float('rating', 3, 2)->default(0);
             $table->string('description')->nullable();
         });
 

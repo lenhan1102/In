@@ -83,6 +83,14 @@ CanResetPasswordContract
         return false;
     }
 
+    public function getRole(){
+        $all_roles = '';
+        foreach ($this->roles as $role) {
+            $all_roles .= $role->name.' ';
+        }
+        return $all_roles;
+    }
+
     public function getAvatar(){
         if (count($this->social_accounts)) {
             return $this->attributes['avatar'];

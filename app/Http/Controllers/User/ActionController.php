@@ -138,11 +138,17 @@ class ActionController extends Controller
 
     public function getHistory(){
         $orders = Auth::user()->orders;
-        $orders->transform(function($order, $key){
-            $order->cart = unserialize($order->cart);
-            return $order;
-        });
-        return view('User.order_history', ['orders' => $orders]);
+        if (count($orders)) {
+            $orders->transform(function($order, $key){
+                $order->cart = unserialize($order->cart);
+                return $order;
+            });
+            return view('User.order_history', ['orders' => $orders]);
+        } else {
+            Session::flash('success', 'You haven\'t ordered anything yet!');
+            return redirect()->route('index');
+        }
+        
     }
 
     public function search(Request $request){
@@ -161,6 +167,7 @@ class ActionController extends Controller
             'gender' => '',
             'image' => 'image',
             ]);
+        
         $user = User::find($request->input('id'));
         $user->name = $request->input('name');
         $user->address = $request->input('address');

@@ -17,17 +17,17 @@ class usersTableSeeder extends Seeder
         $role_user = Role::where('name', 'Admin')->first();
 
 		$user = new User();
-        $user->username = 'Alex';
+        $user->username = 'Admin';
         $user->email = 'admin@example.com';
         $user->password = bcrypt('admin');
         $user->save();
         $user->roles()->attach($role_admin);
-
+/*
         $user = new User();
         $user->username = 'Andy';
         $user->email = 'user@example.com';
         $user->password = bcrypt('user');
         $user->save();
-        $user->roles()->attach($role_user);
+        $user->roles()->attach($role_user);*/
     }
 }
