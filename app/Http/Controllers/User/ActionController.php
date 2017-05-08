@@ -92,7 +92,8 @@ class ActionController extends Controller
     public function cart()
     {
         if (!Session::has('cart')) {
-            return view('User.cart');
+            Session::flash('success', 'Your cart is empty!');
+            return redirect()->route('index');
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);

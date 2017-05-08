@@ -7,7 +7,7 @@
 		<tr>
 			<th class="mdl-data-table__cell--non-numeric">STT</th>
 			<th class="mdl-data-table__cell--non-numeric">Khách hàng</th>
-			<th>Mặt hàng</th>
+			<th class="mdl-data-table__cell--non-numeric">Mặt hàng</th>
 			<th class="mdl-data-table__cell--non-numeric">Chuyển tới</th>
 			<th class="mdl-data-table__cell--non-numeric">Payment ID</th>
 			<th class="mdl-data-table__cell--non-numeric">Trạng thái</th>
@@ -16,8 +16,8 @@
 	<tbody>
 		@foreach($orders as $key => $order)
 		<tr>
-			<td class="mdl-data-table__cell--non-numeric">{{$key}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{App\User::find($order->id)}}</td>
+			<td class="mdl-data-table__cell--non-numeric">{{$key+1}}</td>
+			<td class="mdl-data-table__cell--non-numeric">{{App\User::find($order->user_id)->username}}</td>
 			<td>
 				<ul class="demo-list-item mdl-list">
 					@foreach($order->cart->items as $item)
@@ -40,12 +40,18 @@
 			<td class="mdl-data-table__cell--non-numeric">{{$order->address}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$order->payment_id}}</td>
 			<td class="mdl-data-table__cell--non-numeric">
-				<form action ="{{route('order.edit', ['id' => $order->id])}}" method="GET">
-					{{csrf_field()}}
+				<a href="{{route('order.edit', ['id' => $order->id])}}">
 					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-						<i class="material-icons">edit</i>
+						<i class="material-icons">
+							@if ($order->status)
+							check
+							@else
+							
+							close
+							@endif
+						</i>
 					</button>
-				</form>
+				</a>
 				<form action ="{{route('order.destroy')}}" method="POST">
 					{{csrf_field()}}
 					{{ method_field('DELETE') }}

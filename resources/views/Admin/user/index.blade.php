@@ -1,9 +1,10 @@
 @extends('Admin.admin-master')
 @section('title') Users @endsection
 @section('content')
-<table class="mdl-data-table mdl-js-data-table" width="100%">
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--8dp" width="100%">
 	<thead>
 		<tr>
+			<th class="mdl-data-table__cell--non-numeric">STT</th>
 			<th class="mdl-data-table__cell--non-numeric">User</th>
 			<th class="mdl-data-table__cell--non-numeric">Email</th>
 			<th>Facebook</th>
@@ -12,8 +13,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach($users as $user)
+		@foreach($users as $key => $user)
 		<tr>
+			<td class="mdl-data-table__cell--non-numeric">{{$key+1}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$user->username}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$user->email}}</td>
 			<td>{{count($user->social_accounts)? 'Yes' : ""}}</td>

@@ -17,23 +17,25 @@ class OrderController extends Controller
      */
     public function index()
     {
+
         $orders = Order::where('id', '>', 0)->orderBy('id', 'desc')->get();
         if (count($orders)) {
             $orders->transform(function($order, $key){
                 $order->cart = unserialize($order->cart);
                 return $order;
             });
-            return view('User.order_history', ['orders' => $orders]);
+            //return $orders[1]->cart->items;
+            return view('Admin.order.index', ['orders' => $orders]);
         } else {
             Session::flash('success', 'There is no orders!');
             return redirect()->route('index');
         }
-        return view('Admin.order.index', ['orders' => $orders]);
+        
     }
 
-    public function setSuccess(Request $request){
-        $order = Order::find($request->id);
-        $order->status = !$order->status;
+    public function edit($id){
+        $order = Order::find($id);
+        $order->status = 1- $order->status;
         $order->save();
         return redirect()->route('order.index');
     }

@@ -59,7 +59,7 @@ Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function
 	Route::delete('/admin/user', 'Admin\UserController@destroy')->name('user.destroy');
 
 	Route::get('/provider/order','Admin\OrderController@index')->name('order.index');
-	Route::post('/provider/order','Admin\OrderController@setSuccess')->name('order.setSuccess');
+	Route::get('/provider/order/{id}','Admin\OrderController@edit')->name('order.edit');
 	Route::delete('/provider/order/{id}', 'Admin\OrderController@destroy')->name('order.destroy');
 });
 Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['User']], function(){
