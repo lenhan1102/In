@@ -15,7 +15,7 @@ class DishesTableSeeder extends Seeder
     	for ($i=0; $i < 100 ; $i++) { 
         	# code...
     		DB::table('dishes')->insert([
-    			'mlist_id' => rand(1, 40),
+    			'menu_id' => rand(1, 6),
     			'name' => str_random(10),
     			'price' => rand(20, 500)*1000,
                 

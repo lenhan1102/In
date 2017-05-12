@@ -17,7 +17,6 @@ use Auth;
 use Session;
 use Redirect;
 
-
 class ActionController extends Controller
 {
     public function vote(Request $request)
@@ -89,7 +88,7 @@ class ActionController extends Controller
         return $cart->totalQty;
     }
 
-    public function cart()
+    public function getCart()
     {
         if (!Session::has('cart')) {
             Session::flash('success', 'Your cart is empty!');
@@ -137,7 +136,7 @@ class ActionController extends Controller
         return view('User.checkout', ['total' => $total]);
     }
 
-    public function getHistory(){
+    public function getOrderHistory(){
         $orders = Auth::user()->orders;
         if (count($orders)) {
             $orders->transform(function($order, $key){

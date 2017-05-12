@@ -25,7 +25,7 @@ class OrderController extends Controller
                 return $order;
             });
             //return $orders[1]->cart->items;
-            return view('Admin.order.index', ['orders' => $orders]);
+            return view('Admin.order.order_index', ['orders' => $orders]);
         } else {
             Session::flash('success', 'There is no orders!');
             return redirect()->route('index');

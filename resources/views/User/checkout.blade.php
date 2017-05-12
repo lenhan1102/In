@@ -1,4 +1,4 @@
-@extends('User.user-master')
+@extends('master')
 
 @section('title')
 Checkout

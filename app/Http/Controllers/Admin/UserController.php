@@ -21,12 +21,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('Admin.user.index', ['users' => $users]);
+        return view('Admin.user.user_index', ['users' => $users]);
     }
 
     public function edit($id)
     {
-        return view('Admin.user.edit', ['user' => User::find($id)]);
+        return view('Admin.user.user_edit', ['user' => User::find($id)]);
     }
 
     /**

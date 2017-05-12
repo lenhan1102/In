@@ -8,9 +8,9 @@ class Menu extends Model
 {
     //
     protected $table = 'menus';
-	public function mlists()
+	public function dishes()
     {
-        return $this->hasMany('App\MList');
+        return $this->hasMany('App\Dish');
     }
     protected $fillable = ['id', 'name'];
 }

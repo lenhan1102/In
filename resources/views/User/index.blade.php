@@ -1,6 +1,8 @@
-@extends('User.user-master')
+@extends('master')
 @section('title') Món ăn
 @endsection
+
+
 
 @section('content')
 @include('partials._messages')
@@ -43,8 +45,7 @@
 	<div class="mdl-tabs__panel" id="menu{{$menu->id}}">
 		<div class="mdl-grid">
 			<!-- Cards -->
-			@foreach($menu->mlists as $mlist)
-			@foreach($mlist->dishes as $dish)
+			@foreach($menu->dishes as $dish)
 			<div class="mdl-cell mdl-cell--3-col">
 				<div class="mdl-card mdl-shadow--4dp">
 					<div class="mdl-card__title">
@@ -66,7 +67,6 @@
 					</div>
 				</div>
 			</div>
-			@endforeach
 			@endforeach
 		</div>
 	</div>

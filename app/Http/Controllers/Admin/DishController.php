@@ -26,7 +26,7 @@ class DishController extends Controller
         $menus = Menu::all();
         $dishes = Dish::all();
         
-        return view('Admin.dish.index', ['menus' => $menus, 'dishes' => $dishes]);
+        return view('Admin.dish.dish_index', ['menus' => $menus, 'dishes' => $dishes]);
     }
     
     /**
@@ -37,7 +37,7 @@ class DishController extends Controller
     public function create(Request $request)
     {
         // 
-        return view('Admin.dish.create', ['menus' => Menu::all()]);
+        return view('Admin.dish.dish_create', ['menus' => Menu::all()]);
     }
 
     /**
@@ -54,7 +54,6 @@ class DishController extends Controller
             'price' => 'required',
             'description' => 'required|max:255',
             'image' => 'required',
-            'list' => 'required',
             'menu' => 'required',
             ]);
         $dish = new Dish(array(
@@ -62,38 +61,25 @@ class DishController extends Controller
           'price'  => $request->get('price'),
           'description' => $request->get('description'),
           ));
-        $list = MList::find($request->get('list'));
-        //$list->menu()->associate($menu);
-        $dish->mlist()->associate($list);
-
+        $menu = Menu::find($request->menu);
+        $dish->menu()->associate($menu);
         $dish->save();
-        Session::flash('success', 'Dish was successfully stored!');
-        // Save image to folder /catalog
-        $imageName = $dish->id . '.' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id.'/', $imageName);
         
+
+        // Save image to folder /catalog
+        $imageName = time().'-'. $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id.'/', $imageName);
+        Session::flash('success', 'Dish was successfully stored!');
         // Insert into 'images' table
         $image = new Image(array(
           'link' => $imageName,
           ));
         $image->dish()->associate($dish);
         $image->save();
+
+        //elastic
         Dish::reindex();
         return redirect()->route('dish.create');
-
-
-        //$imageName = 'test.' . $request->file('image')->getClientOriginalName();
-        /* $request->file('image')->move(base_path() . '/public/images/catalog/test/', $imageName);*/
-        /*unlink(asset('images/test/test.603671_244522782337685_405366317_n.jpg'));
-        dd(asset('public/images/test/test.603671_244522782337685_405366317_n.jpg'));*/
-
-        //$image = public_path('images/catalog/test/test.603671_244522782337685_405366317_n.jpg');
-        //dd(public_path('images/catalog/test/test.603671_244522782337685_405366317_n.jpg'));
-        //dd(File::exists($image));
-        /*if(File::exists($image)){
-            File::delete($image); 
-        } 
-        dd('done');*/
     }
 
 
@@ -126,7 +112,7 @@ class DishController extends Controller
         $images = Dish::find($id)->images;
         //dd($lists[4]->name);
 
-        return view('Admin.dish.edit',['dish' => Dish::find($id), 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu, 'images' => $images]);
+        return view('Admin.dish.dish_edit',['dish' => Dish::find($id), 'cur_list' =>$cur_list, 'cur_menu' => $cur_menu, 'images' => $images]);
     }
 
     /**

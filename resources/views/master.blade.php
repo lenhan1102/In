@@ -19,6 +19,7 @@
 	<script src="{{ asset('js/jquery-3.2.1.js') }}"></script> 
 	<script src="{{ asset('js/material.js') }}"></script> 
 	<script src="{{ asset('js/getmdl-select.min.js') }}"></script>
+	@yield('script')
 
 	<!-- endinject -->
 
@@ -26,19 +27,13 @@
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">	
-		@yield('header')
-		@yield('drawer')
-		@yield('main')
-		
-		<!-- Footer -->
-		<footer class="mdl-mini-footer">
-			<div class="mdl-mini-footer__left-section">
-				<div class="mdl-logo">Title</div>
-				<ul class="mdl-mini-footer__link-list">
-					<li><a href="#">Help</a></li>
-					<li><a href="#">Privacy & Terms</a></li>
-				</ul>
+		@include('partials._header')
+		@include('partials._drawer')
+		<main class= "mdl-layout__content">
+			<div class="page_content" style="margin: 40px 80px">
+				@yield('content')
 			</div>
-		</footer>	
+		</main>
+		@include('partials._footer')
 	</div>
 </body>

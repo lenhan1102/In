@@ -12,12 +12,12 @@ class ImagesTableSeeder extends Seeder
     public function run()
     {
         //
-        for ($i=0; $i < 100 ; $i++) { 
+        /*for ($i=0; $i < 100 ; $i++) { 
         	# code...
     		DB::table('images')->insert([
     			'dish_id' => $i +1,
     			'link' => '13 Bun_cha.jpg'
     			]);
-    	}
+    	}*/
     }
 }

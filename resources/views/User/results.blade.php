@@ -1,9 +1,9 @@
-@extends('User.user-master')
+@extends('master')
 @section('title')
 Results
 @endsection
-@section('content')
 
+@section('content')
 <div style="color: white;"><center><strong>Tổng {{$hits}} kết quả</strong></center></div>
 <div class="mdl-grid">
 	<!-- Cards -->

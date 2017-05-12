@@ -12,9 +12,9 @@ class Dish extends Model
     use ElasticquentTrait;
 
     protected $table = 'dishes';
-    public function mlist()
+    public function menu()
     {
-        return $this->belongsTo('App\MList');
+        return $this->belongsTo('App\Menu');
     }
     public function images()
     {
