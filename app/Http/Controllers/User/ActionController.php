@@ -21,9 +21,6 @@ class ActionController extends Controller
 {
     public function vote(Request $request)
     {
-        if (Gate::denies('vote', Dish::find($request->dish_id))) {
-            return response('Insufficient permissions', 401);
-        }
         // update vote table
         preg_match('/star_([1-5]{1})/', $request->voted, $match);
         $voted = intval(substr($match[0], 5, 1));
