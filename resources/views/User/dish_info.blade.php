@@ -100,11 +100,12 @@
 		<div class="mdl-cell mdl-cell--12-col">
 			<h2 style="margin-top: 0px; font-size:35px;">{{$dish->name}}
 				<span class="xstar">{{$dish->rating? $dish->rating : 0}}</span>
+				
 			</h2>
-
-			<p style="font-size:16px; white-space: pre-line;line-height: normal;" class="name-hot-restaurant" itemprop="name">{{$dish->menu->name}}
+			
+			<p style="font-size:16px; white-space: pre-line;line-height: normal;" itemprop="name">{{$dish->menu->name}}
 			</p>
-			<p style="color: rgb(102, 102, 153)">$ {{$dish->price}}</p>
+			<p style="color: rgb(102, 102, 153)">$   {{' '. $dish->price}} - Được mua: {{' '.$dish->ordered.' '}} lần</p>
 			<p style="font-size:12px;"> {{$dish->description}} </p>
 		</div>
 
@@ -112,7 +113,7 @@
 			<button id="add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" value="{{$dish->id}}"> Thêm </button> 
 		</div>
 
-		@if(Auth::user()->hasBought($dish)) 
+		@can('vote', $dish)
 		<div  class="mdl-cell mdl-cell--10-col">
 			<div class='movie_choice'>
 				<div id="r1" class="rate_widget">
@@ -124,10 +125,7 @@
 				</div>
 			</div>
 		</div>
-		@endif
-		<!-- bought? -->
-		
-		
+		@endcan
 	</div>
 </div>
 

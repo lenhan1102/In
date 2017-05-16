@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Order;
 use Session;
+use Gate;
 
 class OrderController extends Controller
 {
@@ -18,7 +19,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-
+        if (Gate::denies('manage', new Order)) {
+            return response('Insufficient permissions', 401);
+        }
         $orders = Order::where('id', '>', 0)->orderBy('id', 'desc')->get();
         if (count($orders)) {
             $orders->transform(function($order, $key){
@@ -35,6 +38,9 @@ class OrderController extends Controller
     }
 
     public function edit($id){
+        if (Gate::denies('manage', new Order)) {
+            return response('Insufficient permissions', 401);
+        }
         $order = Order::find($id);
         $order->status = 1- $order->status;
         $order->save();
@@ -43,6 +49,9 @@ class OrderController extends Controller
 
     public function destroy(Request $request)
     {
+        if (Gate::denies('manage', new Order)) {
+            return response('Insufficient permissions', 401);
+        }
         $order = Order::find($request->input('id'));
         $order->delete();
         return redirect()->back();

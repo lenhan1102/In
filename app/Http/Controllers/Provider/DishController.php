@@ -12,6 +12,7 @@ use App\Image;
 use File;
 use Storage;
 use Session;
+use Gate;
 
 class DishController extends Controller
 {
@@ -22,7 +23,9 @@ class DishController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        if (Gate::denies('manage', new Dish)) {
+            return response('Insufficient permissions', 401);
+        }
         $menus = Menu::all();
         $dishes = Dish::all();
         
@@ -36,7 +39,9 @@ class DishController extends Controller
      */
     public function create(Request $request)
     {
-        // 
+        if (Gate::denies('create', new Dish)) {
+            return response('Insufficient permissions', 401);
+        }
         return view('Provider.dish.dish_create', ['menus' => Menu::all()]);
     }
 
@@ -48,7 +53,9 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Gate::denies('store', new Dish)) {
+            return response('Insufficient permissions', 401);
+        }
         $this->validate($request, [
             'name' => 'required|unique:dishes|max:255',
             'price' => 'required',
@@ -82,19 +89,6 @@ class DishController extends Controller
         return redirect()->route('dish.create');
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -119,7 +113,9 @@ class DishController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Gate::denies('update', new Dish)) {
+            return response('Insufficient permissions', 401);
+        }
         $this->validate($request, [
             'price' => 'required',
             'description' => 'required|string|max:255',
@@ -155,7 +151,9 @@ class DishController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('destroy', new Dish)) {
+            return response('Insufficient permissions', 401);
+        }
 
         $arr = array();
 

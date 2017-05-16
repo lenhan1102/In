@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use App\Dish;
 class Cart
 {
     public $items = null;
@@ -31,6 +32,13 @@ class Cart
             $this->totalQty -= $this->items[$id]['qty'];
             $this->totalPrice -= $this->items[$id]['price'];
             unset($this->items[$id]);
+        }
+    }
+    public function completeCheckout(){
+        foreach ($this->items as $key => $item) {
+            $dish = Dish::find($item['id']);
+            $dish->ordered += $item['qty'];
+            $dish->save();
         }
     }
 }

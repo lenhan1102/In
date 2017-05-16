@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use App\User;
 use App\Role;
+use Gate;
 
 class UserController extends Controller
 {
@@ -20,12 +21,18 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('manage', new User)) {
+            return response('Insufficient permissions', 401);
+        }
         $users = User::all();
         return view('Admin.user.user_index', ['users' => $users]);
     }
 
     public function edit($id)
     {
+        if (Gate::denies('manage', new User)) {
+            return response('Insufficient permissions', 401);
+        }
         return view('Admin.user.user_edit', ['user' => User::find($id)]);
     }
 
@@ -38,6 +45,9 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        if (Gate::denies('manage', new User)) {
+            return response('Insufficient permissions', 401);
+        }
         $user = User::find($request->id);
         $user->username = $request->username;
         $user->email = $request->email;
@@ -66,8 +76,15 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        $user = User::find($request->input('id'));
-        $user->delete();
+        if (Gate::denies('manage', new User)) {
+            return response('Insufficient permissions', 401);
+        }
+        if ($request->id == Auth::user('id')) {
+            Session::flash('success', 'Your action is invalid');
+        } else {
+            $user = User::find($request->input('id'));
+            $user->delete();
+        }
         return redirect()->back();
     }
 }

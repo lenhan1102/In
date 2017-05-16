@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
 use App\Menu;
+use Gate;
 
 class MenuController extends Controller
 {
@@ -18,6 +19,9 @@ class MenuController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('manage', new Menu)) {
+            return response('Insufficient permissions', 401);
+        }
         $menus = Menu::all();
         return view('Provider.menu.menu_index', ['menus' => $menus]);
     }
@@ -30,6 +34,9 @@ class MenuController extends Controller
 
     public function create(Request $request)
     {
+        if (Gate::denies('manage', new Menu)) {
+            return response('Insufficient permissions', 401);
+        }
         Menu::create([
             'name' => $request->name
         ]);
@@ -44,6 +51,9 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::denies('manage', new Menu)) {
+            return response('Insufficient permissions', 401);
+        }
         $this->validate($request, [
             'name' => 'required|unique:menus|max:64',
             ]);
@@ -61,6 +71,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('manage', new Menu)) {
+            return response('Insufficient permissions', 401);
+        }
         return view('Provider.menu.menu_edit', ['id' => $id]);
     }
 
@@ -73,6 +86,9 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Gate::denies('manage', new Menu)) {
+            return response('Insufficient permissions', 401);
+        }
         $this->validate($request, [
             'name' => 'required|unique:menus|max:64',
             ]);
@@ -92,6 +108,9 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('manage', new Menu)) {
+            return response('Insufficient permissions', 401);
+        }
         $menu = Menu::find($id);
         $menu->delete();
         Session::flash('success', 'Deleted!');

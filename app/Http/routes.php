@@ -12,11 +12,6 @@ use App\Image;
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/admin', function () {
-	return view('Admin.master');
-});
-
 Route::get('/', function () {
 	return redirect()->route('index');
 });
@@ -24,9 +19,8 @@ Route::get('/index', function () {
 	$dishes = Dish::all();
 	return Auth::check()? view('User.index') : view('index');
 })->name('index');
-//Admin
-Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function(){
-	// Dish CRUD
+
+Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Provider']], function(){
 	Route::get('/dish','Provider\DishController@index')->name('dish.index');
 	Route::get('/dish/create','Provider\DishController@create')->name('dish.create');
 	Route::post('/dish', 'Provider\DishController@store')->name('dish.store');
@@ -49,20 +43,42 @@ Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function
 	Route::put('/menu/{id}', 'Provider\MenuController@update')->name('menu.update');
 	Route::delete('/menu/{id}', 'Provider\MenuController@destroy')->name('menu.destroy');
 
+	Route::get('/order','Provider\OrderController@index')->name('order.index');
+	Route::get('/order/{id}','Provider\OrderController@edit')->name('order.edit');
+	Route::delete('/order/{id}', 'Provider\OrderController@destroy')->name('order.destroy');
+
+	Route::put('/image/{id}', 'Provider\ImageController@destroy')->name('image.destroy');
+	Route::get('/image/{id}', 'Provider\ImageController@setAvatar')->name('image.set');
+	Route::post('/image/{id}', 'Provider\ImageController@unsetAvatar')->name('image.unset');
+});
+
+Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin']], function(){
 	Route::get('/admin/user', 'Admin\UserController@index')->name('user.index');
 	Route::get('/admin/user/{id}/edit','Admin\UserController@edit')->name('user.edit');
 	Route::put('/admin/user', 'Admin\UserController@update')->name('user.update');
 	Route::delete('/admin/user', 'Admin\UserController@destroy')->name('user.destroy');
-
-	Route::get('/provider/order','Provider\OrderController@index')->name('order.index');
-	Route::get('/provider/order/{id}','Provider\OrderController@edit')->name('order.edit');
-	Route::delete('/provider/order/{id}', 'Provider\OrderController@destroy')->name('order.destroy');
 });
+
 Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['User']], function(){
 	
-});
-Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Admin', 'User']], function(){
+	Route::get('/info/{id}', function($id){
+		return view('User.dish_info',['dish' => Dish::find($id)]);
+	})->name('action.view');
 
+	Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
+	Route::get('/cart', 'User\ActionController@getCart')->name('action.cart')->middleware('auth');
+	Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
+
+	Route::get('/search', 'User\ActionController@search')->name('search')->middleware('auth');
+	Route::post('/vote', 'User\ActionController@vote')->name('vote');
+
+	Route::post('/checkout', 'User\ActionController@postCheckout')->name('checkout');
+	Route::get('/checkout', 'User\ActionController@getCheckout')->name('checkout');
+
+	Route::get('/history', 'User\ActionController@getOrderHistory')->name('history');
+
+	Route::get('/profile', 'User\ActionController@getProfile')->name('profile');
+	Route::post('/profile', 'User\ActionController@postProfile')->name('profile');
 });
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin')->name('auth/login');

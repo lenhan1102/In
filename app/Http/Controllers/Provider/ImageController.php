@@ -20,7 +20,7 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
-         $image = Image::find($id);
+        $image = Image::find($id);
         $dishid = $image->dish->id;
         if ($image->isAvatar) {
             # code...
@@ -30,7 +30,7 @@ class ImageController extends Controller
         return redirect()->route('dish.edit', [$dishid]);
     }
     
-    public function set($id)
+    public function setAvatar($id)
     {
         //
         $image = Image::find($id);
@@ -42,7 +42,7 @@ class ImageController extends Controller
         return redirect()->route('dish.edit', [$dishid]);
     }
 
-    public function unset($id)
+    public function unsetAvatar($id)
     {
         //
         $image = Image::find($id);

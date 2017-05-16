@@ -1,7 +1,7 @@
 <div class="mdl-layout__drawer">
 	<header>Menu</header> 
 	<nav class="mdl-navigation"> 
-		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">home</i> Info </a> 
+		<a class="mdl-navigation__link" href=""> <i class="material-icons" role="presentation">home</i> Home </a> 
 		@if(Auth::user()->hasRole('Provider'))
 		<a class="mdl-navigation__link" href="{{route('dish.index')}}"> <i class="material-icons" role="presentation">person</i> Manage Dish </a>
 		<a class="mdl-navigation__link" href="{{route('menu.index')}}"> <i class="material-icons" role="presentation">person</i> Manage Menu </a>
@@ -16,5 +16,9 @@
 		<a class="mdl-navigation__link" href="{{route('user.index')}}"> <i class="material-icons" role="presentation">person</i> Manage Account </a>
 		<a class="mdl-navigation__link" href="{{route('order.index')}}"> <i class="material-icons" role="presentation">person</i> Manage Order </a>
 		@endif
-	</nav>
+
+		@can('manage', new App\Dish) 
+		<a class="mdl-navigation__link" href="{{route('order.index')}}"> <i class="material-icons" role="presentation">person</i> can manage </a>
+		@endcan
+</nav>
 </div>

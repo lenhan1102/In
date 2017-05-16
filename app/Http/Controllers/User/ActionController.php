@@ -21,6 +21,9 @@ class ActionController extends Controller
 {
     public function vote(Request $request)
     {
+        if (Gate::denies('vote', Dish::find($request->dish_id))) {
+            return response('Insufficient permissions', 401);
+        }
         // update vote table
         preg_match('/star_([1-5]{1})/', $request->voted, $match);
         $voted = intval(substr($match[0], 5, 1));
@@ -53,16 +56,8 @@ class ActionController extends Controller
         return 0;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function deleteItem(Request $request)
     {
-        //
         $ids = $request->input('selected');
         $cart = Session::get('cart');
         $cart->delete($ids);
@@ -70,13 +65,6 @@ class ActionController extends Controller
 
         return array('badge' => $cart->totalQty, 'total' => $cart->totalPrice);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function addToCart(Request $request, $id)
     {
@@ -114,12 +102,13 @@ class ActionController extends Controller
                 "description" => "Test Charge"
                 ));
             $order = new Order();
-            $order->cart = serialize($cart);
             $order->address = $request->input('address');
             $order->name = $request->input('name');
             $order->payment_id = $charge->id;
-
+            $order->completeCheckout($cart);
+            $order->cart = serialize($cart);
             Auth::user()->orders()->save($order);
+            
         } catch (\Exception $e) {
             return redirect()->route('checkout')->with('error', $e->getMessage());
         }
@@ -148,7 +137,6 @@ class ActionController extends Controller
             Session::flash('success', 'You haven\'t ordered anything yet!');
             return redirect()->route('index');
         }
-        
     }
 
     public function search(Request $request){
