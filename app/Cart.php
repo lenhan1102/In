@@ -34,11 +34,4 @@ class Cart
             unset($this->items[$id]);
         }
     }
-    public function completeCheckout(){
-        foreach ($this->items as $key => $item) {
-            $dish = Dish::find($item['id']);
-            $dish->ordered += $item['qty'];
-            $dish->save();
-        }
-    }
 }

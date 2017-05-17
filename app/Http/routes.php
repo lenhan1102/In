@@ -17,7 +17,8 @@ Route::get('/', function () {
 });
 Route::get('/index', function () {
 	$dishes = Dish::all();
-	return Auth::check()? view('User.index') : view('index');
+	//return Auth::check()? view('User.index') : view('index');
+	return view('User.index');
 })->name('index');
 
 Route::group(['middleware' => ['roles', 'auth'], 'roles' => ['Provider']], function(){
@@ -116,7 +117,7 @@ Route::get('/info/{id}', function($id){
 	return view('User.dish_info',['dish' => Dish::find($id)]);
 })->name('action.view');
 
-Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
+/*Route::get('/add/{id}', 'User\ActionController@addToCart')->name('action.addToCart');
 Route::get('/cart', 'User\ActionController@getCart')->name('action.cart')->middleware('auth');
 Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 
@@ -129,7 +130,7 @@ Route::get('/checkout', 'User\ActionController@getCheckout')->name('checkout');
 Route::get('/history', 'User\ActionController@getOrderHistory')->name('history');
 
 Route::get('/profile', 'User\ActionController@getProfile')->name('profile');
-Route::post('/profile', 'User\ActionController@postProfile')->name('profile');
+Route::post('/profile', 'User\ActionController@postProfile')->name('profile');*/
 
 Route::get('/taikhoan', function () {
 	return view('taikhoan');

@@ -82,7 +82,7 @@
 
 @section('content')
 <meta name="csrf_token" content="{{ csrf_token() }}" />
-<div style="height: 350px; background-color: white; border-color: rgba(45, 43, 43, 0.48); color: black; width: 80%; margin: auto; margin-top: 40px" class="mdl-grid mdl-shadow--8dp">
+<div class="mdl-grid">
 	<div class="mdl-cell mdl-cell--6-col">
 		<div class="w3-content w3-display-container mdl-shadow--8dp" style="height: 100%">
 			@foreach($dish->images as $image)

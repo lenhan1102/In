@@ -82,9 +82,9 @@
 			<div class="page_layout" style="margin: 40px 80px">
 				<div class="mdl-tabs mdl-js-tabs">
 					<div class="mdl-tabs__tab-bar">
-						<a href="#tab1-panel" class="mdl-tabs__tab is-active" style="color: white;">Tất cả</a>
+						<a href="#tab1-panel" class="mdl-tabs__tab is-active" style="color: #757575;">Tất cả</a>
 						@foreach(App\Menu::all() as $menu)
-						<a href="#menu{{$menu->id}}" class="mdl-tabs__tab" style="color: white;">{{$menu->name}}</a>
+						<a href="#menu{{$menu->id}}" class="mdl-tabs__tab" style="color: #757575;">{{$menu->name}}</a>
 						@endforeach
 					</div>
 					<div class="mdl-tabs__panel is-active" id="tab1-panel">
@@ -92,7 +92,7 @@
 							<!-- Cards -->
 							@foreach( App\Dish::all() as $dish)
 							<div class="mdl-cell mdl-cell--3-col">
-								<div class="mdl-card mdl-shadow--4dp">
+								<div class="mdl-card">
 									<div class="mdl-card__title">
 										<div class="mdl-card__title-text">
 											{{$dish->name}}
@@ -101,15 +101,9 @@
 									<div class="mdl-card__media">
 										<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
 									</div>
-									<div class="mdl-card__supporting-text">
+									<a class="mdl-card__supporting-text" href="{{route('action.view', ['id' => $dish->id])}}">
 										{{$dish->description}}
-									</div>
-									<div class="mdl-card__actions">
-										<form action="{{route('action.view', ['id' => $dish->id])}}" method="GET">
-											{{ csrf_field() }}
-											<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">View</button>
-										</form>
-									</div>
+									</a>
 								</div>
 							</div>
 							@endforeach
@@ -119,10 +113,9 @@
 					<div class="mdl-tabs__panel" id="menu{{$menu->id}}">
 						<div class="mdl-grid">
 							<!-- Cards -->
-							@foreach($menu->mlists as $mlist)
-							@foreach($mlist->dishes as $dish)
+							@foreach($menu->dishes as $dish)
 							<div class="mdl-cell mdl-cell--3-col">
-								<div class="mdl-card mdl-shadow--4dp">
+								<div class="mdl-card">
 									<div class="mdl-card__title">
 										<div class="mdl-card__title-text">
 											{{$dish->name}}
@@ -131,18 +124,11 @@
 									<div class="mdl-card__media">
 										<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
 									</div>
-									<div class="mdl-card__supporting-text">
+									<a class="mdl-card__supporting-text" href="{{route('action.view', ['id' => $dish->id])}}">
 										{{$dish->description}}
-									</div>
-									<div class="mdl-card__actions">
-										<form action="{{route('action.view', ['id' => $dish->id])}}" method="GET">
-											{{ csrf_field() }}
-											<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">View</button>
-										</form>
-									</div>
+									</a>
 								</div>
 							</div>
-							@endforeach
 							@endforeach
 						</div>
 					</div>

@@ -29,8 +29,10 @@
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">	
 		@include('partials._header')
 		@include('partials._drawer')
-		<main class= "mdl-layout__content">
-			<div class="page_content" style="margin: 40px 80px">
+		<main class= "mdl-layout__content" style="background-color: #f1f1f1">
+			<img class="bg_image mdl-shadow--2dp" src="{{asset('images/16.jpg')}}" style="width: 100%; height: 400px; position:relative;">
+			</img>
+			<div class="page_content mdl-shadow--8dp" style="margin: auto; margin-top: -150px; margin-bottom: 150px; width: 80%; background-color: white; position:relative; border-radius: 6px;">
 				@yield('content')
 			</div>
 		</main>
