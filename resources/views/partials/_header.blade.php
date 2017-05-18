@@ -1,7 +1,6 @@
 <header class="mdl-layout__header">
 	<div class="mdl-layout__header-row">
 		<!-- Title -->
-		<span class="mdl-layout-title">Logo</span>
 		<div class="mdl-layout-spacer"></div>
 		<!-- Search-->
 		<form action="{{route('search')}}" method="GET">

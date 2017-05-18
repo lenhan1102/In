@@ -2,10 +2,9 @@
 @section('title') New dish 
 @endsection
 @section('content')
-<div class="mdl-card mdl-shadow--2dp employer-form" action="#" style="margin-bottom: 40px">
+<div class="mdl-card mdl-shadow--2dp employer-form full-width" style="background-color: #4e4e4e">
 	<div class="mdl-card__title">
 		<h2>Create new dish</h2>
-		<div class="mdl-card__subtitle">Please complete the form</div>
 	</div>
 	<div class="mdl-card__supporting-text">
 		{!! Form::open(

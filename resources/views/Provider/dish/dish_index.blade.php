@@ -3,44 +3,20 @@
 @endsection
 
 @section('content')
-<script>
-	$(document).ready(function(){
-		$("#menu_options").change(function(){
-			var menuid = $("#menu_options").val();
-			$.get('{{route('AJAXList')}}', {menuid:menuid}, function(data){
-				$("#list_options").html(data);
-			});
-		});
-		$("#list_options").change(function(){
-			var listid = $("#list_options").val();
-			var menuid = $("#menu_options").val();
-			$.get('{{route('AJAXDish')}}', {listid:listid, menuid:menuid}, function(data){
-				$("#dish").html(data);
-				//console.log(data);
-			});
-		});
-	});
-</script>
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-	<input class="mdl-textfield__input" type="text" id="sample2" value="Belarus" readonly tabIndex="-1">
-	<label for="sample2">
-		<i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-	</label>
-	<label for="sample2" class="mdl-textfield__label">Country</label>
-	<ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-		@foreach(App\Menu::all() as $key => $menu)
-		<li class="mdl-menu__item" data-val="DE" id="{{$key+1}}">{{$menu->name}}</li>
-		@endforeach
-	</ul>
+<div style="background-color: #4e4e4e;" >
+	<a href="{{route('dish.create')}}" >
+		<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="position: relative; margin-top: -20px; background-color: #4e4e4e;">
+			<i class="material-icons">add</i>
+		</button>
+	</a>
 </div>
-<a href="{{route('dish.create')}}">New</a>
-<table class="mdl-data-table mdl-js-data-table mdl-shadow--8dp" width="100%">
+<table class="mdl-data-table mdl-js-data-table" style="position: relative; margin-top: 0px; " width="100%">
 	<thead>
 		<tr>
 			<th class="mdl-data-table__cell--non-numeric">STT</th>
 			<th class="mdl-data-table__cell--non-numeric">Name</th>
 			<th class="mdl-data-table__cell--non-numeric">Price</th>
-			<th class="mdl-data-table__cell--non-numeric">Order</th>
+			<th class="mdl-data-table__cell--non-numeric">Ordered</th>
 			<th class="mdl-data-table__cell--non-numeric">Rating</th>
 			<th class="mdl-data-table__cell--non-numeric">Description</th>
 			<th class="mdl-data-table__cell--non-numeric"></th>

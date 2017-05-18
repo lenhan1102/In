@@ -26,12 +26,11 @@
 </head>
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">  
-    <main class="mdl-layout__content">
+    <main class="mdl-layout__content auth">
       <div class="page_content">
-        <div class="mdl-card mdl-shadow--2dp employer-form" action="#" style="margin-bottom: 40px">
+        <div class="mdl-card mdl-shadow--8dp employer-form" action="#" style="margin-bottom: 40px">
           <div class="mdl-card__title">
             <h2>Sign up</h2>
-            <div class="mdl-card__subtitle">Please complete the form</div>
           </div>
           <div class="mdl-card__supporting-text">
             {!! Form::open(['method' => 'POST', 'url' => 'auth/register', 'class' => 'form']) !!}
@@ -81,6 +80,5 @@
        </div>
      </div>
    </main>
-   @include('partials._footer')
  </div>
 </body>

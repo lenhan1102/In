@@ -3,7 +3,7 @@
 Menu Manager
 @endsection
 @section('content')
-@include('partials._messages')
+
 <script>
 	$(document).ready(function(){
 		$("#menu").change(function(){
@@ -14,18 +14,21 @@ Menu Manager
 		});
 	});
 </script>
-<form action="{{route('menu.create')}}" method="POST">
-	{{csrf_field()}}
-	<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-		<label class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" for="create">
-			<i class="material-icons">add</i>
-		</label>
-		<div class="mdl-textfield__expandable-holder" style="margin-left: 50px">
-			<input class="mdl-textfield__input" name="name" type="text" id="create">
-			<label class="mdl-textfield__label" for="sample-expandable"></label>
+<div style="background-color: #4e4e4e;" >
+	@include('partials._messages')
+	<form action="{{route('menu.create')}}" method="POST">
+		{{csrf_field()}}
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+			<label class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" for="create">
+				<i class="material-icons">add</i>
+			</label>
+			<div class="mdl-textfield__expandable-holder" style="margin-left: 50px">
+				<input class="mdl-textfield__input" name="name" type="text" id="create">
+				<label class="mdl-textfield__label" for="sample-expandable"></label>
+			</div>
 		</div>
-	</div>
-</form>
+	</form>
+</div>
 
 <table class="mdl-data-table mdl-js-data-table mdl-shadow--8dp" width="100%">
 	<thead>

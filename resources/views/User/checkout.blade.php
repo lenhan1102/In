@@ -5,7 +5,7 @@ Checkout
 @endsection
 
 @section('content')
-<div class="mdl-card mdl-shadow--2dp employer-form" style="margin-bottom: 40px">
+<div class="mdl-card mdl-shadow--2dp employer-form normal-form" style="margin-bottom: 40px; width: 100%;">
 	<div class="mdl-card__title">
 		<h2>Checkout! Your Total: ${{ $total }}</h2>
 		<div class="mdl-card__subtitle">

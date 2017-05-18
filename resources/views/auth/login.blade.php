@@ -28,19 +28,20 @@
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">	
 
 
-		<main class="mdl-layout__content">
+		<main class="mdl-layout__content auth">
+			
 			<div class="page_content">
-				<div class="mdl-card mdl-shadow--2dp employer-form" action="#">
+				<div class="mdl-card mdl-shadow--8dp employer-form" action="#">
 					<div class="mdl-card__title">
 						<h2>Log in</h2>
-						<div class="mdl-card__subtitle">Please complete the form</div>
+						
 					</div>
 					<div class="mdl-card__supporting-text">
 						{!! Form::open(['method' => 'POST',  'action' => 'Auth\AuthController@postLogin', 'class' => 'form']) !!}
 						<div class="form__article">
 							<div class="mdl-grid">
 								<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input type="email" name="email" class="mdl-textfield__input" id="email">
+									<input type="text" name="email" class="mdl-textfield__input" id="email">
 									<label class="mdl-textfield__label" for="email">Email</label>
 								</div>
 							</div>
@@ -85,7 +86,6 @@
 				</div>
 			</div>
 		</main>
-		@include('partials._footer')
 	</div>
 </body>
 

@@ -18,10 +18,9 @@
 
 
 
-<div class="mdl-card mdl-shadow--2dp employer-form" >
+<div class="mdl-card mdl-shadow--2dp employer-form full-width" style="background-color: #4e4e4e">
 	<div class="mdl-card__title">
 		<h2>Update</h2>
-		<div class="mdl-card__subtitle">Please complete the form</div>
 	</div>
 	<div class="mdl-card__supporting-text">
 	@include('partials._messages')
