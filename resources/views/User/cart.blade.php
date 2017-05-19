@@ -66,7 +66,7 @@ Giỏ hàng
 
 </table>
 
-<div class="mdl-card mdl-shadow--2dp normal-form" style="margin-top: 0px ; width: 100%">
+<div class="mdl-card mdl-shadow--2dp normal-form" style="margin-top: 0px ; width: 100%; background-color: white">
 	<div class="mdl-card__supporting-text">
 		{!! Form::open(['method' => 'get', 'action' => "User\ActionController@getCheckout", 'class' => 'form']) !!}
 		{{csrf_field()}}
@@ -77,8 +77,6 @@ Giỏ hàng
 	</div>
 </div>
 @else
-
 @endif
-</div>
 
 @endsection

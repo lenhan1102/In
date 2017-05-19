@@ -30,20 +30,17 @@ class Dish extends Model
     protected $mappingProperties = array(
         'id' => [
         'type' => 'integer',
-        "analyzer" => "standard",
         ],
         'name' => [
         'type' => 'string',
         "analyzer" => "standard",
         ],
         'price' => [
-        'type' => 'string',
-        "analyzer" => "standard",
+        'type' => 'integer',
         ],
         'description' => [
         'type' => 'string',
-        "analyzer" => "stop",
-        "stopwords" => [","]
+        "analyzer" => "standard",
         ],
         );
     

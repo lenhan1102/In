@@ -1,7 +1,50 @@
-<header class="mdl-layout__header">
+<header class="mdl-layout__header" style="background-color: #117d4a;">
 	<div class="mdl-layout__header-row">
 		<!-- Title -->
+		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('index')}}'" style="margin-right: 14px">
+			<i class="material-icons">home
+			</i>
+
+		</label>
+		<h4>Food</h4>
 		<div class="mdl-layout-spacer"></div>
+
+		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('user.index')}}'" style="margin-right: 14px">
+			<i class="material-icons">supervisor_account
+			</i>
+		</label>
+
+		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('dish.index')}}'" style="margin-right: 14px">
+			<i class="material-icons">restaurant
+			</i>
+		</label>
+
+		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('menu.index')}}'" style="margin-right: 14px">
+			<i class="material-icons">book
+			</i>
+		</label>
+
+		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('order.index')}}'" style="margin-right: 14px">
+			<i class="material-icons">contacts
+			</i>
+		</label>
+		
+		<div class="mdl-layout-spacer"></div>
+		
+		
+		<!-- Cart -->
+		<div id="cart">
+			@if(!Session::has('cart') || Session::get('cart')->totalQty == 0)
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
+				shopping
+			</div>
+			
+			@else
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('cart')->totalQty}}">
+				shopping
+			</div>
+			@endif
+		</div>
 		<!-- Search-->
 		<form action="{{route('search')}}" method="GET">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -14,19 +57,6 @@
 				</div>
 			</div>
 		</form>
-		
-		<!-- Cart -->
-		<div id="cart">
-			@if(!Session::has('cart') || Session::get('cart')->totalQty == 0)
-			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
-				shopping
-			</div>
-			@else
-			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('cart')->totalQty}}">
-				shopping
-			</div>
-			@endif
-		</div>
 
 		@if(Auth::check())
 		<!-- Account dropdown-->
@@ -54,9 +84,11 @@
 			</li>
 		</ul>
 		@else
-		<div style="width: 20px"></div>
-		<button class="mdl-button mdl-js-button mdl-button--raised" onclick="window.location='{{route('auth/login')}}'"> LOG IN 
-		</button>
+		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('auth/login')}}'">
+			<i class="material-icons">input
+			</i>
+		</label>
+		
 		@endif
 
 		<button id="more" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>

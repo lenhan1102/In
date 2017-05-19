@@ -2,16 +2,14 @@
 @section('title') Dishes
 @endsection
 
+
+
 @section('content')
-<div style="background-color: #4e4e4e;" >
-	<a href="{{route('dish.create')}}" >
-		<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="position: relative; margin-top: -20px; background-color: #4e4e4e;">
-			<i class="material-icons">add</i>
-		</button>
-	</a>
-</div>
+<button type="submit" class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('dish.create')}}'">
+	<i class="material-icons">add</i>
+</button>
 <table class="mdl-data-table mdl-js-data-table" style="position: relative; margin-top: 0px; " width="100%">
-	<thead>
+	<thead style="color: black">
 		<tr>
 			<th class="mdl-data-table__cell--non-numeric">STT</th>
 			<th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -26,25 +24,21 @@
 		@foreach($dishes as $key => $dish)
 		<tr>
 			<td class="mdl-data-table__cell--non-numeric">{{$key+1}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{$dish->name}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="font-weight: 400;">{{$dish->name}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$dish->price}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$dish->ordered}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$dish->rating}}</td>
 			<td class="mdl-data-table__cell--non-numeric">{{$dish->description}}</td>
 			<td class="mdl-data-table__cell--non-numeric">
-				<form action ="{{route('dish.edit', ['id' => $dish->id])}}" method="GET">
-					{{csrf_field()}}
-					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-						<i class="material-icons">edit</i>
-					</button>
-				</form>
-				<form action ="{{route('dish.destroy', ['id' => $dish->id])}}" method="POST">
-					{{csrf_field()}}
-					{{ method_field('DELETE') }}
-					<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-						<i class="material-icons">delete</i>
-					</button>
-				</form>
+				
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="window.location='{{route('dish.edit', ['id' => $dish->id])}}'" style="background-color: #d28313">
+					<i class="material-icons">edit</i>
+				</button>
+				
+				
+				<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="window.location='{{route('dish.destroy', ['id' => $dish->id])}}'" style="background-color: #d28313">
+					<i class="material-icons">delete</i>
+				</button>
 			</td>
 		</tr>
 		@endforeach

@@ -21,7 +21,7 @@
 			<td>
 				<ul class="demo-list-item mdl-list">
 					@foreach($order->cart->items as $item)
-					<li class="mdl-list__item">
+					<li class="mdl-list__item" style="color: black">
 						<span class="mdl-chip">
 							<span class="mdl-chip__text">{{$item['qty']}}</span>
 						</span>
@@ -41,7 +41,7 @@
 			<td class="mdl-data-table__cell--non-numeric">{{$order->payment_id}}</td>
 			<td class="mdl-data-table__cell--non-numeric">
 				<a href="{{route('order.edit', ['id' => $order->id])}}">
-					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="background-color: #d28313">
 						<i class="material-icons">
 							@if ($order->status)
 							check
@@ -56,7 +56,7 @@
 					{{csrf_field()}}
 					{{ method_field('DELETE') }}
 					<input hidden type="text" name="id" value="{{$order->id}}">
-					<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+					<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="background-color: #d28313">
 						<i class="material-icons">delete</i>
 					</button>
 				</form>

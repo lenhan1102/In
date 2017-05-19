@@ -5,7 +5,7 @@ Results
 
 @section('content')
 @include('partials._messages')
-<div style="color: white;"><center><strong>Tổng {{$hits}} kết quả</strong></center></div>
+<div style="color: black; padding-top: 10px;"><center><strong>Tổng {{$hits}} kết quả trong {{$took}} milliseconds</strong></center></div>
 <div class="mdl-grid">
 	<!-- Cards -->
 	@foreach($results as $result)

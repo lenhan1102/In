@@ -71,6 +71,7 @@ class DishController extends Controller
         $menu = Menu::find($request->menu);
         $dish->menu()->associate($menu);
         $dish->save();
+        $dish->addToIndex();
         
 
         // Save image to folder /catalog
@@ -85,6 +86,7 @@ class DishController extends Controller
         $image->save();
 
         //elastic
+
         Dish::reindex();
         return redirect()->route('dish.create');
     }
@@ -168,6 +170,8 @@ class DishController extends Controller
             File::delete(public_path('images/catalog/'.$dish->id.'/'.$arr[$i]));
         }
         Dish::destroy($id);
+        Dish::reindex();
+
         return redirect()->route('dish.index');
     }
 

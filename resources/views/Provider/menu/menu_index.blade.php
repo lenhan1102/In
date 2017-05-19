@@ -4,22 +4,12 @@ Menu Manager
 @endsection
 @section('content')
 
-<script>
-	$(document).ready(function(){
-		$("#menu").change(function(){
-			var menu = $("#menu").val();
-			$.get('{{route('AJAXMlist_updatelist')}}', {menu:menu}, function(data){
-				$("#list").html(data);
-			});
-		});
-	});
-</script>
-<div style="background-color: #4e4e4e;" >
+<div style="background-color: #fff;" >
 	@include('partials._messages')
 	<form action="{{route('menu.create')}}" method="POST">
 		{{csrf_field()}}
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-			<label class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" for="create">
+			<label class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" for="create" style="background-color: #9a380b;">
 				<i class="material-icons">add</i>
 			</label>
 			<div class="mdl-textfield__expandable-holder" style="margin-left: 50px">
@@ -42,13 +32,13 @@ Menu Manager
 		@foreach(App\Menu::all() as $key => $menu)
 		<tr>
 			<td class="mdl-data-table__cell--non-numeric">{{$key+1}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{$menu->name}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="font-weight: 400">{{$menu->name}}</td>
 			<td class="mdl-data-table__cell--non-numeric">
 				<form action="{{route('menu.update', ['id' => $menu->id])}}" method="POST">
 					{{csrf_field()}}
 					{{ method_field('PUT') }}
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-						<label class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" for="{{$menu->id}}">
+						<label class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" for="{{$menu->id}}" style="background-color: #d28313">
 							<i class="material-icons">edit</i>
 						</label>
 						<div class="mdl-textfield__expandable-holder">
@@ -60,7 +50,7 @@ Menu Manager
 				<form action ="{{route('menu.destroy', ['id' => $menu->id])}}" method="POST">
 					{{csrf_field()}}
 					{{ method_field('DELETE') }}
-					<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+					<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="background-color: #d28313">
 						<i class="material-icons">delete</i>
 					</button>
 				</form>

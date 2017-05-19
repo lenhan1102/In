@@ -137,8 +137,33 @@ class ActionController extends Controller
     }
 
     public function search(Request $request){
-        $results = Dish::search($request->input('key'));
-        return view('User.results', ['results' => $results, 'hits' => $results->totalHits() ]);
+        /*$results = Dish::search('ACpAwvRRxyHnOdxTdEscbKH5D');
+        dd($results);*/
+        $results = Dish::complexSearch(array(
+            'body' => array(
+                'query' => array(
+                    'match' => array(
+                        'description' => 'ACpAwvRRxyHnOdxTdEscbKH5D'
+                        )
+                    ),
+                'highlight' => array(
+                    'fields' => array(
+                        '*' => new \stdClass(),
+                        )
+                    ),
+                )
+            ));
+
+        // dd laf gi la console.log
+        //dd($results);//éo lấy dc cái highlight nó chui cmn vào trong cái _source
+        // m lấy ra cái highlight dùm t đi
+        //t ném cái results ra được cái cục kia rồi mà k biết cách lấy cái highlight
+        //ví dụ lấy cái name thì được nè
+        //sao lấy dc cái kia, name nó ơ
+        // dd($results['took']);
+        // dd($results['hits']['highlight']);
+
+        return view('User.results', ['results' => $results, 'hits' => $results->totalHits(), 'took' => $results->took() ]);
     }
 
     public function getProfile(){
