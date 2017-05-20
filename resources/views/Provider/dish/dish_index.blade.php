@@ -39,6 +39,10 @@
 				<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="window.location='{{route('dish.destroy', ['id' => $dish->id])}}'" style="background-color: #d28313">
 					<i class="material-icons">delete</i>
 				</button>
+
+				<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="window.location='{{route('dish.gallery', ['id' => $dish->id])}}'" style="background-color: #d28313">
+					<i class="material-icons">perm_media</i>
+				</button>
 			</td>
 		</tr>
 		@endforeach

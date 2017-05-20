@@ -4,26 +4,12 @@
 
 @section('content')
 
-
-<script>
-	$(document).ready(function(){
-		$("#menu_options").change(function(){
-			var menuid = $("#menu_options").val();
-			$.get('{{route('AJAXListEdit')}}',{menuid:menuid}, function(data){
-				$("#list_html").html(data);
-			});
-		});
-	});
-</script>
-
-
-
-<div class="mdl-card mdl-shadow--2dp employer-form full-width" style="background-color: #4e4e4e">
-	<div class="mdl-card__title">
+<div class="mdl-card mdl-shadow--2dp employer-form full-width">
+	<div class="mdl-card__title" style="color: white">
 		<h2>Update</h2>
 	</div>
-	<div class="mdl-card__supporting-text">
-	@include('partials._messages')
+	<div class="mdl-card__supporting-text" style="color: white">
+		@include('partials._messages')
 		{!! Form::open(
 		array(
 		'method' => 'POST',
@@ -103,51 +89,5 @@
 	</div>
 </div>
 
-<div class="mdl-card mdl-shadow--2dp employer-form" >
-	<div class="mdl-card__title">
-		<h2>Update Image</h2>
-		<div class="mdl-card__subtitle">Please complete the form</div>
-	</div>
-	<div class="mdl-card__supporting-text">
-		<div class="mdl-grid">
-			@if(count($images) > 0)
-			@foreach($images as $image)
-			<div class="mdl-cell mdl-cell--6-col">
-				<div class="mdl-card mdl-shadow--4dp">
-					<div class="mdl-card__media">
-						<img src="{{asset('images/catalog/').'/'.$image->link}}" width="100%" height="150">
-				</div>
-				<div class="mdl-card__actions">
-					<div class="mdl-grid">
-						<div class="mdl-cell mdl-cell--6-col">
-							<form action="{{route('image.destroy', ['id' => $image->id])}}" method="POST">
-								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-								<input type="hidden" name="_method" value="PUT">
-								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Delete</button>
-							</form>
-						</div>
-						<div class="mdl-cell mdl-cell--6-col">
-							@if($image->isAvatar)
-							<form action="{{route('image.unset', ['id' => $image->id])}}" method="POST">
-								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Unset</button>
-							</form>
-							@else
-							<form action="{{route('image.set', ['id' => $image->id])}}" method="GET">
-								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Set</button>
-							</form>
-							@endif
-						</div>
-					</div>					
-				</div>
-			</div>
-		</div>
-		@endforeach
-		@else
-		This dish hasn't had any images 
-		@endif
-	</div>
-</div>
-</div>
+
 @endsection

@@ -2,7 +2,19 @@
 @section('title') Món ăn
 @endsection
 
+@section('script')
+<script type="text/javascript">
+	$.fn.xstar = function() {
+		return $(this).each(function() {
+			$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 16));
+		});
+	}
+	$(function() {
+		$('span.xstar').xstar();
+	});
 
+</script>
+@endsection
 @section('content')
 @include('partials._messages')
 <div class="mdl-tabs mdl-js-tabs">
@@ -16,23 +28,7 @@
 		<div class="mdl-grid" style="background: #f1f1f1;">
 			<!-- Cards -->
 			@foreach( App\Dish::all() as $dish)
-			<div class="mdl-cell mdl-cell--3-col">
-				<a href="{{route('action.view', ['id' => $dish->id])}}">
-					<div class="mdl-card  dish-card">
-						<div class="mdl-card__title">
-							<div class="mdl-card__title-text">
-								{{$dish->name}}
-							</div>
-						</div>
-						<div class="mdl-card__media">
-							<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
-						</div>
-						<div class="mdl-card__supporting-text" href="{{route('action.view', ['id' => $dish->id])}}">
-							{{$dish->description}}
-						</div>
-					</div>
-				</a>
-			</div>
+			@include('partials._dishcard')
 			@endforeach
 		</div>
 	</div>
@@ -41,23 +37,7 @@
 		<div class="mdl-grid" style="background: #f1f1f1; ">
 			<!-- Cards -->
 			@foreach($menu->dishes as $dish)
-			<div class="mdl-cell mdl-cell--3-col">
-				<a href="{{route('action.view', ['id' => $dish->id])}}">
-					<div class="mdl-card  dish-card">
-						<div class="mdl-card__title">
-							<div class="mdl-card__title-text">
-								{{$dish->name}}
-							</div>
-						</div>
-						<div class="mdl-card__media">
-							<img src="{{asset('images/catalog/').'/'.$dish->avatar}}" width="100%" height="140" border="0">
-						</div>
-						<div class="mdl-card__supporting-text" href="{{route('action.view', ['id' => $dish->id])}}">
-							{{$dish->description}}
-						</div>
-					</div>
-				</a>
-			</div>
+			@include('partials._dishcard')
 			@endforeach
 		</div>
 	</div>

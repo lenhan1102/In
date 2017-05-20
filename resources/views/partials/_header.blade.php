@@ -35,12 +35,12 @@
 		<!-- Cart -->
 		<div id="cart">
 			@if(!Session::has('cart') || Session::get('cart')->totalQty == 0)
-			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'">
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message"  onclick="window.location='{{route('action.cart')}}'" style="margin-top: 0px;">
 				shopping
 			</div>
 			
 			@else
-			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('cart')->totalQty}}">
+			<div class="material-icons mdl-badge mdl-badge--overlap mdl-button--icon message" onclick="window.location='{{route('action.cart')}}'" data-badge="{{Session::get('cart')->totalQty}}" style="    margin-top: 0px;">
 				shopping
 			</div>
 			@endif

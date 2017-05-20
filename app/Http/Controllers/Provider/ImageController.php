@@ -19,7 +19,6 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        //
         $image = Image::find($id);
         $dishid = $image->dish->id;
         if ($image->isAvatar) {
@@ -27,19 +26,24 @@ class ImageController extends Controller
             Dish::find($dishid)->update(['avatar' => 'default.png']);
         }
         $image->delete();
-        return redirect()->route('dish.edit', [$dishid]);
+        return redirect()->route('dish.gallery', [$dishid]);
     }
     
     public function setAvatar($id)
     {
         //
         $image = Image::find($id);
-        $image->update(['isAvatar' => true]);
+        
+        $images = $image->dish->images;
 
         $dishid = $image->dish->id;
+        foreach ($images as $key => $img) {
+            $img->update(['isAvatar' => false]);
+        }
+        $image->update(['isAvatar' => true]);
         Dish::find($dishid)->update(['avatar' => $image->link]);
 
-        return redirect()->route('dish.edit', [$dishid]);
+        return redirect()->route('dish.gallery', [$dishid]);
     }
 
     public function unsetAvatar($id)
@@ -51,6 +55,6 @@ class ImageController extends Controller
         $dishid = $image->dish->id;
         Dish::find($dishid)->update(['avatar' => 'default.png']);
 
-        return redirect()->route('dish.edit', [$dishid]);
+        return redirect()->route('dish.gallery', [$dishid]);
     }
 }

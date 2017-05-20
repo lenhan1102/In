@@ -28,20 +28,20 @@
 
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header is-small-screen">	
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer is-small-screen">	
 		<?php echo $__env->make('partials._header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-		
-		<main class= "mdl-layout__content" style="background-color: #f1f1f1; min-height: 100%; background:url('<?php echo e(asset('images/mdbackground/17.jpg')); ?>'); height: auto !important; height: 100%;">
+		<?php echo $__env->make('partials._drawer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<main class= "mdl-layout__content" style="background-color: #f1f1f1; min-height: 100%; background:url('<?php echo e(asset('images/mdbackground/17.jpg')); ?>'); height: auto !important; height: 100%; flex: 1 0 auto;">
 
-			<div class="page_content mdl-shadow--8dp" style="margin: auto; margin-top: 80px; margin-bottom: 35px; width: 80%; ; background-color: white; position:relative; border-radius: 6px;">
+			<div class="page_content mdl-shadow--8dp" style="margin: auto; margin-top: 40px; margin-bottom: 35px; width: 90%; ; background-color: white; position:relative; border-radius: 6px;">
 				<?php echo $__env->yieldContent('content'); ?>
 			</div>
 
-			<div class='push' style="height: 340px">
+			<!-- <div class='push' style="height: 340px">
 				<div style="height: 220px"></div>
 				<div style="height: 120px"><?php echo $__env->make('partials._footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?></div>
-			</div>
+			</div> -->
 		</main>
-
+		<?php echo $__env->make('partials._footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	</div>
 </body>

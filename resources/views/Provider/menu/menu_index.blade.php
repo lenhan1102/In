@@ -13,7 +13,7 @@ Menu Manager
 				<i class="material-icons">add</i>
 			</label>
 			<div class="mdl-textfield__expandable-holder" style="margin-left: 50px">
-				<input class="mdl-textfield__input" name="name" type="text" id="create">
+				<input class="mdl-textfield__input" name="name" type="text" id="create" style="color: black;">
 				<label class="mdl-textfield__label" for="sample-expandable"></label>
 			</div>
 		</div>

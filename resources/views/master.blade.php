@@ -28,20 +28,20 @@
 
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header is-small-screen">	
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer is-small-screen">	
 		@include('partials._header')
-		
-		<main class= "mdl-layout__content" style="background-color: #f1f1f1; min-height: 100%; background:url('{{asset('images/mdbackground/17.jpg')}}'); height: auto !important; height: 100%;">
+		@include('partials._drawer')
+		<main class= "mdl-layout__content" style="background-color: #f1f1f1; min-height: 100%; background:url('{{asset('images/mdbackground/17.jpg')}}'); height: auto !important; height: 100%; flex: 1 0 auto;">
 
-			<div class="page_content mdl-shadow--8dp" style="margin: auto; margin-top: 80px; margin-bottom: 35px; width: 80%; ; background-color: white; position:relative; border-radius: 6px;">
+			<div class="page_content mdl-shadow--8dp" style="margin: auto; margin-top: 40px; margin-bottom: 35px; width: 90%; ; background-color: white; position:relative; border-radius: 6px;">
 				@yield('content')
 			</div>
 
-			<div class='push' style="height: 340px">
+			<!-- <div class='push' style="height: 340px">
 				<div style="height: 220px"></div>
 				<div style="height: 120px">@include('partials._footer')</div>
-			</div>
+			</div> -->
 		</main>
-
+		@include('partials._footer')
 	</div>
 </body>
