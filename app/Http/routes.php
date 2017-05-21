@@ -34,7 +34,7 @@ Route::group(['middleware' => ['roles'], 'roles' => ['Provider']], function(){
 	Route::get('/dish/{id}', 'Provider\DishController@getGallery')->name('dish.gallery');
 	Route::get('/image/{id}/delete', 'Provider\ImageController@destroy')->name('image.destroy');
 	Route::get('/image/{id}', 'Provider\ImageController@setAvatar')->name('image.set');
-	Route::post('/image/{id}', 'Provider\ImageController@unsetAvatar')->name('image.unset');
+	Route::get('/image/{id}/unset', 'Provider\ImageController@unsetAvatar')->name('image.unset');
 	// AJAX to update List and menu to edit
 	Route::get('admin/AJAXList','Admin\DishController@AJAXList')->name('AJAXList');
 	Route::get('admin/AJAXDish','Admin\DishController@AJAXDish')->name('AJAXDish');
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['roles'], 'roles' => ['User']], function(){
 	Route::get('/cart', 'User\ActionController@getCart')->name('action.cart')->middleware('auth');
 	Route::get('/item/delete', 'User\ActionController@deleteItem')->name('item.delete');
 
-	Route::get('/search', 'User\ActionController@search')->name('search')->middleware('auth');
+	
 	Route::post('/vote', 'User\ActionController@vote')->name('vote');
 
 	Route::post('/checkout', 'User\ActionController@postCheckout')->name('checkout');
@@ -96,6 +96,8 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 // Facebook login...
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider')->name('facebook');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+
+Route::get('/search', 'User\ActionController@search')->name('search');
 
 //	View
 Route::get('/info/{id}', function($id){

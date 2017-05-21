@@ -137,23 +137,32 @@ class ActionController extends Controller
     }
 
     public function search(Request $request){
-        /*$results = Dish::search('ACpAwvRRxyHnOdxTdEscbKH5D');
-        dd($results);*/
-        $dishes = Dish::complexSearch(array(
+        
+        $results = Dish::complexSearch(array(
             'body' => array(
                 'query' => array(
                     'match' => array(
-                        'description' => 'ACpAwvRRxyHnOdxTdEscbKH5D'
-                        )
+                        'description' => $request->key,
+                        ),
                     ),
                 'highlight' => array(
                     'fields' => array(
-                        '*' => new \stdClass(),
+                        'description' => new \stdClass(),
+                        
                         )
                     ),
                 )
             ));
-        return view('User.results', ['dishes' => $dishes, 'hits' => $dishes->totalHits(), 'took' => $dishes->took() ]);
+        $took = $results->took();
+        $hits = $results->totalHits();
+        $results = $results->paginate(count(Dish::all()));
+        //dd($results);
+        $dishes = [];
+        for ($i=0; $i < count($results->hits["hits"]); $i++) { 
+            $dishes[$i] = $results->hits['hits'][$i]['_source'];
+            $dishes[$i]['description'] = $results->hits['hits'][$i]['highlight']['description'][0];
+        }
+        return view('User.results', ['dishes' => $dishes, 'hits' => $hits, 'took' => $took ]);
     }
 
     public function getProfile(){

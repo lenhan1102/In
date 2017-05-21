@@ -76,7 +76,8 @@ class DishController extends Controller
 
         // Save image to folder /catalog
         $imageName = time().'-'. $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id.'/', $imageName);
+        //$request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id.'/', $imageName);
+        $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
         Session::flash('success', 'Dish was successfully stored!');
         // Insert into 'images' table
         $image = new Image(array(
@@ -136,9 +137,10 @@ class DishController extends Controller
             
             $image->save();
 
-            $imageName = $image->id . '_' . $request->file('image')->getClientOriginalName();
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
             $image->update(['link' => $imageName]);
-            $request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id, $imageName);
+            //$request->file('image')->move(base_path() . '/public/images/catalog/'.$dish->id, $imageName);
+            $request->file('image')->move(base_path() . '/public/images/catalog/', $imageName);
         }
         Dish::reindex();
         Session::flash('success', 'Updated successfully');

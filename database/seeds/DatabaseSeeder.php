@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
 
 			// $this->call(UserTableSeeder::class);
 			$this->call(MenusTableSeeder::class);
-            $this->call(DishesTableSeeder::class);
-            $this->call(ImagesTableSeeder::class);
-            $this->call(RoleTableSeeder::class);
-            $this->call(usersTableSeeder::class);
+            //$this->call(DishesTableSeeder::class);
+            //$this->call(ImagesTableSeeder::class);
+            //$this->call(RoleTableSeeder::class);
+            //$this->call(usersTableSeeder::class);
 
         Model::reguard();
     }

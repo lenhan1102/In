@@ -42,7 +42,6 @@ class ImageController extends Controller
         }
         $image->update(['isAvatar' => true]);
         Dish::find($dishid)->update(['avatar' => $image->link]);
-
         return redirect()->route('dish.gallery', [$dishid]);
     }
 

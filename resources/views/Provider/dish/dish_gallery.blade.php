@@ -14,7 +14,7 @@
 			<div class="mdl-cell mdl-cell--3-col">
 				<div class="mdl-card mdl-shadow--4dp">
 					<div class="mdl-card__media">
-						<img src="{{asset('images/catalog/').'/'.$id.'/'.$image->link}}" width="100%" height="150">
+						<img src="{{asset('images/catalog/').'/'.$image->link}}" width="100%" height="150">
 					</div>
 					
 					<div class="mdl-card__menu">

@@ -24,14 +24,17 @@
 		@foreach($dishes as $key => $dish)
 		<tr>
 			<td class="mdl-data-table__cell--non-numeric">{{$key+1}}</td>
-			<td class="mdl-data-table__cell--non-numeric" style="font-weight: 400;">{{$dish->name}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{$dish->price}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{$dish->ordered}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{$dish->rating}}</td>
-			<td class="mdl-data-table__cell--non-numeric">{{$dish->description}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="font-weight: 400;max-width: 300px;">{{$dish->name}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="max-width: 100px;">{{$dish->price}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="max-width: 100px;">{{$dish->ordered}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="max-width: 50px;">{{$dish->rating}}</td>
+			<td class="mdl-data-table__cell--non-numeric" style="max-width: 300px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;">{{$dish->description}}</td>
 			<td class="mdl-data-table__cell--non-numeric">
 				
-			<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="window.location='{{route('dish.edit', ['id' => $dish->id])}}'" style="background-color: #d28313">
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="window.location='{{route('dish.edit', ['id' => $dish->id])}}'" style="background-color: #d28313">
 					<i class="material-icons">edit</i>
 				</button>
 				
