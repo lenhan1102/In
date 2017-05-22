@@ -53,7 +53,6 @@ class ImageController extends Controller
 
         $dishid = $image->dish->id;
         Dish::find($dishid)->update(['avatar' => 'default.png']);
-
         return redirect()->route('dish.gallery', [$dishid]);
     }
 }

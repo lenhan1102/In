@@ -8,12 +8,13 @@
 		</label>
 		<h4>Food</h4>
 		<div class="mdl-layout-spacer"></div>
-
+		@can('go_to_admin')
 		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('user.index')}}'" style="margin-right: 14px">
 			<i class="material-icons">supervisor_account
 			</i>
 		</label>
-
+		@endcan
+		@can('go_to_provider')
 		<label class="mdl-button mdl-js-button mdl-button--icon" onclick="window.location='{{route('dish.index')}}'" style="margin-right: 14px">
 			<i class="material-icons">restaurant
 			</i>
@@ -28,9 +29,7 @@
 			<i class="material-icons">contacts
 			</i>
 		</label>
-		
-		<div class="mdl-layout-spacer"></div>
-		
+		@endcan
 		
 		<!-- Cart -->
 		<div id="cart">

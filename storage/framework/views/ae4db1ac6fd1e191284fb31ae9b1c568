@@ -25,11 +25,8 @@
 
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">	
-
-
+	<div class="mdl-layout mdl-js-layout is-small-screen">	
 		<main class="mdl-layout__content auth">
-			
 			<div class="page_content">
 				<div class="mdl-card mdl-shadow--8dp employer-form" action="#">
 					<div class="mdl-card__title">
@@ -62,7 +59,7 @@
 								</label>
 							</div>
 							<div class="mdl-cell mdl-cell--5-col">
-								<a href="#">Forget Password</a>
+								
 							</div>
 							<div class="mdl-cell mdl-cell--2-col">
 								<a href="<?php echo e(route('auth/register')); ?>">Sign up</a>

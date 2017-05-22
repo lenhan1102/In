@@ -3,7 +3,12 @@
 History
 @endsection
 @section('content')
-<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%">
+<style type="text/css">
+	.mdl-list__item-primary-content {
+		color: black;
+	}
+</style>
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
 	<thead>
 		<tr>
 			<th>STT</th>
@@ -23,7 +28,7 @@ History
 			<td>{{$order->address}}</td>
 			<td>{{$order->updated_at}}</td>
 			<td>
-				<ul class="demo-list-item mdl-list">
+				<ul class="demo-list-item mdl-list" >
 					@foreach($order->cart->items as $item)
 					<li class="mdl-list__item">
 						<span class="mdl-chip">

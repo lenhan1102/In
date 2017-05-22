@@ -82,7 +82,7 @@ Route::group(['middleware' => ['roles'], 'roles' => ['User']], function(){
 	Route::get('/history', 'User\ActionController@getOrderHistory')->name('history');
 
 	Route::get('/profile', 'User\ActionController@getProfile')->name('profile');
-	Route::post('/profile', 'User\ActionController@postProfile')->name('profile');
+	Route::post('/profile', 'User\ActionController@postProfile')->name('profile_post');
 });
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin')->name('auth/login');

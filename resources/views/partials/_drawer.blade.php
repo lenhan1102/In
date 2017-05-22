@@ -6,7 +6,7 @@
                 <i class="material-icons" role="presentation">dashboard</i>
                 Dashboard
             </a>
-            <a class="mdl-navigation__link" href="#">
+            <a class="mdl-navigation__link" href="{{route('profile')}}">
                 <i class="material-icons" role="presentation">person</i>
                 Account
             </a>
@@ -18,22 +18,30 @@
                 <i class="material-icons">view_comfy</i>
                 UI Elements
             </a>
-            <a class="mdl-navigation__link mdl-navigation__link--current" href="{{route('index')}}">
+            <a class="mdl-navigation__link" href="{{route('history')}}">
+                <i class="material-icons">history</i>
+                History
+            </a>
+            @can('go_to_admin')
+            <a class="mdl-navigation__link mdl-navigation__link--current" href="{{route('user.index')}}">
                 <i class="material-icons" role="presentation">supervisor_account</i>
                 Accounts
             </a>
-            <a class="mdl-navigation__link" href="#">
+            @endcan
+            @can('go_to_provider')
+            <a class="mdl-navigation__link" href="{{route('dish.index')}}">
                 <i class="material-icons" role="presentation">restaurant</i>
                 Dishes
             </a>
-            <a class="mdl-navigation__link" href="#">
+            <a class="mdl-navigation__link" href="{{route('menu.index')}}">
                 <i class="material-icons" role="presentation">book</i>
                 Menus
             </a>
-            <a class="mdl-navigation__link" href="#">
+            <a class="mdl-navigation__link" href="{{route('order.index')}}">
                 <i class="material-icons">contacts</i>
                 Orders
             </a>
+            @endcan
 
             <div class="mdl-layout-spacer"></div>
             <a class="mdl-navigation__link" href="#">

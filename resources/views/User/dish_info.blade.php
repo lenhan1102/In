@@ -86,7 +86,7 @@
 	<div class="mdl-cell mdl-cell--6-col">
 		<div class="w3-content w3-display-container mdl-shadow--8dp" style="height: 100%">
 			@foreach($dish->images as $image)
-			<img class="mySlides" src="{{asset('images/catalog/'.$dish->id.'/'.$image->link)}}" style="width: 100%; height: 100%">
+			<img class="mySlides" src="{{asset('images/catalog/'.'/'.$image->link)}}" style="width: 100%; height: 100%">
 			@endforeach
 			<img class="mySlides" src="{{asset('images/catalog/15 Ga_tam_mam_nhi.jpg')}}" style="width:100%; height: 100%">
 			<img class="mySlides" src="{{asset('images/catalog/16 Lau_ga_tiem_ot_hiem.jpg')}}" style="width:100%; height: 100%">
